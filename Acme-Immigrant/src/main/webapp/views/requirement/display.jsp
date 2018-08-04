@@ -52,6 +52,6 @@
 
 <security:authorize access="hasRole('ADMIN')">
 	<acme:button name="edit"
-		url="requirement/edit.do?requirementId=${requirementId}"
+		url="requirement/admin/edit.do?requirementId=${requirement.id}"
 		code="edit.button" />
 </security:authorize>

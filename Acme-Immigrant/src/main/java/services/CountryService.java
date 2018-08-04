@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -55,7 +56,7 @@ public class CountryService {
 		return f;
 	}
 
-	public Map<String, Double> priceStadistics() {
+	public Map<String, Double> lawStadistics() {
 		final Double[] statistics = this.countryRepository.lawStadistics();
 		final Map<String, Double> res = new HashMap<>();
 
@@ -70,13 +71,15 @@ public class CountryService {
 
 	public void delete(final Country country) {
 		final Collection<Law> laws = country.getLaws();
-		country.setLaws(null);
-		for (final Law law : laws)
-			this.lawService.delete(law);
+		country.setLaws(new ArrayList<Law>());
+		if (laws != null)
+			for (final Law law : laws)
+				this.lawService.delete(law);
 		final Collection<Visa> visas = country.getVisas();
-		country.setVisas(null);
-		for (final Visa visa : visas)
-			this.visaService.delete(visa);
+		country.setVisas(new ArrayList<Visa>());
+		if (visas != null)
+			for (final Visa visa : visas)
+				this.visaService.delete(visa);
 		this.countryRepository.delete(country);
 	}
 

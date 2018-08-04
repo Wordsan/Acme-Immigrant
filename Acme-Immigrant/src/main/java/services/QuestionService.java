@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 import repositories.QuestionRepository;
 import security.LoginService;
 import domain.Application;
+import domain.Immigrant;
 import domain.Question;
 
 @Service
@@ -24,6 +25,9 @@ public class QuestionService {
 
 	@Autowired
 	private ApplicationService applicationService;
+
+	@Autowired
+	private ImmigrantService immigrantService;
 
 	// Constructors
 	public QuestionService() {
@@ -76,5 +80,17 @@ public class QuestionService {
 		return this.questionRepository
 				.selectQuestionFromImmigrantUserAccount(LoginService
 						.getPrincipal().getId());
+	}
+
+	public void delete(final Question q) {
+		final Immigrant i = q.getImmigrant();
+		i.getQuestions().remove(q);
+		this.immigrantService.save(i);
+		final Application a = q.getApplication();
+		final Collection<Question> qs = a.getQuestions();
+		if (qs != null)
+			a.getQuestions().remove(q);
+		this.applicationService.save(a);
+		this.questionRepository.delete(q);
 	}
 }

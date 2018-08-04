@@ -22,7 +22,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <display:table name="categories" id="category"
-	requestURI="${requestURI}" pagesize="5" class="displaytag">
+	requestURI="${requestUri}" pagesize="5" class="displaytag">
 
 	<display:column>
 		<spring:message code="display.button" var="disp"></spring:message>
@@ -41,3 +41,9 @@
 		sortable="true" />
 
 </display:table>
+
+<security:authorize access="hasRole('ADMIN')">
+	<spring:message code="category.new" var="createCategory"></spring:message>
+	<spring:url value="category/admin/create.do" var="url"></spring:url>
+	<a href="${url}"><jstl:out value="${createCategory}"></jstl:out></a>
+</security:authorize>

@@ -45,4 +45,8 @@ public class EducationSectionService {
 		return f;
 	}
 
+	public void delete(final EducationSection educationS) {
+		this.educationSectionRepository.delete(educationS);
+	}
+
 }

@@ -54,10 +54,15 @@ public class AdminController extends AbstractController {
 		ModelAndView result;
 		if (br.hasErrors()
 				|| !formActor.getPassword().equals(formActor.getRepassword()))
-			result = this.createEditModelAndView(admin);
+			result = this.createEditModelAndView(admin,
+					"actor.password.confirm");
 		else
 			try {
-				this.administratorService.save(admin);
+				if (this.administratorService.save(admin) == null) {
+					result = this.createEditModelAndView(admin,
+							"actor.username.exists");
+					return result;
+				}
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable ops) {
 				result = this.createEditModelAndView(admin,

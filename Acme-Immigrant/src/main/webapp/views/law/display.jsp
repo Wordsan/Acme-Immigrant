@@ -69,6 +69,6 @@
 </jstl:if>
 
 <security:authorize access="hasRole('ADMIN')">
-	<acme:button name="edit" url="law/edit.do?lawId=${lawId}"
+	<acme:button name="edit" url="law/admin/edit.do?lawId=${law.id}"
 		code="edit.button" />
 </security:authorize>

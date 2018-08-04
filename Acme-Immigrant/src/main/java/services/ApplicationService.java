@@ -20,8 +20,11 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Application;
 import domain.ContactSection;
+import domain.Decision;
 import domain.EducationSection;
+import domain.Immigrant;
 import domain.Officer;
+import domain.PersonalSection;
 import domain.Question;
 import domain.SocialSection;
 import domain.WorkSection;
@@ -43,6 +46,27 @@ public class ApplicationService {
 
 	@Autowired
 	private ImmigrantService immigrantService;
+
+	@Autowired
+	private DecisionService decisionService;
+
+	@Autowired
+	private QuestionService questionService;
+
+	@Autowired
+	private PersonalSectionService personalSectionService;
+
+	@Autowired
+	private ContactSectionService contactSectionService;
+
+	@Autowired
+	private WorkSectionService workSectionService;
+
+	@Autowired
+	private EducationSectionService educationSectionService;
+
+	@Autowired
+	private SocialSectionService socialSectionService;
 
 	// Constructors
 	public ApplicationService() {
@@ -92,6 +116,60 @@ public class ApplicationService {
 	}
 
 	public void delete(final Application a) {
+		final Immigrant i = a.getImmigrant();
+		final Collection<Application> appsI = i.getApplications();
+		if (appsI != null) {
+			i.getApplications().remove(a);
+			this.immigrantService.save(i);
+		}
+		final Officer o = a.getOfficer();
+		if (o != null) {
+			final Collection<Application> appsO = o.getApplications();
+			if (appsO != null) {
+				o.getApplications().remove(a);
+				this.officerService.save(o);
+			}
+		}
+		final Decision d = a.getDecision();
+		if (d != null) {
+			a.setDecision(null);
+			this.decisionService.delete(d);
+		}
+		final Collection<Question> questions = a.getQuestions();
+		if (questions != null) {
+			a.setQuestions(new ArrayList<Question>());
+			for (final Question q : questions)
+				this.questionService.delete(q);
+		}
+		final PersonalSection p = a.getPersonalSection();
+		if (p != null) {
+			a.setPersonalSection(null);
+			this.personalSectionService.delete(p);
+		}
+		final Collection<ContactSection> cSections = a.getContactSections();
+		if (cSections != null) {
+			a.setContactSections(new ArrayList<ContactSection>());
+			for (final ContactSection contactS : cSections)
+				this.contactSectionService.delete(contactS);
+		}
+		final Collection<WorkSection> wSections = a.getWorkSections();
+		if (wSections != null) {
+			a.setWorkSections(new ArrayList<WorkSection>());
+			for (final WorkSection workS : wSections)
+				this.workSectionService.delete(workS);
+		}
+		final Collection<EducationSection> eSections = a.getEducationSections();
+		if (eSections != null) {
+			a.setEducationSections(new ArrayList<EducationSection>());
+			for (final EducationSection educationS : eSections)
+				this.educationSectionService.delete(educationS);
+		}
+		final Collection<SocialSection> sSections = a.getSocialSections();
+		if (sSections != null) {
+			a.setSocialSections(new ArrayList<SocialSection>());
+			for (final SocialSection socialS : sSections)
+				this.socialSectionService.delete(socialS);
+		}
 		this.applicationRepository.delete(a);
 	}
 

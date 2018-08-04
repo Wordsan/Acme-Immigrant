@@ -54,10 +54,15 @@ public class ImmigrantController extends AbstractController {
 		ModelAndView result;
 		if (br.hasErrors()
 				|| !formActor.getPassword().equals(formActor.getRepassword()))
-			result = this.createEditModelAndView(immigrant);
+			result = this.createEditModelAndView(immigrant,
+					"actor.password.confirm");
 		else
 			try {
-				this.immigrantService.save(immigrant);
+				if (this.immigrantService.save(immigrant) == null) {
+					result = this.createEditModelAndView(immigrant,
+							"actor.username.exists");
+					return result;
+				}
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable ops) {
 				result = this.createEditModelAndView(immigrant,

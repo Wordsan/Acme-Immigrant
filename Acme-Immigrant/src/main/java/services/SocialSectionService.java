@@ -45,4 +45,8 @@ public class SocialSectionService {
 		return f;
 	}
 
+	public void delete(final SocialSection socialS) {
+		this.socialSectionRepository.delete(socialS);
+	}
+
 }

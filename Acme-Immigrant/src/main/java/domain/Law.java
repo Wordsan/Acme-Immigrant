@@ -16,7 +16,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -93,7 +92,7 @@ public class Law extends DomainEntity {
 		this.relatedLaws = relatedLaws;
 	}
 
-	@NotEmpty
+	@NotNull
 	@Valid
 	@OneToMany(mappedBy = "law")
 	public Collection<Requirement> getRequirements() {

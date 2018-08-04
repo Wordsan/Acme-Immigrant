@@ -1,7 +1,7 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,13 +56,18 @@ public class RequirementService {
 
 	public void delete(final Requirement requirement) {
 		final Law l = requirement.getLaw();
-		l.getRequirements().remove(requirement);
-		this.lawService.save(l);
-		final List<Visa> visas = (List<Visa>) requirement.getVisas();
-		requirement.setVisas(null);
-		for (final Visa v : visas)
-			this.visaService.delete(v);
-		this.requirementRepository.delete(requirement);
+		final Collection<Requirement> reqs = l.getRequirements();
+		if (reqs != null) {
+			l.getRequirements().remove(requirement);
+			this.lawService.save(l);
+		}
+		final Collection<Visa> visas = requirement.getVisas();
+		requirement.setVisas(new ArrayList<Visa>());
+		if (visas != null)
+			for (final Visa v : visas)
+				this.visaService.delete(v);
+		if (this.requirementRepository.findOne(requirement.getId()) != null)
+			this.requirementRepository.delete(requirement);
 	}
 
 }

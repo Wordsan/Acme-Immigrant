@@ -43,14 +43,19 @@
 		sortable="true" />
 
 	<spring:message code="requirement.abrogated" var="requirementAbrogated"></spring:message>
-	<display:column title="${requirementAbrogated }"
-		sortable="true" >
+	<display:column title="${requirementAbrogated }" sortable="true">
 		<jstl:if test="${requirement.abrogated == true}">
-			<spring:message code="requirement.abrogated.yes"/>
+			<spring:message code="requirement.abrogated.yes" />
 		</jstl:if>
 		<jstl:if test="${requirement.abrogated == false}">
-			<spring:message code="requirement.abrogated.no"/>
+			<spring:message code="requirement.abrogated.no" />
 		</jstl:if>
 	</display:column>
 
 </display:table>
+
+<security:authorize access="hasRole('ADMIN')">
+	<spring:message code="requirement.new" var="createrequirement"></spring:message>
+	<spring:url value="requirement/admin/create.do" var="url"></spring:url>
+	<a href="${url}"><jstl:out value="${createrequirement}"></jstl:out></a>
+</security:authorize>

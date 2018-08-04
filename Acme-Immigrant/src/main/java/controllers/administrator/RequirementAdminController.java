@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.LawService;
 import services.RequirementService;
 import controllers.AbstractController;
 import domain.Requirement;
@@ -24,6 +25,9 @@ public class RequirementAdminController extends AbstractController {
 	// Services
 	@Autowired
 	RequirementService requirementService;
+
+	@Autowired
+	LawService lawService;
 
 	// Constructors (Debugueo)
 	public RequirementAdminController() {
@@ -90,6 +94,23 @@ public class RequirementAdminController extends AbstractController {
 
 	}
 
+	// Delete
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public ModelAndView delete(final Requirement requirement,
+			final BindingResult binding) {
+		ModelAndView result;
+
+		try {
+			this.requirementService.delete(requirement);
+			result = this.list();
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(requirement,
+					"requirement.commit.error");
+		}
+
+		return result;
+	}
+
 	// List
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
@@ -120,10 +141,10 @@ public class RequirementAdminController extends AbstractController {
 
 		result = new ModelAndView("requirement/edit");
 		result.addObject("requirement", requirement);
+		result.addObject("laws", this.lawService.findAll());
 		result.addObject("formURI", "requirement/admin/edit.do");
 		result.addObject("messageCode", messageCode);
 
 		return result;
 	}
-
 }

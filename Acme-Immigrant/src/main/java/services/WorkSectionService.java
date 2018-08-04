@@ -45,4 +45,8 @@ public class WorkSectionService {
 		return f;
 	}
 
+	public void delete(final WorkSection workS) {
+		this.workSectionRepository.delete(workS);
+	}
+
 }

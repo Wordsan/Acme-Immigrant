@@ -22,7 +22,6 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -131,8 +130,7 @@ public class Application extends DomainEntity {
 	}
 
 	@Valid
-	@NotNull
-	@OneToOne(optional = false)
+	@OneToOne(optional = true)
 	@Cascade(value = org.hibernate.annotations.CascadeType.ALL)
 	public PersonalSection getPersonalSection() {
 		return this.personalSection;
@@ -156,7 +154,7 @@ public class Application extends DomainEntity {
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@Valid
-	@NotEmpty
+	@NotNull
 	public Collection<SocialSection> getSocialSections() {
 		return this.socialSections;
 	}

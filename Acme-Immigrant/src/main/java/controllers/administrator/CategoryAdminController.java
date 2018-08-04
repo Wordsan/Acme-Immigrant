@@ -69,6 +69,23 @@ public class CategoryAdminController extends AbstractController {
 		return result;
 	}
 
+	// Delete
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public ModelAndView delete(final Category category,
+			final BindingResult binding) {
+		ModelAndView result;
+
+		try {
+			this.categoryService.delete(category);
+			result = this.list();
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(category,
+					"category.commit.error");
+		}
+
+		return result;
+	}
+
 	// Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Category category,
@@ -121,6 +138,7 @@ public class CategoryAdminController extends AbstractController {
 		result = new ModelAndView("category/edit");
 		result.addObject("category", category);
 		result.addObject("formURI", "category/admin/edit.do");
+		result.addObject("categories", this.categoryService.findAll());
 		result.addObject("messageCode", messageCode);
 
 		return result;

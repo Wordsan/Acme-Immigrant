@@ -1,13 +1,3 @@
-<%--
- * action-1.jsp
- *
- * Copyright (C) 2017 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- --%>
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -56,6 +46,14 @@
 		<br>
 	</jstl:if>
 </security:authorize>
+
+<jstl:if test="${statistics1 != null}">
+	<spring:message code="visa.statistics.uno" />
+	<jstl:out value="${statistics1}" />
+	<spring:message code="visa.statistics.dos" />
+	<jstl:out value="${statistics2}" />
+	<br>
+</jstl:if>
 
 <jstl:if test="${!empty visa.requirements}">
 	<fieldset>

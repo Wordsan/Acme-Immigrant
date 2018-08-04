@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,7 @@ import org.springframework.util.Assert;
 
 import repositories.CategoryRepository;
 import domain.Category;
+import domain.Visa;
 
 @Service
 @Transactional
@@ -20,6 +22,9 @@ public class CategoryService {
 	// Managed Repository
 	@Autowired
 	private CategoryRepository categoryRepository;
+
+	@Autowired
+	private VisaService visaService;
 
 	// Constructors
 	public CategoryService() {
@@ -52,7 +57,7 @@ public class CategoryService {
 		return this.categoryRepository.getCategories();
 	}
 
-	public Map<String, Double> priceStadistics() {
+	public Map<String, Double> visasStadistics() {
 		final Double[] statistics = this.categoryRepository.visasStadistics();
 		final Map<String, Double> res = new HashMap<>();
 
@@ -71,6 +76,23 @@ public class CategoryService {
 
 	public List<Category> categoriesOfFirstLevel() {
 		return this.categoryRepository.categoriesOfFirstLevel();
+	}
+
+	public void delete(final Category category) {
+		final Category parent = category.getParent();
+		parent.getChilds().remove(category);
+		this.categoryRepository.save(parent);
+		final Collection<Category> childs = category.getChilds();
+		category.setChilds(new ArrayList<Category>());
+		if (childs != null)
+			for (final Category c : childs)
+				this.delete(c);
+		final Collection<Visa> visas = category.getVisas();
+		category.setVisas(new ArrayList<Visa>());
+		if (visas != null)
+			for (final Visa v : visas)
+				this.visaService.delete(v);
+		this.categoryRepository.delete(category);
 	}
 
 }

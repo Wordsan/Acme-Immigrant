@@ -54,10 +54,15 @@ public class InvestigatorController extends AbstractController {
 		ModelAndView result;
 		if (br.hasErrors()
 				|| !formActor.getPassword().equals(formActor.getRepassword()))
-			result = this.createEditModelAndView(investigator);
+			result = this.createEditModelAndView(investigator,
+					"actor.password.confirm");
 		else
 			try {
-				this.investigatorService.save(investigator);
+				if (this.investigatorService.save(investigator) == null) {
+					result = this.createEditModelAndView(investigator,
+							"actor.username.exists");
+					return result;
+				}
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable ops) {
 				result = this.createEditModelAndView(investigator,

@@ -19,7 +19,7 @@ public class Requirement extends DomainEntity {
 	private Law law;
 	private String title;
 	private String description;
-	private boolean abrogated;
+	private boolean abrogated = false;
 	private Collection<Visa> visas;
 
 	@Valid

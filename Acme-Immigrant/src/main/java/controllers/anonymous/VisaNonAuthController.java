@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ApplicationService;
 import services.VisaService;
 import controllers.AbstractController;
 import domain.Visa;
@@ -22,6 +23,9 @@ public class VisaNonAuthController extends AbstractController {
 	// Services
 	@Autowired
 	VisaService visaService;
+
+	@Autowired
+	ApplicationService applicationService;
 
 	// Constructors (Debugueo)
 	public VisaNonAuthController() {
@@ -53,6 +57,10 @@ public class VisaNonAuthController extends AbstractController {
 
 		visa = this.visaService.findOne(visaId);
 		result = new ModelAndView("visa/display");
+		result.addObject("statistics1", this.applicationService
+				.timeStadisticsByVisa(visaId).get("AVG"));
+		result.addObject("statistics2", this.applicationService
+				.timeStadisticsByVisa(visaId).get("STD"));
 		result.addObject("visa", visa);
 		return result;
 	}

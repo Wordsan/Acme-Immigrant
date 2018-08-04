@@ -1,8 +1,8 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,18 +54,21 @@ public class LawService {
 	}
 
 	public void delete(final Law law) {
-		final List<Law> laws = (List<Law>) law.getRelatedLaws();
-		law.setRelatedLaws(null);
-		for (final Law l : laws) {
-			l.getRelatedLaws().remove(law);
-			this.save(l);
-		}
-		final List<Requirement> reqs = (List<Requirement>) law
-				.getRequirements();
-		law.setRequirements(null);
-		for (final Requirement r : reqs)
-			this.requirementService.delete(r);
-		this.lawRepository.delete(law);
+		final Collection<Law> laws = law.getRelatedLaws();
+		law.setRelatedLaws(new ArrayList<Law>());
+		if (laws != null)
+			for (final Law l : laws) {
+				l.getRelatedLaws().remove(law);
+				this.save(l);
+			}
+		final Collection<Requirement> reqs = law.getRequirements();
+		law.setRequirements(new ArrayList<Requirement>());
+		if (reqs != null)
+			for (final Requirement r : reqs)
+				this.requirementService.delete(r);
+		final Law l = this.lawRepository.findOne(law.getId());
+		if (l != null)
+			this.lawRepository.delete(l);
 	}
 
 }

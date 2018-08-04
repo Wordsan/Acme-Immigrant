@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ApplicationService;
 import services.CategoryService;
 import services.CountryService;
 import services.VisaService;
@@ -34,6 +35,9 @@ public class VisaAdminController extends AbstractController {
 	@Autowired
 	CountryService countryService;
 
+	@Autowired
+	ApplicationService applicationService;
+
 	// Constructors (Debugueo)
 	public VisaAdminController() {
 		super();
@@ -47,6 +51,10 @@ public class VisaAdminController extends AbstractController {
 
 		a = this.visaService.findOne(visaId);
 		result = new ModelAndView("visa/display");
+		result.addObject("statistics1", this.applicationService
+				.timeStadisticsByVisa(visaId).get("AVG"));
+		result.addObject("statistics2", this.applicationService
+				.timeStadisticsByVisa(visaId).get("STD"));
 		result.addObject("visa", a);
 
 		return result;

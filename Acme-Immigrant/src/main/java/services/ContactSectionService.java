@@ -45,4 +45,8 @@ public class ContactSectionService {
 		return f;
 	}
 
+	public void delete(final ContactSection contactS) {
+		this.contactRepository.delete(contactS);
+	}
+
 }

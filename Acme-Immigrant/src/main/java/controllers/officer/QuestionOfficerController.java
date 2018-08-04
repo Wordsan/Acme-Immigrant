@@ -49,24 +49,6 @@ public class QuestionOfficerController extends AbstractController {
 		return result;
 	}
 
-	// // Create
-	// @RequestMapping(value = "/create", method = RequestMethod.GET)
-	// public ModelAndView create(@RequestParam final int applicationId) {
-	// ModelAndView result;
-	// final Question q;
-	//
-	// q = this.questionService.create();
-	// if (q.getApplication().getOfficer() != this.officerService
-	// .getActorByUA(LoginService.getPrincipal())) {
-	// result = new ModelAndView("application/display");
-	// result.addObject("applicationId", applicationId);
-	// result.addObject("message", "question.commit.error");
-	// }
-	// result = this.createEditModelAndView(q);
-	//
-	// return result;
-	// }
-
 	// Create V2
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ModelAndView create(@RequestParam final int applicationId,

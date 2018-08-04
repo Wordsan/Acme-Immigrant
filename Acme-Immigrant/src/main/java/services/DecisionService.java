@@ -74,4 +74,10 @@ public class DecisionService {
 		}
 		return 0;
 	}
+
+	public void delete(final Decision d) {
+		d.getApplication().setDecision(null);
+		this.applicationService.save(d.getApplication());
+		this.decisionRepository.delete(d);
+	}
 }

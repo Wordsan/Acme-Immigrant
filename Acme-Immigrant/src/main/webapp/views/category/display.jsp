@@ -53,5 +53,5 @@
 
 <security:authorize access="hasRole('ADMIN')">
 	<acme:button name="edit"
-		url="category/edit.do?categoryId=${categoryId}" code="edit.button" />
+		url="category/admin/edit.do?categoryId=${category.id}" code="edit.button" />
 </security:authorize>

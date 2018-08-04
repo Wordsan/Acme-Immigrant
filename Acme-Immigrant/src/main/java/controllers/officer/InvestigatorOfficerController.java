@@ -41,7 +41,7 @@ public class InvestigatorOfficerController extends AbstractController {
 				LoginService.getPrincipal()))
 			result = new ModelAndView("redirect:/welcome/index.do");
 		else {
-			result = new ModelAndView("redirect:/officer/immigrant/display.do");
+			result = new ModelAndView("redirect:/view/immigrant/display.do");
 			result.addObject("immigrantId", immigrantId);
 			result.addObject("message", "investigator.assign.error");
 		}

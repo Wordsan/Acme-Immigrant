@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,8 @@ import org.springframework.util.Assert;
 
 import repositories.VisaRepository;
 import domain.Application;
+import domain.Category;
+import domain.Country;
 import domain.Requirement;
 import domain.Visa;
 
@@ -28,6 +31,12 @@ public class VisaService {
 
 	@Autowired
 	private ApplicationService applicationService;
+
+	@Autowired
+	private CountryService countryService;
+
+	@Autowired
+	private CategoryService categoryService;
 
 	// Constructors
 	public VisaService() {
@@ -57,15 +66,30 @@ public class VisaService {
 	}
 
 	public void delete(final Visa v) {
+		final Country c = v.getCountry();
+		final Collection<Visa> visas = c.getVisas();
+		if (visas != null) {
+			visas.remove(v);
+			this.countryService.save(c);
+		}
+		final Category cat = v.getCategory();
+		final Collection<Visa> visas2 = cat.getVisas();
+		if (visas2 != null) {
+			visas2.remove(v);
+			this.categoryService.save(cat);
+		}
 		final Collection<Requirement> reqs = v.getRequirements();
-		v.setRequirements(null);// aqui
-		for (final Requirement r : reqs)
-			this.requirementService.delete(r);
+		v.setRequirements(new ArrayList<Requirement>());// aqui
+		if (reqs != null)
+			for (final Requirement r : reqs)
+				this.requirementService.delete(r);
 		final Collection<Application> apps = v.getApplications();
-		v.setApplications(null);
-		for (final Application a : apps)
-			this.applicationService.delete(a);
-		this.visaRepository.delete(v);
+		v.setApplications(new ArrayList<Application>());
+		if (apps != null)
+			for (final Application a : apps)
+				this.applicationService.delete(a);
+		if (this.visaRepository.findOne(v.getId()) != null)
+			this.visaRepository.delete(v);
 	}
 
 	public List<Visa> getAvailableVisas() {
@@ -86,9 +110,9 @@ public class VisaService {
 		return this.visaRepository.searchVisaFromKeyWordClase(keyword);
 	}
 
-	public Map<String, Double> priceStadistics() {
-		final Double[] statistics = this.visaRepository.priceStadistics();
-		final Map<String, Double> res = new HashMap<>();
+	public Map<String, String> priceStadistics() {
+		final String[] statistics = this.visaRepository.priceStadistics();
+		final Map<String, String> res = new HashMap<>();
 
 		res.put("AVG", statistics[0]);
 		res.put("MIN", statistics[1]);
@@ -99,7 +123,7 @@ public class VisaService {
 
 	}
 
-	public Map<String, Double> lawStadistics() {
+	public Map<String, Double> requirementsStadistics() {
 		final Double[] statistics = this.visaRepository
 				.requirementsStadistics();
 		final Map<String, Double> res = new HashMap<>();

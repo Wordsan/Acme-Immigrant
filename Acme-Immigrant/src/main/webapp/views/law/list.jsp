@@ -21,7 +21,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<display:table name="laws" id="law" requestURI="${requestURI}"
+<display:table name="laws" id="law" requestURI="${requestUri}"
 	pagesize="5" class="displaytag">
 
 	<display:column>
@@ -42,3 +42,9 @@
 
 
 </display:table>
+
+<security:authorize access="hasRole('ADMIN')">
+	<spring:message code="law.new" var="createLaw"></spring:message>
+	<spring:url value="law/admin/create.do" var="url"></spring:url>
+	<a href="${url}"><jstl:out value="${createLaw}"></jstl:out></a>
+</security:authorize>

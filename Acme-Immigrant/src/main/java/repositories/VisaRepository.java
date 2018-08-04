@@ -17,7 +17,7 @@ public interface VisaRepository extends JpaRepository<Visa, Integer> {
 
 	// Ojo, si es el precio en euros devuelve ? en vez de €
 	@Query("select avg(v.price), min(v.price), max(v.price), stddev(v.price) from Visa v")
-	Double[] priceStadistics();
+	String[] priceStadistics();
 
 	@Query("select avg(v.requirements.size), min(v.requirements.size), max(v.requirements.size), stddev(v.requirements.size) from Visa v")
 	Double[] requirementsStadistics();

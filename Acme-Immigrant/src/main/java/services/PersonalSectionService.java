@@ -45,4 +45,8 @@ public class PersonalSectionService {
 		return f;
 	}
 
+	public void delete(final PersonalSection p) {
+		this.personalSectionRepository.delete(p);
+	}
+
 }

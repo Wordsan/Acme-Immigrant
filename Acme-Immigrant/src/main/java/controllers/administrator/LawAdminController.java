@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.CountryService;
 import services.LawService;
 import controllers.AbstractController;
 import domain.Law;
@@ -24,6 +25,9 @@ public class LawAdminController extends AbstractController {
 	// Services
 	@Autowired
 	LawService lawService;
+
+	@Autowired
+	CountryService countryService;
 
 	// Constructors (Debugueo)
 	public LawAdminController() {
@@ -88,6 +92,21 @@ public class LawAdminController extends AbstractController {
 
 	}
 
+	// Delete
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public ModelAndView delete(final Law law, final BindingResult binding) {
+		ModelAndView result;
+
+		try {
+			this.lawService.delete(law);
+			result = this.list();
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(law, "law.commit.error");
+		}
+
+		return result;
+	}
+
 	// List
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
@@ -118,6 +137,7 @@ public class LawAdminController extends AbstractController {
 
 		result = new ModelAndView("law/edit");
 		result.addObject("law", law);
+		result.addObject("countries", this.countryService.findAll());
 		result.addObject("formURI", "law/admin/edit.do");
 		result.addObject("messageCode", messageCode);
 
