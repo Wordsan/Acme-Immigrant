@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.ArrayList;
@@ -27,10 +28,11 @@ public class ImmigrantService {
 
 	// Managed Repository
 	@Autowired
-	private ImmigrantRepository immigrantRepository;
+	private ImmigrantRepository	immigrantRepository;
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService		actorService;
+
 
 	// Constructors
 	public ImmigrantService() {
@@ -79,13 +81,11 @@ public class ImmigrantService {
 	}
 
 	public List<Immigrant> immigrantsNotInvestigated() {
-		return this.immigrantRepository.immigrantsNotInvestigated(this
-				.getActorByUA(LoginService.getPrincipal()).getId());
+		return this.immigrantRepository.immigrantsNotInvestigated(this.getActorByUA(LoginService.getPrincipal()).getId());
 	}
 
 	public Map<String, Double> applicationsStadistics() {
-		final Double[] statistics = this.immigrantRepository
-				.applicationsSizeStadistics();
+		final Double[] statistics = this.immigrantRepository.applicationsSizeStadistics();
 		final Map<String, Double> res = new HashMap<>();
 
 		res.put("AVG", statistics[0]);
@@ -96,5 +96,4 @@ public class ImmigrantService {
 		return res;
 
 	}
-
 }

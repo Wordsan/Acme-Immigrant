@@ -33,6 +33,19 @@
 								code="master.page.administrator.action.2" /></a></li>
 				</ul></li>
 		</security:authorize>
+		
+		<security:authorize access="hasRole('IMMIGRANT')">
+		<li><a class="fNiv"><spring:message
+						code="master.page.immigrant.creditcard" /></a>
+				<ul>
+					<li class="arrow"></li>
+						<li><a href="creditCard/immigrant/create.do"><spring:message
+						code="master.page.createCreditCard" /></a></li>
+						<li><a href="creditCard/immigrant/list.do"><spring:message
+						code="master.page.listCreditCard" /></a></li>
+				</ul></li>
+
+		</security:authorize>
 
 		<security:authorize access="hasRole('CUSTOMER')">
 			<li><a class="fNiv"><spring:message

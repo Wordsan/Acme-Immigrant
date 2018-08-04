@@ -1,3 +1,4 @@
+
 package repositories;
 
 import java.util.List;
@@ -11,8 +12,7 @@ import domain.Immigrant;
 @Repository
 public interface ImmigrantRepository extends JpaRepository<Immigrant, Integer> {
 
-	@Query("select avg(i.applications.size), min(i.applications.size), max(i.applications.size), "
-			+ "stddev(i.applications.size) from Immigrant i")
+	@Query("select avg(i.applications.size), min(i.applications.size), max(i.applications.size), " + "stddev(i.applications.size) from Immigrant i")
 	Double[] applicationsSizeStadistics();
 
 	@Query("select a from Immigrant a where a.userAccount.id = ?1")

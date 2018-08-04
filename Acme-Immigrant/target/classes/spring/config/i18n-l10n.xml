@@ -41,6 +41,7 @@
 		<value>/views/socialSection/messages</value>
 		<value>/views/visa/messages</value>
 		<value>/views/workSection/messages</value>
+		<value>/views/creditCard/messages</value>
 	</util:list>
 
 </beans>
