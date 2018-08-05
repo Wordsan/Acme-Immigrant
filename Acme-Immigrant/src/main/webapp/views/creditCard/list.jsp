@@ -31,7 +31,8 @@
 	<acme:column code="cc.expirationYear" property="expirationYear"/>
 	<acme:column code="cc.CVVCode" property="CVVCode"/>
 	<spring:message code="cc.edit" var="editHeader"></spring:message>
-	<display:column title="cc.editC">
+	<spring:message code="cc.editC" var="editCHeader"></spring:message>
+	<display:column title="${editCHeader}">
 	<spring:url value="creditCard/immigrant/edit.do?creditCardNumber=${c.number}" var="url"></spring:url>
 	<a href="${url}"><jstl:out value="${editHeader}"></jstl:out></a>
 	</display:column>
