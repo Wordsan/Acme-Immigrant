@@ -25,18 +25,19 @@
 
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
-	<form:hidden path="phonePattern"/>
 	
 	<acme:textbox code="configurationSystem.systemName" path="systemName"/>
 	<br />
 	<acme:textbox code="configurationSystem.banner" path="banner"/>
 	<br />
 	
-	<form:label path="welcomeMessage">
+	<form:label path="welcomeMessageES">
 		<spring:message code="configurationSystem.welcomeMessage" />
 	</form:label>	
-	<form:input path="welcomeMessage" value="${configurationSystem.welcomeMessage}"/>
-	<form:errors path="welcomeMessage" cssClass="error" />
+	<form:input path="welcomeMessageES" value="${configurationSystem.welcomeMessageES}"/>
+	<form:errors path="welcomeMessageES" cssClass="error" />
+	<form:input path="welcomeMessageEN" value="${configurationSystem.welcomeMessageEN}"/>
+	<form:errors path="welcomeMessageEN" cssClass="error" />
 	<br />
 	
 	<!-- Buttons -->

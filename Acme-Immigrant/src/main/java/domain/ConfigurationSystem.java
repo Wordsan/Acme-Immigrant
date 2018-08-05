@@ -13,16 +13,10 @@ import org.hibernate.validator.constraints.URL;
 public class ConfigurationSystem extends DomainEntity {
 
 	private String	systemName;
-	private String	phonePattern;
 	private String	banner;
 	private String	welcomeMessageES;
 	private String	welcomeMessageEN;
 
-
-	/*
-	 * The customisation includes the name of the system,
-	 * its banner, and the welcome message that is shown on the main page.
-	 */
 
 	@NotBlank
 	public String getSystemName() {
@@ -34,13 +28,6 @@ public class ConfigurationSystem extends DomainEntity {
 	}
 
 	//@Pattern(regexp = "^+[0-9]{1,3}([0-9]{0,3})[0-9]{4}$")
-	public String getPhonePattern() {
-		return this.phonePattern;
-	}
-
-	public void setPhonePattern(final String phonePattern) {
-		this.phonePattern = phonePattern;
-	}
 
 	@URL
 	public String getBanner() {

@@ -16,7 +16,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <div>
-	<img src="images/logo.png" alt="Acme Immigrant" />
+	<img src="${banner}" height="400px" width="1000px" alt="${systemName}" />
 </div>
 
 <div>

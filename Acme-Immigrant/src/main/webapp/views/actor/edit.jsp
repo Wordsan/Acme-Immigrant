@@ -20,8 +20,11 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+
+<acme:phone/>
+
 <form:form action="${formUri}" method="post" id="form" name="form"
-	modelAttribute="formActor">
+	modelAttribute="formActor" onsubmit="return checkTel($('#phoneNumber').val())">
 	<form:hidden path="id" />
 	<acme:textbox code="actor.name" path="name" />
 	<acme:textbox code="actor.surname" path="surname" />

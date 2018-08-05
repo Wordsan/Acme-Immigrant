@@ -1336,8 +1336,7 @@
 	<!-- ConfigurationSystem -->
 	<bean id="configurationSystem1" class="domain.ConfigurationSystem">
 		<property name="systemName" value="Acme Immigrant"></property>
-		<property name="phonePattern" value="^+[0-9]{1,3}([0-9]{0,3})[0-9]{4}$"></property>
-		<property name="banner" value="https://www.banner.com/"></property>
+		<property name="banner" value="https://www.delengua.es/sites/default/files/2016-10/visado.jpg"></property>
 		<property name="welcomeMessageES" value="Hola! Bienvenido a Acme Immigrant"></property>
 		<property name="welcomeMessageEN" value="Hi! Welcome to Acme Immigrant"></property>
 	</bean>

@@ -1,3 +1,4 @@
+
 package controllers.immigrant;
 
 import javax.validation.Valid;
@@ -23,9 +24,10 @@ public class ImmigrantController extends AbstractController {
 
 	// Services
 	@Autowired
-	ImmigrantService immigrantService;
+	ImmigrantService	immigrantService;
 	@Autowired
-	ActorService actorService;
+	ActorService		actorService;
+
 
 	// Constructors (Debugueo)
 	public ImmigrantController() {
@@ -48,25 +50,20 @@ public class ImmigrantController extends AbstractController {
 
 	// Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final FormActor formActor,
-			final BindingResult br) {
+	public ModelAndView save(@Valid final FormActor formActor, final BindingResult br) {
 		final Immigrant immigrant = this.reconstruct(formActor);
 		ModelAndView result;
-		if (br.hasErrors()
-				|| !formActor.getPassword().equals(formActor.getRepassword()))
-			result = this.createEditModelAndView(immigrant,
-					"actor.password.confirm");
+		if (br.hasErrors() || !formActor.getPassword().equals(formActor.getRepassword()))
+			result = this.createEditModelAndView(immigrant, "actor.password.confirm");
 		else
 			try {
 				if (this.immigrantService.save(immigrant) == null) {
-					result = this.createEditModelAndView(immigrant,
-							"actor.username.exists");
+					result = this.createEditModelAndView(immigrant, "actor.username.exists");
 					return result;
 				}
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable ops) {
-				result = this.createEditModelAndView(immigrant,
-						"actor.commit.error");
+				result = this.createEditModelAndView(immigrant, "actor.commit.error");
 			}
 
 		return result;
@@ -83,15 +80,14 @@ public class ImmigrantController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Immigrant immigrant,
-			final String messageCode) {
+	protected ModelAndView createEditModelAndView(final Immigrant immigrant, final String messageCode) {
 
 		ModelAndView result;
 		final FormActor actor = this.deconstruct(immigrant);
 		result = new ModelAndView("actor/edit");
 		result.addObject("formActor", actor);
 		result.addObject("formURI", "immigrant/edit.do");
-		result.addObject("messageCode", messageCode);
+		result.addObject("message", messageCode);
 
 		return result;
 	}
@@ -110,8 +106,7 @@ public class ImmigrantController extends AbstractController {
 	}
 
 	public Immigrant reconstruct(final FormActor actor) {
-		final Immigrant immigrant = this.immigrantService
-				.findOne(actor.getId());
+		final Immigrant immigrant = this.immigrantService.findOne(actor.getId());
 		immigrant.setName(actor.getName());
 		immigrant.setName(actor.getName());
 		immigrant.setSurname(actor.getSurname());
