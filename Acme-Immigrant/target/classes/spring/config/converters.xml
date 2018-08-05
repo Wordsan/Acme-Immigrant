@@ -26,6 +26,9 @@
 		<bean class="converters.CategoryToStringConverter" />
 		<bean class="converters.StringToCategoryConverter" />
 
+		<bean class="converters.ConfigurationSystemToStringConverter" />
+		<bean class="converters.StringToConfigurationSystemConverter" />
+
 		<bean class="converters.ContactSectionToStringConverter" />
 		<bean class="converters.StringToContactSectionConverter" />
 

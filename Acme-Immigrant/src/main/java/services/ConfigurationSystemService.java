@@ -35,7 +35,7 @@ public class ConfigurationSystemService {
 	/* CRUD */
 
 	public ConfigurationSystem save(final ConfigurationSystem cs) {
-		Assert.notNull(this.adminService.getAdminByUserAccountId(LoginService.getPrincipal().getId()));
+		Assert.notNull(this.adminService.getActorByUA(LoginService.getPrincipal()));
 		return this.configurationSystemRepository.save(cs);
 	}
 

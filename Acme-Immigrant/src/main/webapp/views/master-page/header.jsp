@@ -32,6 +32,8 @@
 					<li><a href="administrator/action-2.do"><spring:message
 								code="master.page.administrator.action.2" /></a></li>
 				</ul></li>
+			<li><a href="configurationSystem/admin/edit.do"><spring:message
+						code="master.page.admin.editcS" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('IMMIGRANT')">

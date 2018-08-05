@@ -67,6 +67,8 @@
 			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/requirement/admin/*"
 			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/configurationSystem/admin/*"
+			access="hasRole('ADMIN')" />
 
 		<security:intercept-url pattern="/view/immigrant/*"
 			access="hasAnyRole('OFFICER','INVESTIGATOR')" />
