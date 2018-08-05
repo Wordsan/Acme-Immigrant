@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import services.OfficerService;
 import services.ReportService;
 import controllers.AbstractController;
 import domain.Report;
@@ -21,6 +23,9 @@ public class ReportOfficerController extends AbstractController {
 	// Services
 	@Autowired
 	ReportService reportService;
+
+	@Autowired
+	OfficerService officerService;
 
 	// Constructors (Debugueo)
 	public ReportOfficerController() {
@@ -34,6 +39,12 @@ public class ReportOfficerController extends AbstractController {
 		final Report a;
 
 		a = this.reportService.findOne(reportId);
+		if (!this.officerService.getActorByUA(LoginService.getPrincipal())
+				.equals(a.getOfficer())) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+			result.addObject("message", "forbbiden.access.error");
+			return result;
+		}
 		result = new ModelAndView("report/display");
 		result.addObject("report", a);
 

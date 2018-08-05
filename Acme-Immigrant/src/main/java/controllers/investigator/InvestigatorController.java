@@ -52,6 +52,11 @@ public class InvestigatorController extends AbstractController {
 			final BindingResult br) {
 		final Investigator investigator = this.reconstruct(formActor);
 		ModelAndView result;
+		if (!investigator.getUserAccount().equals(LoginService.getPrincipal())) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+			result.addObject("message", "forbbiden.access.error");
+			return result;
+		}
 		if (br.hasErrors()
 				|| !formActor.getPassword().equals(formActor.getRepassword()))
 			result = this.createEditModelAndView(investigator,

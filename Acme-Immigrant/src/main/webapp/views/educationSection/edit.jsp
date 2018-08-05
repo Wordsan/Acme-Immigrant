@@ -1,13 +1,3 @@
-<%--
- * action-1.jsp
- *
- * Copyright (C) 2017 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- --%>
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -19,3 +9,53 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+
+<form:form
+	action="educationSection/immigrant/edit.do?applicationId=${applicationId}"
+	method="post" modelAttribute="educationSection">
+	<form:hidden path="id" />
+	<form:hidden path="version" />
+	<acme:textbox code="educationSection.degreeName" path="degreeName" />
+	<acme:textbox code="educationSection.institution" path="institution" />
+	<acme:textbox code="educationSection.awarded" path="awarded" />
+	<spring:message code="educationSection.level" />
+	<form:select path="level">
+		<form:option value="NONE">
+			<spring:message code="educationSection.level.none" />
+		</form:option>
+		<jstl:if test="${idioma == 'en'}">
+			<form:option value="ELEMENTARY">
+				<spring:message code="educationSection.level.elementary" />
+			</form:option>
+		</jstl:if>
+		<form:option value="PRIMARY">
+			<spring:message code="educationSection.level.primary" />
+		</form:option>
+		<jstl:if test="${idioma == 'en'}">
+			<form:option value="SECONDARY">
+				<spring:message code="educationSection.level.secondary" />
+			</form:option>
+		</jstl:if>
+		<form:option value="HIGH">
+			<spring:message code="educationSection.level.high" />
+		</form:option>
+		<form:option value="BACHELOR">
+			<spring:message code="educationSection.level.bachelor" />
+		</form:option>
+		<form:option value="UNIVERSITYDEGREE">
+			<spring:message code="educationSection.level.degree" />
+		</form:option>
+		<form:option value="MASTER">
+			<spring:message code="educationSection.level.master" />
+		</form:option>
+		<form:option value="DOCTORATE">
+			<spring:message code="educationSection.level.doctorate" />
+		</form:option>
+	</form:select>
+	<br>
+	<acme:cancel
+		url="application/immigrant/display.do?applicationId=${applicationId}"
+		code="cancel.button" />
+	<acme:submit name="save" code="save.button" />
+</form:form>

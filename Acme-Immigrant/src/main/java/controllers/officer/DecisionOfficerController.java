@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import services.ApplicationService;
 import services.DecisionService;
 import services.OfficerService;
 import controllers.AbstractController;
@@ -24,6 +26,8 @@ public class DecisionOfficerController extends AbstractController {
 	DecisionService decisionService;
 	@Autowired
 	OfficerService officerService;
+	@Autowired
+	ApplicationService applicationService;
 
 	// Constructors (Debugueo)
 	public DecisionOfficerController() {
@@ -37,6 +41,12 @@ public class DecisionOfficerController extends AbstractController {
 		final Decision d;
 
 		d = this.decisionService.findOne(decisionId);
+		if (!this.officerService.getActorByUA(LoginService.getPrincipal())
+				.getApplications().contains(d.getApplication())) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+			result.addObject("message", "forbbiden.access.error");
+			return result;
+		}
 		result = new ModelAndView("decision/display");
 		result.addObject("decision", d);
 
@@ -48,6 +58,13 @@ public class DecisionOfficerController extends AbstractController {
 			final boolean accepted, final String reason) {
 		ModelAndView result;
 
+		if (!this.officerService.getActorByUA(LoginService.getPrincipal())
+						.getApplications()
+						.contains(this.applicationService.findOne(applicationId))) {
+					result = new ModelAndView("redirect:/welcome/index.do");
+					result.addObject("message", "forbbiden.access.error");
+					return result;
+		}
 		final int code = this.decisionService.createNew(applicationId,
 				accepted, reason);
 		if (code == 0)
@@ -74,6 +91,12 @@ public class DecisionOfficerController extends AbstractController {
 			final BindingResult br) {
 
 		ModelAndView result;
+		if (!this.officerService.getActorByUA(LoginService.getPrincipal())
+				.getApplications().contains(decision.getApplication())) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+			result.addObject("message", "forbbiden.access.error");
+			return result;
+		}
 		if (br.hasErrors())
 			result = this.createEditModelAndView(decision);
 		else

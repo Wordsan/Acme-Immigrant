@@ -2,9 +2,9 @@
  * action-1.jsp
  *
  * Copyright (C) 2017 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
+ *
+ * The use of this project is hereby constrained to the conditions of the
+ * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
  --%>
 
@@ -24,7 +24,7 @@
 
 <acme:display code="application.ticker" value="${application.ticker}"></acme:display>
 
-<spring:message code="date.pattern" var="pattern"></spring:message>
+<spring:message code="date.hour.pattern" var="pattern"></spring:message>
 
 <spring:message code="application.openedMoment"></spring:message>
 <fmt:formatDate value="${application.openedMoment}" pattern="${pattern}"

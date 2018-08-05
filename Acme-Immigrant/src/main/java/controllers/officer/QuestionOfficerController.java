@@ -43,6 +43,12 @@ public class QuestionOfficerController extends AbstractController {
 		final Question a;
 
 		a = this.questionService.findOne(questionId);
+		if (!this.officerService.getActorByUA(LoginService.getPrincipal())
+				.getApplications().contains(a.getApplication())) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+			result.addObject("message", "forbbiden.access.error");
+			return result;
+		}
 		result = new ModelAndView("question/display");
 		result.addObject("question", a);
 
@@ -55,6 +61,14 @@ public class QuestionOfficerController extends AbstractController {
 			@RequestParam final String statement) {
 		ModelAndView result;
 		final Question q;
+
+		if (!this.officerService.getActorByUA(LoginService.getPrincipal())
+				.getApplications()
+				.contains(this.applicationService.findOne(applicationId))) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+			result.addObject("message", "forbbiden.access.error");
+			return result;
+		}
 
 		if (statement == null || statement == "") {
 			result = new ModelAndView(
@@ -95,6 +109,12 @@ public class QuestionOfficerController extends AbstractController {
 		Question q;
 
 		q = this.questionService.findOne(questionId);
+		if (!this.officerService.getActorByUA(LoginService.getPrincipal())
+				.getApplications().contains(q.getApplication())) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+			result.addObject("message", "forbbiden.access.error");
+			return result;
+		}
 		if (q.getApplication().getOfficer() != this.officerService
 				.getActorByUA(LoginService.getPrincipal())) {
 			result = this.display(questionId);
@@ -115,6 +135,13 @@ public class QuestionOfficerController extends AbstractController {
 			result = this.createEditModelAndView(question);
 		else
 			try {
+				if (!this.officerService
+						.getActorByUA(LoginService.getPrincipal())
+						.getApplications().contains(question.getApplication())) {
+					result = new ModelAndView("redirect:/welcome/index.do");
+					result.addObject("message", "forbbiden.access.error");
+					return result;
+				}
 				this.questionService.save(question);
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable ops) {

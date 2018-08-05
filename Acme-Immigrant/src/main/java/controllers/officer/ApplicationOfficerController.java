@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
 import services.ApplicationService;
+import services.OfficerService;
 import controllers.AbstractController;
 import domain.Application;
 
@@ -21,6 +23,9 @@ public class ApplicationOfficerController extends AbstractController {
 	// Services
 	@Autowired
 	ApplicationService applicationService;
+
+	@Autowired
+	OfficerService officerService;
 
 	// Constructors (Debugueo)
 	public ApplicationOfficerController() {
@@ -34,6 +39,14 @@ public class ApplicationOfficerController extends AbstractController {
 		final Application a;
 
 		a = this.applicationService.findOne(applicationId);
+		if (a.getOfficer() == null
+			|| !a.getOfficer().equals(
+					this.officerService.getActorByUA(LoginService
+							.getPrincipal()))) {
+		result = new ModelAndView("redirect:/welcome/index.do");
+		result.addObject("message", "forbbiden.access.error");
+		return result;
+	}
 		result = new ModelAndView("application/display");
 		result.addObject("application", a);
 
@@ -45,6 +58,13 @@ public class ApplicationOfficerController extends AbstractController {
 	public ModelAndView close(@RequestParam final int applicationId) {
 		ModelAndView result;
 
+		if (!this.officerService.getActorByUA(LoginService.getPrincipal())
+				.getApplications()
+				.contains(this.applicationService.findOne(applicationId))) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+			result.addObject("message", "forbbiden.access.error");
+			return result;
+		}
 		final int code = this.applicationService.assign(applicationId);
 		if (code == 0)
 			return this.display(applicationId);

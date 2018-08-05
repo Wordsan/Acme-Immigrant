@@ -2,9 +2,9 @@
  * layout.jsp
  *
  * Copyright (C) 2017 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
+ *
+ * The use of this project is hereby constrained to the conditions of the
+ * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
  --%>
 
@@ -39,12 +39,17 @@
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 
 <script type="text/javascript" src="scripts/cookie.js">
-	
+
 </script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#jMenu").jMenu();
-		$("");
+    var options = {
+			message : document.getElementById("cookiesMsg").textContent,
+			moreinfo : "views/misc/cookies.jsp"
+		};
+		var cb = new Cookiebanner(options);
+		cb.run();
 	});
 
 	function askSubmission(msg, form) {
@@ -79,16 +84,20 @@
 			<br />
 			<span class="message"><spring:message code="${message}" /></span>
 		</jstl:if>
+    <jstl:if test="${messageCode != null}">
+			<br />
+			<span class="message"><spring:message code="${messageCode}" /></span>
+		</jstl:if>
 	</div>
 	<div>
 		<tiles:insertAttribute name="footer" />
 	</div>
 	<spring:message code="cookies.msg" var="msg" />
 	<spring:message code="cookies.about" var="about" />
-	<p hidden id="cookiesMsg">
+	<p style="display: none;" id="cookiesMsg">
 		<jstl:out value="${msg}" />
 	</p>
-	<p hidden id="cookiesAbout">
+	<p style="display: none;" id="cookiesAbout">
 		<jstl:out value="${about}" />
 	</p>
 </body>

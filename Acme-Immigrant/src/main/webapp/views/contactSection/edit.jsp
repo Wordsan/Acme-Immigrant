@@ -19,3 +19,18 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+
+<form:form
+	action="contactSection/immigrant/edit.do?applicationId=${applicationId}"
+	method="post" modelAttribute="contactSection">
+	<form:hidden path="id" />
+	<form:hidden path="version" />
+	<acme:textbox code="contactSection.emailAddress" path="emailAddress" />
+	<acme:textbox code="contactSection.phoneNumber" path="phoneNumber" />
+	<acme:textbox code="contactSection.pagerNumber" path="pagerNumber" />
+	<acme:cancel
+		url="application/immigrant/display.do?applicationId=${applicationId}"
+		code="cancel.button" />
+	<acme:submit name="save" code="save.button" />
+</form:form>

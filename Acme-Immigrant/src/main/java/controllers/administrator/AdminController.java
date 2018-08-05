@@ -52,6 +52,11 @@ public class AdminController extends AbstractController {
 			final BindingResult br) {
 		final Administrator admin = this.reconstruct(formActor);
 		ModelAndView result;
+		if (!admin.getUserAccount().equals(LoginService.getPrincipal())) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+			result.addObject("message", "forbbiden.access.error");
+			return result;
+		}
 		if (br.hasErrors()
 				|| !formActor.getPassword().equals(formActor.getRepassword()))
 			result = this.createEditModelAndView(admin,

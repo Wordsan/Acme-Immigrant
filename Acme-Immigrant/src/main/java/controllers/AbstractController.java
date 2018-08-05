@@ -1,8 +1,8 @@
 /*
  * AbstractController.java
- * 
+ *
  * Copyright (C) 2017 Universidad de Sevilla
- * 
+ *
  * The use of this project is hereby constrained to the conditions of the
  * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -50,6 +50,7 @@ public class AbstractController {
 		final ConfigurationSystem cs = this.configurationSystemService.get();
 		model.addAttribute("banner", cs.getBanner());
 		model.addAttribute("systemName", cs.getSystemName());
+		model.addAttribute("idioma",locale.getLanguage());
 
 		if (locale.getLanguage().equals("es")) {
 			model.addAttribute("confirmTel", "El teléfono no sigue los patrones recomendados, ¿quiere continuar?");

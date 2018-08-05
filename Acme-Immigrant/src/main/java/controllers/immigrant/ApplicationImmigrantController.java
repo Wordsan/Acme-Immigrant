@@ -1,7 +1,9 @@
 package controllers.immigrant;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -55,6 +57,12 @@ public class ApplicationImmigrantController extends AbstractController {
 		final Application a;
 
 		a = this.applicationService.findOne(applicationId);
+		if (!a.getImmigrant().getUserAccount()
+				.equals(LoginService.getPrincipal())) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+			result.addObject("message", "forbbiden.access.error");
+			return result;
+		}
 		result = new ModelAndView("application/display");
 		result.addObject("application", a);
 
@@ -68,6 +76,14 @@ public class ApplicationImmigrantController extends AbstractController {
 		final ApplicationSections apps = new ApplicationSections();
 
 		apps.setVisaId(visaId);
+		final Collection<Application> as = this.immigrantService.getActorByUA(
+				LoginService.getPrincipal()).getApplications();
+		for (final Application a : as)
+			if (a.getVisa().getId() == visaId) {
+				result = new ModelAndView("redirect:/welcome/index.do");
+				result.addObject("message", "resource.already.exists");
+				return result;
+			}
 		result = this.createEditModelAndView(apps);
 
 		return result;
@@ -95,6 +111,13 @@ public class ApplicationImmigrantController extends AbstractController {
 	public ModelAndView close(@RequestParam final int applicationId) {
 		ModelAndView result;
 
+		if (!this.immigrantService.getActorByUA(LoginService.getPrincipal())
+				.getApplications()
+				.contains(this.applicationService.findOne(applicationId))) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+			result.addObject("message", "forbbiden.access.error");
+			return result;
+		}
 		if (this.applicationService.close(applicationId))
 			return this.display(applicationId);
 		else {
@@ -121,9 +144,26 @@ public class ApplicationImmigrantController extends AbstractController {
 						br.getFieldError("creditCard").getRejectedValue()
 								.toString())) {
 					cc = c;
-					apps.setCreditCard(cc);
 					try {
+						final Calendar cal = new GregorianCalendar();
+						cal.set(Integer.parseInt("20" + c.getExpirationYear()),
+								Integer.parseInt(c.getExpirationMonth()),
+								cal.get(Calendar.DAY_OF_MONTH));
+						cal.add(Calendar.MONTH, -3);
+						if (cal.before(new GregorianCalendar()))
+							return this.createEditModelAndView(apps,
+									"creditCard.expiration.error");
+						apps.setCreditCard(cc);
 						final Application a = this.reconstruct(apps);
+						if (!this.immigrantService
+								.getActorByUA(LoginService.getPrincipal())
+								.getApplications().contains(a)) {
+							result = new ModelAndView(
+									"redirect:/welcome/index.do");
+							result.addObject("message",
+									"forbbiden.access.error");
+							return result;
+						}
 						a.setStatus("OPENED");
 						this.applicationService.save(a);
 						result = new ModelAndView("redirect:/welcome/index.do");
@@ -141,6 +181,13 @@ public class ApplicationImmigrantController extends AbstractController {
 		else
 			try {
 				final Application a = this.reconstruct(apps);
+				if (!this.immigrantService
+						.getActorByUA(LoginService.getPrincipal())
+						.getApplications().contains(a)) {
+					result = new ModelAndView("redirect:/welcome/index.do");
+					result.addObject("message", "forbbiden.access.error");
+					return result;
+				}
 				this.applicationService.save(a);
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final IllegalArgumentException e) {
@@ -214,7 +261,7 @@ public class ApplicationImmigrantController extends AbstractController {
 		result.addObject("apps", apps);
 		result.addObject("creditCards", creditCards);
 		result.addObject("formURI", "application/immigrant/edit.do");
-		result.addObject("messageCode", messageCode);
+		result.addObject("message", messageCode);
 
 		return result;
 	}

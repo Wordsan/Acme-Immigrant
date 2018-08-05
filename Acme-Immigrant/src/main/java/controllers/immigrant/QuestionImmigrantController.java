@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import services.ImmigrantService;
 import services.QuestionService;
 import controllers.AbstractController;
 import domain.Question;
@@ -21,6 +23,9 @@ public class QuestionImmigrantController extends AbstractController {
 	// Services
 	@Autowired
 	QuestionService questionService;
+
+	@Autowired
+	ImmigrantService immigrantService;
 
 	// Constructors (Debugueo)
 	public QuestionImmigrantController() {
@@ -34,6 +39,11 @@ public class QuestionImmigrantController extends AbstractController {
 		final Question question;
 
 		question = this.questionService.findOne(questionId);
+		if (!question.getImmigrant().equals(LoginService.getPrincipal())) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+			result.addObject("message", "forbbiden.access.error");
+			return result;
+		}
 		result = new ModelAndView("question/display");
 		result.addObject("question", question);
 
@@ -46,6 +56,13 @@ public class QuestionImmigrantController extends AbstractController {
 			@RequestParam final String answer) {
 
 		ModelAndView result;
+		if (!this.immigrantService.getActorByUA(LoginService.getPrincipal())
+				.getQuestions()
+				.contains(this.questionService.findOne(questionId))) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+			result.addObject("message", "forbbiden.access.error");
+			return result;
+		}
 		try {
 			this.questionService.answer(questionId, answer);
 			result = this.display(questionId);
@@ -60,7 +77,7 @@ public class QuestionImmigrantController extends AbstractController {
 
 	// List
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(final String status) {
+	public ModelAndView list() {
 		ModelAndView result;
 		List<Question> questions = new ArrayList<>();
 

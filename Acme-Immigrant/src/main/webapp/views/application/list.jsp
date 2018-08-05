@@ -2,9 +2,9 @@
  * action-1.jsp
  *
  * Copyright (C) 2017 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
+ *
+ * The use of this project is hereby constrained to the conditions of the
+ * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
  --%>
 
@@ -61,6 +61,16 @@
 <display:table name="applications" id="app" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
+  <security:authentication property="principal.username" var="username" />
+	<jstl:if
+		test="${app.officer.userAccount.username == username or app.immigrant.userAccount.username == username or app.immigrant.investigator.userAccount.username == username}">
+		<display:column>
+			<spring:message code="display.button" var="disp"></spring:message>
+			<acme:displayLink
+				link="application/${role}/display.do?applicationId=${app.id}"
+				value="${disp}" />
+		</display:column>
+	</jstl:if>
 	<display:column>
 		<spring:message code="display.button" var="disp"></spring:message>
 		<acme:displayLink
