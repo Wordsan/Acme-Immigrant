@@ -40,8 +40,8 @@ public class EducationSection extends DomainEntity {
 		this.institution = institution;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	public Date getAwarded() {
 		return this.awarded;
 	}

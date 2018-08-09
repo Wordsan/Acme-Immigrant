@@ -8,7 +8,6 @@ import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Index;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -145,7 +144,7 @@ public class Application extends DomainEntity {
 		this.personalSection = personalSection;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	@Valid
 	@NotNull
 	public Collection<ContactSection> getContactSections() {
@@ -157,7 +156,7 @@ public class Application extends DomainEntity {
 		this.contactSections = contactSections;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	@Valid
 	@NotNull
 	public Collection<SocialSection> getSocialSections() {
@@ -168,7 +167,7 @@ public class Application extends DomainEntity {
 		this.socialSections = socialSections;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	@Valid
 	@NotNull
 	public Collection<EducationSection> getEducationSections() {
@@ -180,7 +179,7 @@ public class Application extends DomainEntity {
 		this.educationSections = educationSections;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	@Valid
 	@NotNull
 	public Collection<WorkSection> getWorkSections() {

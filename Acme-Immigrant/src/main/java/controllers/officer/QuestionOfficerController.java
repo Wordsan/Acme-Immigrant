@@ -15,6 +15,7 @@ import services.ApplicationService;
 import services.OfficerService;
 import services.QuestionService;
 import controllers.AbstractController;
+import controllers.WelcomeController;
 import domain.Question;
 
 @Controller
@@ -45,8 +46,9 @@ public class QuestionOfficerController extends AbstractController {
 		a = this.questionService.findOne(questionId);
 		if (!this.officerService.getActorByUA(LoginService.getPrincipal())
 				.getApplications().contains(a.getApplication())) {
-			result = new ModelAndView("redirect:/welcome/index.do");
-			result.addObject("message", "forbbiden.access.error");
+			result = WelcomeController.indice("forbbiden.access.error",
+					this.officerService.getActorByUA(LoginService
+							.getPrincipal()));
 			return result;
 		}
 		result = new ModelAndView("question/display");
@@ -65,8 +67,9 @@ public class QuestionOfficerController extends AbstractController {
 		if (!this.officerService.getActorByUA(LoginService.getPrincipal())
 				.getApplications()
 				.contains(this.applicationService.findOne(applicationId))) {
-			result = new ModelAndView("redirect:/welcome/index.do");
-			result.addObject("message", "forbbiden.access.error");
+			result = WelcomeController.indice("forbbiden.access.error",
+					this.officerService.getActorByUA(LoginService
+							.getPrincipal()));
 			return result;
 		}
 
@@ -111,8 +114,9 @@ public class QuestionOfficerController extends AbstractController {
 		q = this.questionService.findOne(questionId);
 		if (!this.officerService.getActorByUA(LoginService.getPrincipal())
 				.getApplications().contains(q.getApplication())) {
-			result = new ModelAndView("redirect:/welcome/index.do");
-			result.addObject("message", "forbbiden.access.error");
+			result = WelcomeController.indice("forbbiden.access.error",
+					this.officerService.getActorByUA(LoginService
+							.getPrincipal()));
 			return result;
 		}
 		if (q.getApplication().getOfficer() != this.officerService
@@ -138,8 +142,9 @@ public class QuestionOfficerController extends AbstractController {
 				if (!this.officerService
 						.getActorByUA(LoginService.getPrincipal())
 						.getApplications().contains(question.getApplication())) {
-					result = new ModelAndView("redirect:/welcome/index.do");
-					result.addObject("message", "forbbiden.access.error");
+					result = WelcomeController.indice("forbbiden.access.error",
+							this.officerService.getActorByUA(LoginService
+									.getPrincipal()));
 					return result;
 				}
 				this.questionService.save(question);

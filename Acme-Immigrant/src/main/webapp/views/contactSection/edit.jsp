@@ -21,9 +21,12 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<acme:phone />
+
 <form:form
 	action="contactSection/immigrant/edit.do?applicationId=${applicationId}"
-	method="post" modelAttribute="contactSection">
+	method="post" modelAttribute="contactSection"
+	onsubmit="return checkTel($('#phoneNumber').val())">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<acme:textbox code="contactSection.emailAddress" path="emailAddress" />

@@ -15,6 +15,7 @@ import services.ApplicationService;
 import services.DecisionService;
 import services.OfficerService;
 import controllers.AbstractController;
+import controllers.WelcomeController;
 import domain.Decision;
 
 @Controller
@@ -43,8 +44,9 @@ public class DecisionOfficerController extends AbstractController {
 		d = this.decisionService.findOne(decisionId);
 		if (!this.officerService.getActorByUA(LoginService.getPrincipal())
 				.getApplications().contains(d.getApplication())) {
-			result = new ModelAndView("redirect:/welcome/index.do");
-			result.addObject("message", "forbbiden.access.error");
+			result = WelcomeController.indice("forbbiden.access.error",
+					this.officerService.getActorByUA(LoginService
+							.getPrincipal()));
 			return result;
 		}
 		result = new ModelAndView("decision/display");
@@ -59,11 +61,12 @@ public class DecisionOfficerController extends AbstractController {
 		ModelAndView result;
 
 		if (!this.officerService.getActorByUA(LoginService.getPrincipal())
-						.getApplications()
-						.contains(this.applicationService.findOne(applicationId))) {
-					result = new ModelAndView("redirect:/welcome/index.do");
-					result.addObject("message", "forbbiden.access.error");
-					return result;
+				.getApplications()
+				.contains(this.applicationService.findOne(applicationId))) {
+			result = WelcomeController.indice("forbbiden.access.error",
+					this.officerService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
 		}
 		final int code = this.decisionService.createNew(applicationId,
 				accepted, reason);
@@ -93,8 +96,9 @@ public class DecisionOfficerController extends AbstractController {
 		ModelAndView result;
 		if (!this.officerService.getActorByUA(LoginService.getPrincipal())
 				.getApplications().contains(decision.getApplication())) {
-			result = new ModelAndView("redirect:/welcome/index.do");
-			result.addObject("message", "forbbiden.access.error");
+			result = WelcomeController.indice("forbbiden.access.error",
+					this.officerService.getActorByUA(LoginService
+							.getPrincipal()));
 			return result;
 		}
 		if (br.hasErrors())

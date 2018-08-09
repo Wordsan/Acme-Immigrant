@@ -24,7 +24,8 @@
 
 <acme:display code="application.ticker" value="${application.ticker}"></acme:display>
 
-<spring:message code="date.hour.pattern" var="pattern"></spring:message>
+<spring:message code="date.hour.pattern" var="patternHour"></spring:message>
+<spring:message code="date.pattern" var="pattern" />
 
 <spring:message code="application.openedMoment"></spring:message>
 <fmt:formatDate value="${application.openedMoment}" pattern="${pattern}"
@@ -52,9 +53,9 @@
 <acme:display code="application.status" value="${application.status}"></acme:display>
 
 <security:authorize access="hasRole('IMMIGRANT')">
+	<spring:message code="application.creditCard" />
 	<div id="creditCard">
-		<acme:display code="application.creditCard"
-			value="${application.creditCard.number}"></acme:display>
+		<jstl:out value="${application.creditCard.number}"></jstl:out>
 	</div>
 </security:authorize>
 
@@ -115,12 +116,14 @@
 			value="${application.personalSection.fullNames}"></acme:displayLink>
 	</fieldset>
 
-	<jstl:if test="${!empty application.contactSections}">
-		<fieldset>
-			<legend>
-				<spring:message code="application.contactSection"></spring:message>
-			</legend>
-			<jstl:forEach items="${application.contactSections}" var="cSection">
+
+	<fieldset>
+		<legend>
+			<spring:message code="application.contactSection"></spring:message>
+		</legend>
+
+		<jstl:forEach items="${application.contactSections}" var="cSection">
+			<div class="box">
 				<acme:display code="contactSection.emailAddress"
 					value="${cSection.emailAddress}"></acme:display>
 				<jstl:if test="${cSection.phoneNumber != null}">
@@ -131,9 +134,12 @@
 					<acme:display code="contactSection.pagerNumber"
 						value="${cSection.pagerNumber}"></acme:display>
 				</jstl:if>
-			</jstl:forEach>
-		</fieldset>
-	</jstl:if>
+			</div>
+		</jstl:forEach>
+		<acme:button name="new"
+			url="contactSection/immigrant/create.do?applicationId=${application.id}"
+			code="add.new.button" />
+	</fieldset>
 
 
 	<fieldset>
@@ -141,22 +147,27 @@
 			<spring:message code="application.socialSection"></spring:message>
 		</legend>
 		<jstl:forEach items="${application.socialSections}" var="sSection">
-			<acme:display code="socialSection.nickname"
-				value="${sSection.nickname}"></acme:display>
-			<acme:display code="socialSection.socialNetwork"
-				value="${sSection.socialNetwork}"></acme:display>
-			<acme:display code="socialSection.linkProfile"
-				value="${sSection.linkProfile}"></acme:display>
-
+			<div class="box">
+				<acme:display code="socialSection.nickname"
+					value="${sSection.nickname}"></acme:display>
+				<acme:display code="socialSection.socialNetwork"
+					value="${sSection.socialNetwork}"></acme:display>
+				<acme:display code="socialSection.linkProfile"
+					value="${sSection.linkProfile}"></acme:display>
+			</div>
 		</jstl:forEach>
+		<acme:button name="new"
+			url="socialSection/immigrant/create.do?applicationId=${application.id}"
+			code="add.new.button" />
 	</fieldset>
 
-	<jstl:if test="${!empty application.educationSections}">
-		<fieldset>
-			<legend>
-				<spring:message code="application.educationSection"></spring:message>
-			</legend>
-			<jstl:forEach items="${application.educationSections}" var="eSection">
+
+	<fieldset>
+		<legend>
+			<spring:message code="application.educationSection"></spring:message>
+		</legend>
+		<jstl:forEach items="${application.educationSections}" var="eSection">
+			<div class="box">
 				<acme:display code="educationSection.degreeName"
 					value="${eSection.degreeName}"></acme:display>
 				<acme:display code="educationSection.institution"
@@ -170,17 +181,19 @@
 				</jstl:if>
 				<acme:display code="educationSection.level"
 					value="${eSection.level}"></acme:display>
+			</div>
+		</jstl:forEach>
+		<acme:button name="new"
+			url="educationSection/immigrant/create.do?applicationId=${application.id}"
+			code="add.new.button" />
+	</fieldset>
 
-			</jstl:forEach>
-		</fieldset>
-	</jstl:if>
-
-	<jstl:if test="${!empty application.workSections}">
-		<fieldset>
-			<legend>
-				<spring:message code="application.workSection"></spring:message>
-			</legend>
-			<jstl:forEach items="${application.workSections}" var="wSection">
+	<fieldset>
+		<legend>
+			<spring:message code="application.workSection"></spring:message>
+		</legend>
+		<jstl:forEach items="${application.workSections}" var="wSection">
+			<div class="box">
 				<acme:display code="workSection.companyName"
 					value="${wSection.companyName}"></acme:display>
 				<acme:display code="workSection.position"
@@ -197,10 +210,12 @@
 					<jstl:out value="${endDate}"></jstl:out>
 					<br>
 				</jstl:if>
-
-			</jstl:forEach>
-		</fieldset>
-	</jstl:if>
+			</div>
+		</jstl:forEach>
+		<acme:button name="new"
+			url="workSection/immigrant/create.do?applicationId=${application.id}"
+			code="add.new.button" />
+	</fieldset>
 </fieldset>
 
 <jstl:if test="${!empty application.questions}">
@@ -210,21 +225,22 @@
 		</legend>
 
 		<jstl:forEach items="${application.questions}" var="q">
-			<acme:display code="question.statement" value="${q.statement}"></acme:display>
-			<spring:message code="question.madeMoment"></spring:message>
-			<fmt:formatDate value="${q.madeMoment}" pattern="${pattern}"
-				var="qMadeMoment" />
-			<jstl:out value="${qMadeMoment}"></jstl:out>
-			<br>
-			<jstl:if test="${q.answer != null}">
-				<acme:display code="question.answer" value="${q.answer}"></acme:display>
-				<spring:message code="question.answerMoment"></spring:message>
-				<fmt:formatDate value="${q.answerMoment}" pattern="${pattern}"
-					var="qAnswerMoment" />
-				<jstl:out value="${qAnswerMoment}"></jstl:out>
+			<div class="box">
+				<acme:display code="question.statement" value="${q.statement}"></acme:display>
+				<spring:message code="question.madeMoment"></spring:message>
+				<fmt:formatDate value="${q.madeMoment}" pattern="${patternHour}"
+					var="qMadeMoment" />
+				<jstl:out value="${qMadeMoment}"></jstl:out>
 				<br>
-			</jstl:if>
-
+				<jstl:if test="${q.answer != null}">
+					<acme:display code="question.answer" value="${q.answer}"></acme:display>
+					<spring:message code="question.answerMoment"></spring:message>
+					<fmt:formatDate value="${q.answerMoment}" pattern="${patternHour}"
+						var="qAnswerMoment" />
+					<jstl:out value="${qAnswerMoment}"></jstl:out>
+					<br>
+				</jstl:if>
+			</div>
 		</jstl:forEach>
 	</fieldset>
 </jstl:if>
@@ -236,18 +252,20 @@
 		</legend>
 		<jstl:forEach items="${application.linkedApplications}"
 			var="linkedApp">
-			<security:authorize access="hasRole('IMMIGRANT')">
-				<jstl:set var="role" value="immigrant"></jstl:set>
-			</security:authorize>
-			<security:authorize access="hasRole('OFFICER')">
-				<jstl:set var="role" value="officer"></jstl:set>
-			</security:authorize>
-			<security:authorize access="hasRole('INVESTIGATOR')">
-				<jstl:set var="role" value="investigator"></jstl:set>
-			</security:authorize>
-			<acme:displayLink
-				link="application/${role}/display.do?applicationId=${linkedApp.id}"
-				value="${linkedApp.ticker}" />
+			<div class="box">
+				<security:authorize access="hasRole('IMMIGRANT')">
+					<jstl:set var="role" value="immigrant"></jstl:set>
+				</security:authorize>
+				<security:authorize access="hasRole('OFFICER')">
+					<jstl:set var="role" value="officer"></jstl:set>
+				</security:authorize>
+				<security:authorize access="hasRole('INVESTIGATOR')">
+					<jstl:set var="role" value="investigator"></jstl:set>
+				</security:authorize>
+				<acme:displayLink
+					link="application/${role}/display.do?applicationId=${linkedApp.id}"
+					value="${linkedApp.ticker}" />
+			</div>
 		</jstl:forEach>
 	</fieldset>
 </jstl:if>

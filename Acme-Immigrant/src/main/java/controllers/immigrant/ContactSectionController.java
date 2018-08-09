@@ -59,7 +59,7 @@ public class ContactSectionController extends AbstractController {
 	// Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final ContactSection contactSection,
-			@RequestParam final int applicationId, final BindingResult br) {
+			final BindingResult br, @RequestParam final int applicationId) {
 		ModelAndView result;
 		if (br.hasErrors())
 			result = this.createEditModelAndView(contactSection, applicationId);

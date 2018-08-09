@@ -11,6 +11,18 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<script type="text/javascript">
+	$(function() {
+		a = $('#datepicker');
+		a.datepicker();
+		$('#datepicker').on("change", function() {
+			a.datepicker("option", "dateFormat", "dd/mm/yy");
+		});
+
+	});
+</script>
+
+
 <form:form
 	action="educationSection/immigrant/edit.do?applicationId=${applicationId}"
 	method="post" modelAttribute="educationSection">
@@ -18,7 +30,10 @@
 	<form:hidden path="version" />
 	<acme:textbox code="educationSection.degreeName" path="degreeName" />
 	<acme:textbox code="educationSection.institution" path="institution" />
-	<acme:textbox code="educationSection.awarded" path="awarded" />
+	<spring:message code="educationSection.awarded" />
+	<input type="text" id="datepicker" size="30" name="awarded">
+	<form:errors path="awarded" cssClass="error" />
+	<br>
 	<spring:message code="educationSection.level" />
 	<form:select path="level">
 		<form:option value="NONE">

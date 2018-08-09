@@ -34,16 +34,15 @@ public class WelcomeController extends AbstractController {
 		super();
 	}
 
-
-	//Services ----------------------------------------------------------------
+	// Services ----------------------------------------------------------------
 	@Autowired
-	private ActorService	actorService;
+	private ActorService actorService;
 
-
-	// Index ------------------------------------------------------------------		
+	// Index ------------------------------------------------------------------
 
 	@RequestMapping(value = "/index")
-	public ModelAndView index(@RequestParam(required = false, defaultValue = "Anon") String name) {
+	public ModelAndView index(
+			@RequestParam(required = false, defaultValue = "Anon") String name) {
 		ModelAndView result;
 		SimpleDateFormat formatter;
 		String moment;
@@ -67,4 +66,29 @@ public class WelcomeController extends AbstractController {
 
 		return result;
 	}
+
+	public static ModelAndView indice(final String message, final Actor a) {
+		ModelAndView result;
+		String name = "user";
+		SimpleDateFormat formatter;
+		String moment;
+
+		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		moment = formatter.format(new Date());
+
+		result = new ModelAndView("welcome/index");
+
+		try {
+			name = a.getName();
+
+		} catch (final IllegalArgumentException i) {
+		}
+
+		result.addObject("name", name);
+		result.addObject("moment", moment);
+		result.addObject("message", message);
+
+		return result;
+	}
+
 }

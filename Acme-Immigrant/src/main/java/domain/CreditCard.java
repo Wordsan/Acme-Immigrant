@@ -1,4 +1,3 @@
-
 package domain;
 
 import javax.persistence.Access;
@@ -15,13 +14,12 @@ import org.hibernate.validator.constraints.Range;
 @Access(AccessType.PROPERTY)
 public class CreditCard {
 
-	private String	holderName;
-	private String	brandName;
-	private String	number;
-	private String	expirationMonth;
-	private String	expirationYear;
-	private int		CVVCode;
-
+	private String holderName;
+	private String brandName;
+	private String number;
+	private String expirationMonth;
+	private String expirationYear;
+	private int CVVCode;
 
 	// ------------Getters y Setters con Constraints----------------
 
@@ -46,6 +44,7 @@ public class CreditCard {
 	}
 
 	@CreditCardNumber
+	@NotBlank
 	public String getNumber() {
 		return this.number;
 	}

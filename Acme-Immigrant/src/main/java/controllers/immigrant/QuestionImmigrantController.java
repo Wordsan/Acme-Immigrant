@@ -14,6 +14,7 @@ import security.LoginService;
 import services.ImmigrantService;
 import services.QuestionService;
 import controllers.AbstractController;
+import controllers.WelcomeController;
 import domain.Question;
 
 @Controller
@@ -40,8 +41,9 @@ public class QuestionImmigrantController extends AbstractController {
 
 		question = this.questionService.findOne(questionId);
 		if (!question.getImmigrant().equals(LoginService.getPrincipal())) {
-			result = new ModelAndView("redirect:/welcome/index.do");
-			result.addObject("message", "forbbiden.access.error");
+			result = WelcomeController.indice("forbbiden.access.error",
+					this.immigrantService.getActorByUA(LoginService
+							.getPrincipal()));
 			return result;
 		}
 		result = new ModelAndView("question/display");
@@ -59,8 +61,9 @@ public class QuestionImmigrantController extends AbstractController {
 		if (!this.immigrantService.getActorByUA(LoginService.getPrincipal())
 				.getQuestions()
 				.contains(this.questionService.findOne(questionId))) {
-			result = new ModelAndView("redirect:/welcome/index.do");
-			result.addObject("message", "forbbiden.access.error");
+			result = WelcomeController.indice("forbbiden.access.error",
+					this.immigrantService.getActorByUA(LoginService
+							.getPrincipal()));
 			return result;
 		}
 		try {

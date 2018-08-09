@@ -57,9 +57,9 @@ public class WorkSectionController extends AbstractController {
 	}
 
 	// Save
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public ModelAndView save(@Valid final WorkSection workSection,
-			@RequestParam final int applicationId, final BindingResult br) {
+			final BindingResult br, @RequestParam final int applicationId) {
 		ModelAndView result;
 		if (br.hasErrors())
 			result = this.createEditModelAndView(workSection, applicationId);

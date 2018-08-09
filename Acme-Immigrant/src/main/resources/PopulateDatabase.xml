@@ -222,55 +222,55 @@
 	<bean id="personalSection1" class="domain.PersonalSection">
 		<property name="fullNames" value="Aitor Luengo Lopez"></property>
 		<property name="birthPlace" value="España"></property>
-		<property name="birthDate" value="July 1, 1972 08:00"></property>
+		<property name="birthDate" value="July 1, 1972"></property>
 		<property name="picture" value="https://facebook.com/ab589def"></property>
 	</bean>
 
 	<bean id="personalSection2" class="domain.PersonalSection">
 		<property name="fullNames" value="Zacarias Marrousef"></property>
 		<property name="birthPlace" value="Marruecos"></property>
-		<property name="birthDate" value="July 1, 1990 08:00"></property>
+		<property name="birthDate" value="July 1, 1990"></property>
 		<property name="picture" value="https://facebook.com/ab589def"></property>
 	</bean>
 
 	<bean id="personalSection3" class="domain.PersonalSection">
 		<property name="fullNames" value="Dolores Carrero Mendez"></property>
 		<property name="birthPlace" value="España"></property>
-		<property name="birthDate" value="July 1, 1964 08:00"></property>
+		<property name="birthDate" value="July 1, 1964"></property>
 		<property name="picture" value="https://facebook.com/ab589def"></property>
 	</bean>
 
 	<bean id="personalSection4" class="domain.PersonalSection">
 		<property name="fullNames" value="Patxi Lopez Gurrumendi"></property>
 		<property name="birthPlace" value="España"></property>
-		<property name="birthDate" value="July 1, 1984 08:00"></property>
+		<property name="birthDate" value="July 1, 1984"></property>
 		<property name="picture" value="https://facebook.com/ab589def"></property>
 	</bean>
 
 	<bean id="workSection1" class="domain.WorkSection">
 		<property name="companyName" value="Mc Donals"></property>
 		<property name="position" value="Cocinero"></property>
-		<property name="startDate" value="July 1, 2012 08:00"></property>
-		<property name="endDate" value="June 1, 2016 08:00"></property>
+		<property name="startDate" value="July 1, 2012"></property>
+		<property name="endDate" value="June 1, 2016"></property>
 	</bean>
 
 	<bean id="workSection2" class="domain.WorkSection">
 		<property name="companyName" value="Philips"></property>
 		<property name="position" value="Montador"></property>
-		<property name="startDate" value="September 1, 2015 08:00"></property>
+		<property name="startDate" value="September 1, 2015"></property>
 	</bean>
 
 	<bean id="educationSection1" class="domain.EducationSection">
 		<property name="degreeName" value="Grado de Biologia"></property>
 		<property name="institution" value="Universidad de Sevilla"></property>
-		<property name="awarded" value="September 1, 2015 08:00"></property>
+		<property name="awarded" value="September 1, 2015"></property>
 		<property name="level" value="UNIVERSITYDEGREE"></property>
 	</bean>
 
 	<bean id="educationSection2" class="domain.EducationSection">
 		<property name="degreeName" value="Bachillerato de Ciencias y Tecnologias"></property>
 		<property name="institution" value="IES Lope de Vega"></property>
-		<property name="awarded" value="July 1, 2008 08:00"></property>
+		<property name="awarded" value="July 1, 2008"></property>
 		<property name="level" value="BACHELOR"></property>
 	</bean>
 
@@ -1332,11 +1332,12 @@
 			<ref bean="immigrant2"></ref>
 		</property>
 	</bean>
-	
+
 	<!-- ConfigurationSystem -->
 	<bean id="configurationSystem1" class="domain.ConfigurationSystem">
 		<property name="systemName" value="Acme Immigrant"></property>
-		<property name="banner" value="https://www.delengua.es/sites/default/files/2016-10/visado.jpg"></property>
+		<property name="banner"
+			value="https://www.delengua.es/sites/default/files/2016-10/visado.jpg"></property>
 		<property name="welcomeMessageES" value="Hola! Bienvenido a Acme Immigrant"></property>
 		<property name="welcomeMessageEN" value="Hi! Welcome to Acme Immigrant"></property>
 	</bean>

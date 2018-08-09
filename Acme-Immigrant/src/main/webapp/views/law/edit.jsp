@@ -32,8 +32,9 @@
 	<acme:textbox code="law.title" path="title" />
 
 	<acme:textarea code="law.text" path="text" />
-	
-	<acme:select items="${countries}" itemLabel="name" code="law.country" path="country"/>
+
+	<acme:select items="${countries}" itemLabel="name" code="law.country"
+		path="country" />
 
 	<acme:submit name="save" code="save.button" />
 	<acme:cancel url="law/admin/list.do" code="cancel.button" />
@@ -42,5 +43,7 @@
 			onclick="$(form).attr('action','law/admin/delete.do');askSubmission('<spring:message code='confirm.msg'/>',$(form))">
 			<spring:message code="delete.button" />
 		</button>
+		<acme:button name="abrogate"
+			url="law/admin/abrogate.do?lawId=${law.id}" code="abrogate.button" />
 	</jstl:if>
 </form:form>

@@ -107,6 +107,20 @@ public class LawAdminController extends AbstractController {
 		return result;
 	}
 
+	// Abrogate
+	@RequestMapping(value = "/abrogate", method = RequestMethod.GET)
+	public ModelAndView abrogate(@RequestParam final int lawId) {
+		ModelAndView result;
+
+		final int code = this.lawService.abrogate(lawId);
+		if (code == 0)
+			result = this.list();
+		else
+			result = this.createEditModelAndView(
+					this.lawService.findOne(lawId), "law.commit.error");
+		return result;
+	}
+
 	// List
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {

@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 import repositories.LawRepository;
 import domain.Law;
 import domain.Requirement;
+import domain.Visa;
 
 @Service
 @Transactional
@@ -23,6 +24,9 @@ public class LawService {
 
 	@Autowired
 	private RequirementService requirementService;
+
+	@Autowired
+	private VisaService visaService;
 
 	// Constructors
 	public LawService() {
@@ -48,7 +52,8 @@ public class LawService {
 	public Law save(final Law law) {
 		Law f;
 		Assert.notNull(law);
-		law.setCreatedAt(new Date(System.currentTimeMillis() - 1000));
+		if (law.getId() == 0)
+			law.setCreatedAt(new Date(System.currentTimeMillis() - 1000));
 		f = this.lawRepository.save(law);
 		return f;
 	}
@@ -69,6 +74,26 @@ public class LawService {
 		final Law l = this.lawRepository.findOne(law.getId());
 		if (l != null)
 			this.lawRepository.delete(l);
+	}
+
+	public int abrogate(final int lawId) {
+		try {
+			final Law law = this.findOne(lawId);
+			law.setAbrogatedAt(new Date(System.currentTimeMillis()));
+			this.save(law);
+			final Collection<Requirement> reqs = law.getRequirements();
+			for (final Requirement r : reqs) {
+				r.setAbrogated(true);
+				this.requirementService.save(r);
+				for (final Visa v : r.getVisas()) {
+					v.setAbrogated(true);
+					this.visaService.save(v);
+				}
+			}
+		} catch (final Exception e) {
+			return 1;
+		}
+		return 0;
 	}
 
 }

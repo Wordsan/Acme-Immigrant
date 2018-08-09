@@ -71,12 +71,6 @@
 				value="${disp}" />
 		</display:column>
 	</jstl:if>
-	<display:column>
-		<spring:message code="display.button" var="disp"></spring:message>
-		<acme:displayLink
-			link="application/${role}/display.do?applicationId=${app.id}"
-			value="${disp}" />
-	</display:column>
 
 	<security:authorize access="hasRole('OFFICER')">
 		<jstl:if test="${app.officer == null}">

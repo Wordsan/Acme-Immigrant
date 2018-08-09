@@ -12,18 +12,42 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+<script type="text/javascript">
+	$(function() {
+		a = $('#datepicker');
+		a.datepicker();
+		$('#datepicker').on("change", function() {
+			a.datepicker("option", "dateFormat", "dd/mm/yy");
+		});
+
+	});
+</script>
+
 <form:form action="application/immigrant/edit.do" method="post"
 	modelAttribute="apps">
 	<form:hidden path="visaId" />
 	<acme:select items="${creditCards}" itemLabel="number"
 		code="application.creditCard" path="creditCard" identificador="number" />
-	<acme:textarea code="personalSection.fullNames" path="fullNames" />
-	<acme:textbox code="personalSection.birthPlace" path="birthPlace" />
-	<acme:textbox code="personalSection.birthDate" path="birthDate" />
-	<acme:textarea code="personalSection.picture" path="picture" />
-	<acme:textbox code="socialSection.nickname" path="nickname" />
-	<acme:textbox code="socialSection.socialNetwork" path="socialNetwork" />
-	<acme:textbox code="socialSection.linkProfile" path="linkProfile" />
+	<fieldset>
+		<legend>
+			<spring:message code="application.personalSection" />
+		</legend>
+		<acme:textarea code="personalSection.fullNames" path="fullNames" />
+		<acme:textbox code="personalSection.birthPlace" path="birthPlace" />
+		<spring:message code="personalSection.birthDate" />
+		<form:input path="birthDate" id="datepicker" />
+		<form:errors path="birthDate" cssClass="error" />
+		<br>
+		<acme:textarea code="personalSection.picture" path="picture" />
+	</fieldset>
+	<fieldset>
+		<legend>
+			<spring:message code="application.socialSection" />
+		</legend>
+		<acme:textbox code="socialSection.nickname" path="nickname" />
+		<acme:textbox code="socialSection.socialNetwork" path="socialNetwork" />
+		<acme:textbox code="socialSection.linkProfile" path="linkProfile" />
+	</fieldset>
 	<acme:cancel url="visa/search.do" code="cancel.button" />
 	<acme:submit name="save" code="save.button" />
 </form:form>

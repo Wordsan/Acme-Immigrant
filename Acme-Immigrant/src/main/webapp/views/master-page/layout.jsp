@@ -30,26 +30,41 @@
 <script type="text/javascript" src="scripts/jquery.js"></script>
 <script type="text/javascript" src="scripts/jquery-ui.js"></script>
 <script type="text/javascript" src="scripts/jmenu.js"></script>
+<script type="text/javascript" src="scripts/common.js"></script>
 
 <link rel="stylesheet" href="styles/common.css" type="text/css">
 <link rel="stylesheet" href="styles/jmenu.css" media="screen"
 	type="text/css" />
 <link rel="stylesheet" href="styles/displaytag.css" type="text/css">
+<link rel="stylesheet" href="styles/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="styles/jquery-ui.structure.min.css"
+	type="text/css">
 
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 
 <script type="text/javascript" src="scripts/cookie.js">
-
+	
 </script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		if (window.location.href.search("message") != -1) {
+			b = window.location.href.split("&")[window.location.href.split("&").length - 1].split("=")[1];
+			a = $('<span class="message" id="mensaje"></span>');
+			msg = $("<spring:message/>");
+			msg.attr("code", b);
+			console.log(a);
+			console.log(msg);
+			a.append(msg);
+			$("div [class=rel100]").prepend(a);
+		}
 		$("#jMenu").jMenu();
-    var options = {
+		var options = {
 			message : document.getElementById("cookiesMsg").textContent,
 			moreinfo : "views/misc/cookies.jsp"
 		};
 		var cb = new Cookiebanner(options);
 		cb.run();
+
 	});
 
 	function askSubmission(msg, form) {
@@ -84,10 +99,12 @@
 			<br />
 			<span class="message"><spring:message code="${message}" /></span>
 		</jstl:if>
-    <jstl:if test="${messageCode != null}">
+		<jstl:if test="${messageCode != null}">
 			<br />
 			<span class="message"><spring:message code="${messageCode}" /></span>
 		</jstl:if>
+		<span class="message" id="errorMsg"><spring:message
+				code="forbbiden.access.error" /></span>
 	</div>
 	<div>
 		<tiles:insertAttribute name="footer" />

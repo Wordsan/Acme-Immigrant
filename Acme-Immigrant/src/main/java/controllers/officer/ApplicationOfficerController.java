@@ -14,6 +14,7 @@ import security.LoginService;
 import services.ApplicationService;
 import services.OfficerService;
 import controllers.AbstractController;
+import controllers.WelcomeController;
 import domain.Application;
 
 @Controller
@@ -40,13 +41,14 @@ public class ApplicationOfficerController extends AbstractController {
 
 		a = this.applicationService.findOne(applicationId);
 		if (a.getOfficer() == null
-			|| !a.getOfficer().equals(
+				|| !a.getOfficer().equals(
+						this.officerService.getActorByUA(LoginService
+								.getPrincipal()))) {
+			result = WelcomeController.indice("forbbiden.access.error",
 					this.officerService.getActorByUA(LoginService
-							.getPrincipal()))) {
-		result = new ModelAndView("redirect:/welcome/index.do");
-		result.addObject("message", "forbbiden.access.error");
-		return result;
-	}
+							.getPrincipal()));
+			return result;
+		}
 		result = new ModelAndView("application/display");
 		result.addObject("application", a);
 
@@ -61,8 +63,9 @@ public class ApplicationOfficerController extends AbstractController {
 		if (!this.officerService.getActorByUA(LoginService.getPrincipal())
 				.getApplications()
 				.contains(this.applicationService.findOne(applicationId))) {
-			result = new ModelAndView("redirect:/welcome/index.do");
-			result.addObject("message", "forbbiden.access.error");
+			result = WelcomeController.indice("forbbiden.access.error",
+					this.officerService.getActorByUA(LoginService
+							.getPrincipal()));
 			return result;
 		}
 		final int code = this.applicationService.assign(applicationId);

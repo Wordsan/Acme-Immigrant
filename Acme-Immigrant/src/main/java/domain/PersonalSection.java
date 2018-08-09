@@ -41,8 +41,8 @@ public class PersonalSection extends DomainEntity {
 		this.birthPlace = birthPlace;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	@NotNull
 	@Past
 	public Date getBirthDate() {

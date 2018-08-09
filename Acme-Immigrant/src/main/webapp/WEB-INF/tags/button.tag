@@ -21,8 +21,10 @@
 
 
 <%-- Definition --%>
-<a href="${url}">
-	<button type="button" name="${name}">
-		<spring:message code="${code}" />
-	</button>
-</a>
+<div class="clear">
+	<a href="${url}">
+		<button type="button" name="${name}">
+			<spring:message code="${code}" />
+		</button>
+	</a>
+</div>

@@ -57,7 +57,7 @@
 
 		<security:authorize access="hasRole('IMMIGRANT')">
 		<li><a class="fNiv"><spring:message
-						code="master.page.immigrant.creditcard" /></a>
+						code="master.page.immigrant" /></a>
 				<ul>
 					<li class="arrow"></li>
 						<li><a href="creditCard/immigrant/create.do"><spring:message

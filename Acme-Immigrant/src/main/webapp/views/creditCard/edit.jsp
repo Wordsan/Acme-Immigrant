@@ -22,21 +22,26 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <security:authorize access="hasRole('IMMIGRANT')">
-<form:form action="creditCard/immigrant/edit.do" method="post"
-	modelAttribute="creditCard">
-	<form:hidden path="holderName" />
+	<form:form action="creditCard/immigrant/edit.do" method="post"
+		modelAttribute="creditCard">
+		<form:hidden path="holderName" />
 
-	<acme:textbox code="cc.brandName" path="brandName" placeholder="VISA|MASTERCARD|DINNERS|AMEX" />
+		<form:label path="brandName">
+			<spring:message code="cc.brandName" />
+		</form:label>
+		<form:input path="brandName"
+			placeholder="VISA|MASTERCARD|DINNERS|AMEX" style="width: 20%;" />
+		<form:errors path="brandName" cssClass="error" />
 
-	<acme:textbox code="cc.number" path="number" />
+		<acme:textbox code="cc.number" path="number" />
 
-	<acme:textbox code="cc.expirationMonth" path="expirationMonth" />
+		<acme:textbox code="cc.expirationMonth" path="expirationMonth" />
 
-	<acme:textbox code="cc.expirationYear" path="expirationYear" />
-	
-	<acme:textbox code="cc.CVVCode" path="CVVCode"/>
+		<acme:textbox code="cc.expirationYear" path="expirationYear" />
 
-	<acme:submit name="save" code="save.button" />
-	<acme:cancel url="/welcome/index.do" code="cancel.button" />
-</form:form>
+		<acme:textbox code="cc.CVVCode" path="CVVCode" />
+
+		<acme:submit name="save" code="save.button" />
+		<acme:cancel url="/welcome/index.do" code="cancel.button" />
+	</form:form>
 </security:authorize>

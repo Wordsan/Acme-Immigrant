@@ -22,6 +22,7 @@ import services.ImmigrantService;
 import services.PersonalSectionService;
 import services.SocialSectionService;
 import controllers.AbstractController;
+import controllers.WelcomeController;
 import domain.Application;
 import domain.CreditCard;
 import domain.PersonalSection;
@@ -59,8 +60,9 @@ public class ApplicationImmigrantController extends AbstractController {
 		a = this.applicationService.findOne(applicationId);
 		if (!a.getImmigrant().getUserAccount()
 				.equals(LoginService.getPrincipal())) {
-			result = new ModelAndView("redirect:/welcome/index.do");
-			result.addObject("message", "forbbiden.access.error");
+			result = WelcomeController.indice("forbbiden.access.error",
+					this.immigrantService.getActorByUA(LoginService
+							.getPrincipal()));
 			return result;
 		}
 		result = new ModelAndView("application/display");
@@ -80,8 +82,9 @@ public class ApplicationImmigrantController extends AbstractController {
 				LoginService.getPrincipal()).getApplications();
 		for (final Application a : as)
 			if (a.getVisa().getId() == visaId) {
-				result = new ModelAndView("redirect:/welcome/index.do");
-				result.addObject("message", "resource.already.exists");
+				result = WelcomeController.indice("resource.already.exists",
+						this.immigrantService.getActorByUA(LoginService
+								.getPrincipal()));
 				return result;
 			}
 		result = this.createEditModelAndView(apps);
@@ -114,8 +117,9 @@ public class ApplicationImmigrantController extends AbstractController {
 		if (!this.immigrantService.getActorByUA(LoginService.getPrincipal())
 				.getApplications()
 				.contains(this.applicationService.findOne(applicationId))) {
-			result = new ModelAndView("redirect:/welcome/index.do");
-			result.addObject("message", "forbbiden.access.error");
+			result = WelcomeController.indice("forbbiden.access.error",
+					this.immigrantService.getActorByUA(LoginService
+							.getPrincipal()));
 			return result;
 		}
 		if (this.applicationService.close(applicationId))
@@ -158,10 +162,11 @@ public class ApplicationImmigrantController extends AbstractController {
 						if (!this.immigrantService
 								.getActorByUA(LoginService.getPrincipal())
 								.getApplications().contains(a)) {
-							result = new ModelAndView(
-									"redirect:/welcome/index.do");
-							result.addObject("message",
-									"forbbiden.access.error");
+							result = WelcomeController.indice(
+									"forbbiden.access.error",
+									this.immigrantService
+											.getActorByUA(LoginService
+													.getPrincipal()));
 							return result;
 						}
 						a.setStatus("OPENED");
@@ -176,16 +181,22 @@ public class ApplicationImmigrantController extends AbstractController {
 					}
 					return result;
 				}
-		if (br.hasErrors())
-			result = this.createEditModelAndView(apps);
-		else
+		if (br.hasErrors()) {
+			final Collection<CreditCard> creditCardsSource = this.immigrantService
+					.getActorByUA(LoginService.getPrincipal()).getCreditCards();
+			result = new ModelAndView("application/edit");
+			result.addObject("apps", apps);
+			result.addObject("creditCards", creditCardsSource);
+			result.addObject("formURI", "application/immigrant/edit.do");
+		} else
 			try {
 				final Application a = this.reconstruct(apps);
 				if (!this.immigrantService
 						.getActorByUA(LoginService.getPrincipal())
 						.getApplications().contains(a)) {
-					result = new ModelAndView("redirect:/welcome/index.do");
-					result.addObject("message", "forbbiden.access.error");
+					result = WelcomeController.indice("forbbiden.access.error",
+							this.immigrantService.getActorByUA(LoginService
+									.getPrincipal()));
 					return result;
 				}
 				this.applicationService.save(a);

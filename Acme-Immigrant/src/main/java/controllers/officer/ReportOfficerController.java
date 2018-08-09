@@ -14,6 +14,7 @@ import security.LoginService;
 import services.OfficerService;
 import services.ReportService;
 import controllers.AbstractController;
+import controllers.WelcomeController;
 import domain.Report;
 
 @Controller
@@ -41,8 +42,9 @@ public class ReportOfficerController extends AbstractController {
 		a = this.reportService.findOne(reportId);
 		if (!this.officerService.getActorByUA(LoginService.getPrincipal())
 				.equals(a.getOfficer())) {
-			result = new ModelAndView("redirect:/welcome/index.do");
-			result.addObject("message", "forbbiden.access.error");
+			result = WelcomeController.indice("forbbiden.access.error",
+					this.officerService.getActorByUA(LoginService
+							.getPrincipal()));
 			return result;
 		}
 		result = new ModelAndView("report/display");
