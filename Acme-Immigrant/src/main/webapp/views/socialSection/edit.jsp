@@ -18,7 +18,8 @@
 	<form:hidden path="version" />
 	<acme:textbox code="socialSection.nickname" path="nickname" />
 	<acme:textbox code="socialSection.socialNetwork" path="socialNetwork" />
-	<acme:textbox code="socialSection.linkProfile" path="linkProfile" />
+	<acme:textbox code="socialSection.linkProfile" path="linkProfile"
+		placeholder="https://facebook.es/JohnDoe" />
 	<acme:cancel
 		url="application/immigrant/display.do?applicationId=${applicationId}"
 		code="cancel.button" />

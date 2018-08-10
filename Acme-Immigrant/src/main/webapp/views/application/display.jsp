@@ -20,6 +20,14 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+<script type="text/javascript">
+	$(document).ready(function() {
+		a = $("#creditCard");
+		b = a.text().trim();
+		c = Array(b.length - 3).join("*");
+		a.text(c + b.substring(b.length - 4));
+	})
+</script>
 <security:authentication property="principal.username" var="username" />
 
 <acme:display code="application.ticker" value="${application.ticker}"></acme:display>
@@ -276,6 +284,9 @@
 	<fieldset>
 		<acme:button name="close" code="close.button"
 			url="application/immigrant/close.do?applicationId=${application.id}" />
+		<acme:button name="edit" code="edit.button"
+			url="application/immigrant/edit.do?applicationId=${application.id}" />
+		<br>
 		<form action="application/immigrant/link.do" method="post">
 			<input type="hidden" name="applicationId" value="${application.id}" />
 			<label><spring:message code="application.ticker"></spring:message></label>

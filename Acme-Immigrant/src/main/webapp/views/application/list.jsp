@@ -38,7 +38,7 @@
 		<select name="status">
 			<option value="">---</option>
 			<security:authorize access="hasRole('IMMIGRANT')">
-				<option value="OPENED">
+				<option selected="selected" value="OPENED">
 					<spring:message code="application.status.opened" />
 				</option>
 			</security:authorize>
@@ -61,7 +61,7 @@
 <display:table name="applications" id="app" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
-  <security:authentication property="principal.username" var="username" />
+	<security:authentication property="principal.username" var="username" />
 	<jstl:if
 		test="${app.officer.userAccount.username == username or app.immigrant.userAccount.username == username or app.immigrant.investigator.userAccount.username == username}">
 		<display:column>

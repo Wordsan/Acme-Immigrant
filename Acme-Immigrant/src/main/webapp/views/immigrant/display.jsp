@@ -62,7 +62,7 @@
 					</jstl:forEach>
 				</select>
 				<button type="submit">
-					<spring:message code="application.status.filter" />
+					<spring:message code="investigator.assign" />
 				</button>
 			</form>
 		</fieldset>

@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import services.AdministratorService;
 import services.CountryService;
 import controllers.AbstractController;
+import controllers.WelcomeController;
 import domain.Country;
 
 @Controller
@@ -24,6 +27,9 @@ public class CountryAdminController extends AbstractController {
 	// Services
 	@Autowired
 	CountryService countryService;
+
+	@Autowired
+	AdministratorService administratorService;
 
 	// Constructors (Debugueo)
 	public CountryAdminController() {
@@ -36,7 +42,16 @@ public class CountryAdminController extends AbstractController {
 		ModelAndView result;
 		final Country a;
 
-		a = this.countryService.findOne(countryId);
+		try {
+			a = this.countryService.findOne(countryId);
+			if (a == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found",
+					this.administratorService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
 		result = new ModelAndView("country/display");
 		result.addObject("country", a);
 
@@ -63,7 +78,16 @@ public class CountryAdminController extends AbstractController {
 		ModelAndView result;
 		Country a;
 
-		a = this.countryService.findOne(countryId);
+		try {
+			a = this.countryService.findOne(countryId);
+			if (a == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found",
+					this.administratorService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
 		result = this.createEditModelAndView(a);
 
 		return result;

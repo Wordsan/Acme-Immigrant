@@ -39,8 +39,18 @@ public class QuestionImmigrantController extends AbstractController {
 		ModelAndView result;
 		final Question question;
 
-		question = this.questionService.findOne(questionId);
-		if (!question.getImmigrant().equals(LoginService.getPrincipal())) {
+		try {
+			question = this.questionService.findOne(questionId);
+			if (question == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found",
+					this.immigrantService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
+		if (!question.getImmigrant().getUserAccount()
+				.equals(LoginService.getPrincipal())) {
 			result = WelcomeController.indice("forbbiden.access.error",
 					this.immigrantService.getActorByUA(LoginService
 							.getPrincipal()));
@@ -66,12 +76,18 @@ public class QuestionImmigrantController extends AbstractController {
 							.getPrincipal()));
 			return result;
 		}
+		if (answer == "") {
+			result = this.display(questionId);
+			result.addObject("message",
+					"org.hibernate.validator.constraints.NotEmpty.message");
+			return result;
+		}
 		try {
 			this.questionService.answer(questionId, answer);
 			result = this.display(questionId);
 		} catch (final Throwable ops) {
 			result = this.display(questionId);
-			result.addObject("messageCode", "question.commit.error");
+			result.addObject("message", "question.commit.error");
 		}
 
 		return result;

@@ -57,7 +57,16 @@ public class ApplicationImmigrantController extends AbstractController {
 		ModelAndView result;
 		final Application a;
 
-		a = this.applicationService.findOne(applicationId);
+		try {
+			a = this.applicationService.findOne(applicationId);
+			if (a == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found",
+					this.immigrantService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
 		if (!a.getImmigrant().getUserAccount()
 				.equals(LoginService.getPrincipal())) {
 			result = WelcomeController.indice("forbbiden.access.error",
@@ -93,21 +102,57 @@ public class ApplicationImmigrantController extends AbstractController {
 	}
 
 	// Edit
-	// @RequestMapping(value = "/edit", method = RequestMethod.GET)
-	// public ModelAndView edit(@RequestParam final int applicationId) {
-	//
-	// ModelAndView result;
-	// Application a;
-	//
-	// a = this.applicationService.findOne(applicationId);
-	// if (a.getClosedMoment() == null) {
-	// result = new ModelAndView("application/list");
-	// result.addObject("message", "application.notclosed");
-	// }
-	// result = this.createEditModelAndView(this.deconstruct(a));
-	//
-	// return result;
-	// }
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int applicationId) {
+
+		ModelAndView result;
+		Application a;
+
+		try {
+			a = this.applicationService.findOne(applicationId);
+			if (a == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found",
+					this.immigrantService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
+		if (!this.immigrantService.getActorByUA(LoginService.getPrincipal())
+				.getApplications().contains(a)) {
+			result = WelcomeController.indice("forbbiden.access.error",
+					this.immigrantService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
+		if (a.getClosedMoment() == null) {
+			result = this.list(null);
+			result.addObject("message", "application.notclosed");
+		}
+		result = this.createEditModelAndView(this.deconstruct(a));
+
+		return result;
+	}
+
+	private ApplicationSections deconstruct(final Application a) {
+		final ApplicationSections apps = new ApplicationSections();
+		final PersonalSection ps = a.getPersonalSection();
+		final List<SocialSection> list = (List<SocialSection>) a
+				.getSocialSections();
+		final SocialSection ss = list.get(0);
+		apps.setId(a.getId());
+		apps.setVisaId(a.getVisa().getId());
+		apps.setSocialSectionId(ss.getId());
+		apps.setCreditCard(a.getCreditCard());
+		apps.setFullNames(ps.getFullNames());
+		apps.setBirthPlace(ps.getBirthPlace());
+		apps.setBirthDate(ps.getBirthDate());
+		apps.setPicture(ps.getPicture());
+		apps.setNickname(ss.getNickname());
+		apps.setSocialNetwork(ss.getSocialNetwork());
+		apps.setLinkProfile(ss.getLinkProfile());
+		return apps;
+	}
 
 	// Close
 	@RequestMapping(value = "/close", method = RequestMethod.GET)
@@ -159,9 +204,11 @@ public class ApplicationImmigrantController extends AbstractController {
 									"creditCard.expiration.error");
 						apps.setCreditCard(cc);
 						final Application a = this.reconstruct(apps);
-						if (!this.immigrantService
-								.getActorByUA(LoginService.getPrincipal())
-								.getApplications().contains(a)) {
+						if (a.getId() != 0
+								&& !this.immigrantService
+										.getActorByUA(
+												LoginService.getPrincipal())
+										.getApplications().contains(a)) {
 							result = WelcomeController.indice(
 									"forbbiden.access.error",
 									this.immigrantService
@@ -181,19 +228,15 @@ public class ApplicationImmigrantController extends AbstractController {
 					}
 					return result;
 				}
-		if (br.hasErrors()) {
-			final Collection<CreditCard> creditCardsSource = this.immigrantService
-					.getActorByUA(LoginService.getPrincipal()).getCreditCards();
-			result = new ModelAndView("application/edit");
-			result.addObject("apps", apps);
-			result.addObject("creditCards", creditCardsSource);
-			result.addObject("formURI", "application/immigrant/edit.do");
-		} else
+		if (br.hasErrors())
+			result = this.createEditModelAndView(apps);
+		else
 			try {
 				final Application a = this.reconstruct(apps);
-				if (!this.immigrantService
-						.getActorByUA(LoginService.getPrincipal())
-						.getApplications().contains(a)) {
+				if (a.getId() != 0
+						&& !this.immigrantService
+								.getActorByUA(LoginService.getPrincipal())
+								.getApplications().contains(a)) {
 					result = WelcomeController.indice("forbbiden.access.error",
 							this.immigrantService.getActorByUA(LoginService
 									.getPrincipal()));
@@ -279,21 +322,28 @@ public class ApplicationImmigrantController extends AbstractController {
 
 	private Application reconstruct(final ApplicationSections apps) {
 		Application a;
-		if (apps.getId() != 0)
+		PersonalSection p;
+		SocialSection s;
+		if (apps.getId() != 0) {
 			a = this.applicationService.findOne(apps.getId());
-		else {
+			p = a.getPersonalSection();
+			s = this.socialSectionService.findOne(apps.getSocialSectionId());
+		} else {
 			a = this.applicationService.create(apps.getVisaId());
-			final PersonalSection p = this.personalSectionService.create();
-			p.setBirthDate(apps.getBirthDate());
-			p.setBirthPlace(apps.getBirthPlace());
-			p.setFullNames(apps.getFullNames());
-			p.setPicture(apps.getPicture());
-			final PersonalSection ps = this.personalSectionService.save(p);
-			final SocialSection s = this.socialSectionService.create();
-			s.setLinkProfile(apps.getLinkProfile());
-			s.setNickname(apps.getNickname());
-			s.setSocialNetwork(apps.getSocialNetwork());
-			final SocialSection ss = this.socialSectionService.save(s);
+			a.setStatus("OPENED");
+			p = this.personalSectionService.create();
+			s = this.socialSectionService.create();
+		}
+		s.setLinkProfile(apps.getLinkProfile());
+		s.setNickname(apps.getNickname());
+		s.setSocialNetwork(apps.getSocialNetwork());
+		p.setBirthDate(apps.getBirthDate());
+		p.setBirthPlace(apps.getBirthPlace());
+		p.setFullNames(apps.getFullNames());
+		p.setPicture(apps.getPicture());
+		final PersonalSection ps = this.personalSectionService.save(p);
+		final SocialSection ss = this.socialSectionService.save(s);
+		if (apps.getId() == 0) {
 			a.setPersonalSection(ps);
 			a.getSocialSections().add(ss);
 		}

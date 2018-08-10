@@ -20,21 +20,33 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+<script type="text/javascript">
+	$(document).ready(function() {
+		a = $("tr td:nth-child(2)");
+		$(a).each(function(index, element) {
+			b = element.textContent;
+			c = Array(b.length - 3).join("*");
+			element.textContent = c + b.substring(b.length - 4);
+		});
+	});
+</script>
 
 <security:authorize access="hasRole('IMMIGRANT')">
-<display:table name="cards" id="c" requestURI="${requestURI}"
-	pagesize="5" class="displaytag">
+	<display:table name="cards" id="c" requestURI="${requestURI}"
+		pagesize="5" class="displaytag">
 
-	<acme:column code="cc.brandName" property="brandName"/>
-	<acme:column code="cc.number" property="number"/>
-	<acme:column code="cc.expirationMonth" property="expirationMonth"/>
-	<acme:column code="cc.expirationYear" property="expirationYear"/>
-	<acme:column code="cc.CVVCode" property="CVVCode"/>
-	<spring:message code="cc.edit" var="editHeader"></spring:message>
-	<spring:message code="cc.editC" var="editCHeader"></spring:message>
-	<display:column title="${editCHeader}">
-	<spring:url value="creditCard/immigrant/edit.do?creditCardNumber=${c.number}" var="url"></spring:url>
-	<a href="${url}"><jstl:out value="${editHeader}"></jstl:out></a>
-	</display:column>
-</display:table>
+		<acme:column code="cc.brandName" property="brandName" />
+		<acme:column code="cc.number" property="number" />
+		<acme:column code="cc.expirationMonth" property="expirationMonth" />
+		<acme:column code="cc.expirationYear" property="expirationYear" />
+		<acme:column code="cc.CVVCode" property="CVVCode" />
+		<spring:message code="cc.edit" var="editHeader"></spring:message>
+		<spring:message code="cc.editC" var="editCHeader"></spring:message>
+		<display:column title="${editCHeader}">
+			<spring:url
+				value="creditCard/immigrant/edit.do?creditCardNumber=${c.number}"
+				var="url"></spring:url>
+			<a href="${url}"><jstl:out value="${editHeader}"></jstl:out></a>
+		</display:column>
+	</display:table>
 </security:authorize>

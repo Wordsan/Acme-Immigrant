@@ -39,7 +39,16 @@ public class ReportOfficerController extends AbstractController {
 		ModelAndView result;
 		final Report a;
 
-		a = this.reportService.findOne(reportId);
+		try {
+			a = this.reportService.findOne(reportId);
+			if (a == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found",
+					this.officerService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
 		if (!this.officerService.getActorByUA(LoginService.getPrincipal())
 				.equals(a.getOfficer())) {
 			result = WelcomeController.indice("forbbiden.access.error",

@@ -33,13 +33,13 @@
 
 	<acme:textarea code="visa.description" path="description" />
 
-	<acme:textbox code="visa.price" path="price" />
+	<acme:textbox code="visa.price" path="price" placeholder="100$" />
 
 	<acme:select items="${categories}" itemLabel="name"
 		code="visa.category" path="category" />
 
-	<acme:select items="${countries}" itemLabel="name"
-		code="visa.country" path="country" />
+	<acme:select items="${countries}" itemLabel="name" code="visa.country"
+		path="country" />
 	<acme:cancel url="visa/admin/list.do" code="cancel.button" />
 	<acme:submit name="save" code="save.button" />
 </form:form>

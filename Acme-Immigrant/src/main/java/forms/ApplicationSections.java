@@ -17,6 +17,7 @@ import domain.CreditCard;
 public class ApplicationSections {
 	private int id;
 	private int visaId;
+	private int socialSectionId;
 	private CreditCard creditCard;
 	private String fullNames;
 	private String birthPlace;
@@ -40,6 +41,14 @@ public class ApplicationSections {
 
 	public void setVisaId(final int visaId) {
 		this.visaId = visaId;
+	}
+
+	public int getSocialSectionId() {
+		return this.socialSectionId;
+	}
+
+	public void setSocialSectionId(final int socialSectionId) {
+		this.socialSectionId = socialSectionId;
 	}
 
 	@Valid

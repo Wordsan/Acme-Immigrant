@@ -30,13 +30,11 @@
 		<value>/views/category/messages</value>
 		<value>/views/contactSection/messages</value>
 		<value>/views/country/messages</value>
-		<value>/views/decision/messages</value>
 		<value>/views/educationSection/messages</value>
 		<value>/views/immigrant/messages</value>
 		<value>/views/law/messages</value>
 		<value>/views/officer/messages</value>
 		<value>/views/question/messages</value>
-		<value>/views/report/messages</value>
 		<value>/views/requirement/messages</value>
 		<value>/views/socialSection/messages</value>
 		<value>/views/visa/messages</value>

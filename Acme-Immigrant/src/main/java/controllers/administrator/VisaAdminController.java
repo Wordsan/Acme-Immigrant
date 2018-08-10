@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import services.AdministratorService;
 import services.ApplicationService;
 import services.CategoryService;
 import services.CountryService;
 import services.VisaService;
 import controllers.AbstractController;
+import controllers.WelcomeController;
 import domain.Visa;
 import forms.SearchVisa;
 
@@ -38,6 +41,9 @@ public class VisaAdminController extends AbstractController {
 	@Autowired
 	ApplicationService applicationService;
 
+	@Autowired
+	AdministratorService administratorService;
+
 	// Constructors (Debugueo)
 	public VisaAdminController() {
 		super();
@@ -49,7 +55,16 @@ public class VisaAdminController extends AbstractController {
 		ModelAndView result;
 		final Visa a;
 
-		a = this.visaService.findOne(visaId);
+		try {
+			a = this.visaService.findOne(visaId);
+			if (a == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found",
+					this.administratorService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
 		result = new ModelAndView("visa/display");
 		result.addObject("statistics1", this.applicationService
 				.timeStadisticsByVisa(visaId).get("AVG"));
@@ -80,7 +95,16 @@ public class VisaAdminController extends AbstractController {
 		ModelAndView result;
 		Visa a;
 
-		a = this.visaService.findOne(visaId);
+		try {
+			a = this.visaService.findOne(visaId);
+			if (a == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found",
+					this.administratorService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
 		result = this.createEditModelAndView(a);
 
 		return result;
@@ -127,7 +151,17 @@ public class VisaAdminController extends AbstractController {
 	public ModelAndView abrogate(final int visaId) {
 
 		ModelAndView result;
-		final Visa v = this.visaService.findOne(visaId);
+		Visa v;
+		try {
+			v = this.visaService.findOne(visaId);
+			if (v == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found",
+					this.administratorService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
 		try {
 			if (!this.visaService.abrogate(v))
 				throw new Throwable();

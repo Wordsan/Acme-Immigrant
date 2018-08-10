@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import services.AdministratorService;
 import services.CountryService;
 import services.LawService;
 import controllers.AbstractController;
+import controllers.WelcomeController;
 import domain.Law;
 
 @Controller
@@ -29,6 +32,9 @@ public class LawAdminController extends AbstractController {
 	@Autowired
 	CountryService countryService;
 
+	@Autowired
+	AdministratorService administratorService;
+
 	// Constructors (Debugueo)
 	public LawAdminController() {
 		super();
@@ -40,7 +46,16 @@ public class LawAdminController extends AbstractController {
 		ModelAndView result;
 		final Law a;
 
-		a = this.lawService.findOne(lawId);
+		try {
+			a = this.lawService.findOne(lawId);
+			if (a == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found",
+					this.administratorService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
 		result = new ModelAndView("law/display");
 		result.addObject("law", a);
 
@@ -67,7 +82,16 @@ public class LawAdminController extends AbstractController {
 		ModelAndView result;
 		Law a;
 
-		a = this.lawService.findOne(lawId);
+		try {
+			a = this.lawService.findOne(lawId);
+			if (a == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found",
+					this.administratorService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
 		result = this.createEditModelAndView(a);
 
 		return result;

@@ -26,11 +26,11 @@
 <form:form action="${formUri}" method="post" id="form" name="form"
 	modelAttribute="formActor" onsubmit="return checkTel($('#phoneNumber').val())">
 	<form:hidden path="id" />
-	<acme:textbox code="actor.name" path="name" />
-	<acme:textbox code="actor.surname" path="surname" />
-	<acme:textbox code="actor.email" path="email" />
-	<acme:textbox code="actor.phoneNumber" path="phoneNumber" />
-	<acme:textbox code="actor.address" path="address" />
+	<acme:textbox code="actor.name" path="name" placeholder="John"/>
+	<acme:textbox code="actor.surname" path="surname"  placeholder="Doe"/>
+	<acme:textbox code="actor.email" path="email"  placeholder="email@mail.com"/>
+	<acme:textbox code="actor.phoneNumber" path="phoneNumber"  placeholder="+34 (25) 2475"/>
+	<acme:textbox code="actor.address" path="address"  placeholder="Plaza Mayor, 7"/>
 	<acme:textbox code="actor.username" path="username" />
 	<acme:password code="actor.password" path="password" />
 	<acme:password code="actor.repassword" path="repassword" />

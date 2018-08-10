@@ -33,7 +33,7 @@
 <jstl:if test="${requirement.abrogated == false}">
 	<spring:message code="requirement.abrogated.no"></spring:message>
 </jstl:if>
-<br>	
+<br>
 
 <acme:displayLink link="law/display.do?lawId=${requirement.law.id}"
 	value="${requirement.law.title}" code="requirement.law" />
@@ -54,4 +54,18 @@
 	<acme:button name="edit"
 		url="requirement/admin/edit.do?requirementId=${requirement.id}"
 		code="edit.button" />
+	<form
+		action="requirement/admin/addVisa.do?requirementId=${requirement.id}"
+		method="post">
+		<select name="visaId">
+			<jstl:forEach items="${visas}" var="visa">
+				<option value="${visa.id}">
+					<jstl:out value="${visa.clase}" />
+				</option>
+			</jstl:forEach>
+		</select>
+		<button type="submit">
+			<spring:message code="save.button" />
+		</button>
+	</form>
 </security:authorize>

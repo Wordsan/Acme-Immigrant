@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.RequirementService;
+import services.VisaService;
 import controllers.AbstractController;
+import controllers.WelcomeController;
 import domain.Requirement;
 
 @Controller
@@ -21,6 +23,9 @@ public class RequirementNonAuthController extends AbstractController {
 	// Services
 	@Autowired
 	RequirementService requirementService;
+
+	@Autowired
+	VisaService visaService;
 
 	// Constructors (Debugueo)
 	public RequirementNonAuthController() {
@@ -45,9 +50,17 @@ public class RequirementNonAuthController extends AbstractController {
 		ModelAndView result;
 		Requirement requirement;
 
-		requirement = this.requirementService.findOne(requirementId);
+		try {
+			requirement = this.requirementService.findOne(requirementId);
+			if (requirement == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found", null);
+			return result;
+		}
 		result = new ModelAndView("requirement/display");
 		result.addObject("requirement", requirement);
+		result.addObject("visas", this.visaService.getAvailableVisas());
 		return result;
 	}
 }

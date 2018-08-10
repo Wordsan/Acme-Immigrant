@@ -12,6 +12,7 @@ package controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,10 +43,16 @@ public class WelcomeController extends AbstractController {
 
 	@RequestMapping(value = "/index")
 	public ModelAndView index(
-			@RequestParam(required = false, defaultValue = "Anon") String name) {
+			@RequestParam(required = false, defaultValue = "Anon") String name,
+			final Locale locale) {
 		ModelAndView result;
 		SimpleDateFormat formatter;
 		String moment;
+		if (name == null || name.equals("") || name.equals("Anon"))
+			if (locale.getLanguage().equals("es"))
+				name = "usuario";
+			else
+				name = "user";
 
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		moment = formatter.format(new Date());
@@ -81,7 +88,7 @@ public class WelcomeController extends AbstractController {
 		try {
 			name = a.getName();
 
-		} catch (final IllegalArgumentException i) {
+		} catch (final Throwable i) {
 		}
 
 		result.addObject("name", name);

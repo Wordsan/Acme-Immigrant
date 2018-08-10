@@ -1,3 +1,4 @@
+6
 <%--
  * action-1.jsp
  *
@@ -29,11 +30,18 @@
 		<form:label path="brandName">
 			<spring:message code="cc.brandName" />
 		</form:label>
-		<form:input path="brandName"
-			placeholder="VISA|MASTERCARD|DINNERS|AMEX" style="width: 20%;" />
+		<%-- <form:input path="brandName"
+			placeholder="VISA|MASTERCARD|DINNERS|AMEX" style="width: 20%;" /> --%>
+		<form:select path="brandName">
+			<form:option value="VISA"></form:option>
+			<form:option value="MASTERCARD"></form:option>
+			<form:option value="DINNERS"></form:option>
+			<form:option value="AMEX"></form:option>
+		</form:select>
 		<form:errors path="brandName" cssClass="error" />
 
-		<acme:textbox code="cc.number" path="number" />
+		<acme:textbox code="cc.number" path="number"
+			placeholder="4208888888881881" />
 
 		<acme:textbox code="cc.expirationMonth" path="expirationMonth" />
 

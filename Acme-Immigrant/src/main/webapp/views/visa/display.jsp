@@ -74,6 +74,6 @@
 		code="edit.button" />
 	<jstl:if test="${visa.abrogated == false}">
 		<acme:button url="visa/admin/abrogate.do?visaId=${visa.id}"
-			name="abrogate" code="abrogate.button" />
+			name="abrogate" code="abrogate.visa.button" />
 	</jstl:if>
 </security:authorize>

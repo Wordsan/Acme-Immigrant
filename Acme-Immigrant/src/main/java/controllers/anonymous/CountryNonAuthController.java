@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.CountryService;
 import controllers.AbstractController;
+import controllers.WelcomeController;
 import domain.Country;
 
 @Controller
@@ -46,7 +47,14 @@ public class CountryNonAuthController extends AbstractController {
 		ModelAndView result;
 		Country country;
 
-		country = this.countryService.findOne(countryId);
+		try {
+			country = this.countryService.findOne(countryId);
+			if (country == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found", null);
+			return result;
+		}
 		result = new ModelAndView("country/display");
 		result.addObject("country", country);
 		return result;

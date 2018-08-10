@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.LawService;
 import controllers.AbstractController;
+import controllers.WelcomeController;
 import domain.Law;
 
 @Controller
@@ -45,7 +46,14 @@ public class LawNonAuthController extends AbstractController {
 		ModelAndView result;
 		Law law;
 
-		law = this.lawService.findOne(lawId);
+		try {
+			law = this.lawService.findOne(lawId);
+			if (law == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found", null);
+			return result;
+		}
 		result = new ModelAndView("law/display");
 		result.addObject("law", law);
 		return result;

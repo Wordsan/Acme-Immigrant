@@ -17,7 +17,13 @@
 		a = $('#datepicker');
 		a.datepicker();
 		$('#datepicker').on("change", function() {
-			a.datepicker("option", "dateFormat", "dd/mm/yy");
+			a.datepicker("option", "dateFormat", "mm/dd/yy");
+		});
+		b = $("#creditCard");
+		$(b.children()).each(function(index, element) {
+			c = element.textContent;
+			d = Array(c.length - 3).join("*");
+			element.textContent = d + c.substring(c.length - 4);
 		});
 
 	});
@@ -25,9 +31,16 @@
 
 <form:form action="application/immigrant/edit.do" method="post"
 	modelAttribute="apps">
+	<form:hidden path="id" />
 	<form:hidden path="visaId" />
-	<acme:select items="${creditCards}" itemLabel="number"
-		code="application.creditCard" path="creditCard" identificador="number" />
+	<form:hidden path="socialSectionId" />
+	<form:label path="creditCard">
+		<spring:message code="application.creditCard" />
+	</form:label>
+	<form:select id="creditCard" path="creditCard">
+		<form:options items="${creditCards}" itemLabel="number" />
+	</form:select>
+	<form:errors path="creditCard" cssClass="error" />
 	<fieldset>
 		<legend>
 			<spring:message code="application.personalSection" />
@@ -38,7 +51,8 @@
 		<form:input path="birthDate" id="datepicker" />
 		<form:errors path="birthDate" cssClass="error" />
 		<br>
-		<acme:textarea code="personalSection.picture" path="picture" />
+		<acme:textarea code="personalSection.picture" path="picture"
+			placeholder="https://imgur.es/skdjfls.jpeg" />
 	</fieldset>
 	<fieldset>
 		<legend>
@@ -46,7 +60,8 @@
 		</legend>
 		<acme:textbox code="socialSection.nickname" path="nickname" />
 		<acme:textbox code="socialSection.socialNetwork" path="socialNetwork" />
-		<acme:textbox code="socialSection.linkProfile" path="linkProfile" />
+		<acme:textbox code="socialSection.linkProfile" path="linkProfile"
+			placeholder="https://facebook.com/JohnDoe" />
 	</fieldset>
 	<acme:cancel url="visa/search.do" code="cancel.button" />
 	<acme:submit name="save" code="save.button" />

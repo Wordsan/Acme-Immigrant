@@ -29,8 +29,10 @@
 	onsubmit="return checkTel($('#phoneNumber').val())">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<acme:textbox code="contactSection.emailAddress" path="emailAddress" />
-	<acme:textbox code="contactSection.phoneNumber" path="phoneNumber" />
+	<acme:textbox code="contactSection.emailAddress" path="emailAddress"
+		placeholder="mail@mail.com" />
+	<acme:textbox code="contactSection.phoneNumber" path="phoneNumber"
+		placeholder="+34 (548) 2467" />
 	<acme:textbox code="contactSection.pagerNumber" path="pagerNumber" />
 	<acme:cancel
 		url="application/immigrant/display.do?applicationId=${applicationId}"

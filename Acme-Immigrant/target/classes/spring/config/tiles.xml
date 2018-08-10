@@ -23,13 +23,11 @@
 		<value>/views/category/tiles.xml</value>
 		<value>/views/contactSection/tiles.xml</value>
 		<value>/views/country/tiles.xml</value>
-		<value>/views/decision/tiles.xml</value>
 		<value>/views/educationSection/tiles.xml</value>
 		<value>/views/immigrant/tiles.xml</value>
 		<value>/views/law/tiles.xml</value>
 		<value>/views/officer/tiles.xml</value>
 		<value>/views/question/tiles.xml</value>
-		<value>/views/report/tiles.xml</value>
 		<value>/views/requirement/tiles.xml</value>
 		<value>/views/socialSection/tiles.xml</value>
 		<value>/views/visa/tiles.xml</value>

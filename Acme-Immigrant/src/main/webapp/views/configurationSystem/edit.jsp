@@ -21,27 +21,30 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <security:authorize access="hasRole('ADMIN')">
-<form:form action="${requestURI}" modelAttribute="configurationSystem">
+	<form:form action="${requestURI}" modelAttribute="configurationSystem">
 
-	<form:hidden path="id"/>
-	<form:hidden path="version"/>
-	
-	<acme:textbox code="configurationSystem.systemName" path="systemName"/>
-	<br />
-	<acme:textbox code="configurationSystem.banner" path="banner"/>
-	<br />
-	
-	<form:label path="welcomeMessageES">
-		<spring:message code="configurationSystem.welcomeMessage" />
-	</form:label>	
-	<form:input path="welcomeMessageES" value="${configurationSystem.welcomeMessageES}"/>
-	<form:errors path="welcomeMessageES" cssClass="error" />
-	<form:input path="welcomeMessageEN" value="${configurationSystem.welcomeMessageEN}"/>
-	<form:errors path="welcomeMessageEN" cssClass="error" />
-	<br />
-	
-	<!-- Buttons -->
-	<acme:submit name="save" code="configurationSystem.save"/>
-	<acme:cancel url="/welcome/index.do" code="configurationSystem.cancel"/>
-</form:form>
+		<form:hidden path="id" />
+		<form:hidden path="version" />
+
+		<acme:textbox code="configurationSystem.systemName" path="systemName" />
+		<br />
+		<acme:textbox code="configurationSystem.banner" path="banner"
+			placeholder="https://imgur.es/sjfksdj.jpeg" />
+		<br />
+
+		<form:label path="welcomeMessageES">
+			<spring:message code="configurationSystem.welcomeMessage" />
+		</form:label>
+		<form:input path="welcomeMessageES"
+			value="${configurationSystem.welcomeMessageES}" />
+		<form:errors path="welcomeMessageES" cssClass="error" />
+		<form:input path="welcomeMessageEN"
+			value="${configurationSystem.welcomeMessageEN}" />
+		<form:errors path="welcomeMessageEN" cssClass="error" />
+		<br />
+
+		<!-- Buttons -->
+		<acme:submit name="save" code="configurationSystem.save" />
+		<acme:cancel url="/welcome/index.do" code="configurationSystem.cancel" />
+	</form:form>
 </security:authorize>

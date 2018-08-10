@@ -39,7 +39,16 @@ public class ApplicationOfficerController extends AbstractController {
 		ModelAndView result;
 		final Application a;
 
-		a = this.applicationService.findOne(applicationId);
+		try {
+			a = this.applicationService.findOne(applicationId);
+			if (a == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found",
+					this.officerService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
 		if (a.getOfficer() == null
 				|| !a.getOfficer().equals(
 						this.officerService.getActorByUA(LoginService
@@ -60,14 +69,6 @@ public class ApplicationOfficerController extends AbstractController {
 	public ModelAndView close(@RequestParam final int applicationId) {
 		ModelAndView result;
 
-		if (!this.officerService.getActorByUA(LoginService.getPrincipal())
-				.getApplications()
-				.contains(this.applicationService.findOne(applicationId))) {
-			result = WelcomeController.indice("forbbiden.access.error",
-					this.officerService.getActorByUA(LoginService
-							.getPrincipal()));
-			return result;
-		}
 		final int code = this.applicationService.assign(applicationId);
 		if (code == 0)
 			return this.display(applicationId);

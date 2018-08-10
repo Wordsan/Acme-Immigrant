@@ -13,9 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import services.AdministratorService;
 import services.LawService;
 import services.RequirementService;
+import services.VisaService;
 import controllers.AbstractController;
+import controllers.WelcomeController;
 import domain.Requirement;
 
 @Controller
@@ -29,6 +33,12 @@ public class RequirementAdminController extends AbstractController {
 	@Autowired
 	LawService lawService;
 
+	@Autowired
+	AdministratorService administratorService;
+
+	@Autowired
+	VisaService visaService;
+
 	// Constructors (Debugueo)
 	public RequirementAdminController() {
 		super();
@@ -40,9 +50,19 @@ public class RequirementAdminController extends AbstractController {
 		ModelAndView result;
 		final Requirement a;
 
-		a = this.requirementService.findOne(requirementId);
+		try {
+			a = this.requirementService.findOne(requirementId);
+			if (a == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found",
+					this.administratorService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
 		result = new ModelAndView("requirement/display");
 		result.addObject("requirement", a);
+		result.addObject("visas", this.visaService.getAvailableVisas());
 
 		return result;
 	}
@@ -67,7 +87,16 @@ public class RequirementAdminController extends AbstractController {
 		ModelAndView result;
 		Requirement a;
 
-		a = this.requirementService.findOne(requirementId);
+		try {
+			a = this.requirementService.findOne(requirementId);
+			if (a == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found",
+					this.administratorService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
 		result = this.createEditModelAndView(a);
 
 		return result;
@@ -121,6 +150,21 @@ public class RequirementAdminController extends AbstractController {
 		result = new ModelAndView("requirement/list");
 		result.addObject("requestUri", "requirement/admin/list.do");
 		result.addObject("requirements", requirements);
+		return result;
+	}
+
+	// Add to visa
+	@RequestMapping(value = "/addVisa", method = RequestMethod.POST)
+	public ModelAndView addVisa(@RequestParam final int requirementId,
+			@RequestParam final int visaId) {
+		ModelAndView result;
+
+		if (this.requirementService.addVisa(requirementId, visaId) == 0)
+			result = this.display(requirementId);
+		else {
+			result = this.display(requirementId);
+			result.addObject("message", "requirement.commit.error");
+		}
 		return result;
 	}
 

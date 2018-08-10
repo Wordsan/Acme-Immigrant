@@ -41,7 +41,16 @@ public class DecisionOfficerController extends AbstractController {
 		ModelAndView result;
 		final Decision d;
 
-		d = this.decisionService.findOne(decisionId);
+		try {
+			d = this.decisionService.findOne(decisionId);
+			if (d == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found",
+					this.officerService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
 		if (!this.officerService.getActorByUA(LoginService.getPrincipal())
 				.getApplications().contains(d.getApplication())) {
 			result = WelcomeController.indice("forbbiden.access.error",

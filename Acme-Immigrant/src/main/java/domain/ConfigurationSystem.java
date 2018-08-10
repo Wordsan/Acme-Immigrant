@@ -1,4 +1,3 @@
-
 package domain;
 
 import javax.persistence.Access;
@@ -12,11 +11,10 @@ import org.hibernate.validator.constraints.URL;
 @Access(AccessType.PROPERTY)
 public class ConfigurationSystem extends DomainEntity {
 
-	private String	systemName;
-	private String	banner;
-	private String	welcomeMessageES;
-	private String	welcomeMessageEN;
-
+	private String systemName;
+	private String banner;
+	private String welcomeMessageES;
+	private String welcomeMessageEN;
 
 	@NotBlank
 	public String getSystemName() {
@@ -27,9 +25,10 @@ public class ConfigurationSystem extends DomainEntity {
 		this.systemName = systemName;
 	}
 
-	//@Pattern(regexp = "^+[0-9]{1,3}([0-9]{0,3})[0-9]{4}$")
+	// @Pattern(regexp = "^+[0-9]{1,3}([0-9]{0,3})[0-9]{4}$")
 
 	@URL
+	@NotBlank
 	public String getBanner() {
 		return this.banner;
 	}
@@ -38,6 +37,7 @@ public class ConfigurationSystem extends DomainEntity {
 		this.banner = banner;
 	}
 
+	@NotBlank
 	public String getWelcomeMessageES() {
 		return this.welcomeMessageES;
 	}
@@ -46,6 +46,7 @@ public class ConfigurationSystem extends DomainEntity {
 		this.welcomeMessageES = welcomeMessageES;
 	}
 
+	@NotBlank
 	public String getWelcomeMessageEN() {
 		return this.welcomeMessageEN;
 	}

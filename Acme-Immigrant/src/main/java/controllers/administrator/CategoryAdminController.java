@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import services.AdministratorService;
 import services.CategoryService;
 import controllers.AbstractController;
+import controllers.WelcomeController;
 import domain.Category;
 
 @Controller
@@ -24,6 +27,9 @@ public class CategoryAdminController extends AbstractController {
 	// Services
 	@Autowired
 	CategoryService categoryService;
+
+	@Autowired
+	AdministratorService administratorService;
 
 	// Constructors (Debugueo)
 	public CategoryAdminController() {
@@ -36,7 +42,16 @@ public class CategoryAdminController extends AbstractController {
 		ModelAndView result;
 		final Category a;
 
-		a = this.categoryService.findOne(categoryId);
+		try {
+			a = this.categoryService.findOne(categoryId);
+			if (a == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found",
+					this.administratorService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
 		result = new ModelAndView("category/display");
 		result.addObject("category", a);
 
@@ -63,7 +78,22 @@ public class CategoryAdminController extends AbstractController {
 		ModelAndView result;
 		Category a;
 
-		a = this.categoryService.findOne(categoryId);
+		try {
+			a = this.categoryService.findOne(categoryId);
+			if (a == null)
+				throw new Exception("object.not.fount");
+			if (a.getName().equals("CATEGORY")) {
+				result = WelcomeController.indice("forbbiden.access.error",
+						this.administratorService.getActorByUA(LoginService
+								.getPrincipal()));
+				return result;
+			}
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found",
+					this.administratorService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
 		result = this.createEditModelAndView(a);
 
 		return result;
@@ -74,7 +104,12 @@ public class CategoryAdminController extends AbstractController {
 	public ModelAndView delete(final Category category,
 			final BindingResult binding) {
 		ModelAndView result;
-
+		if (category.getName().equals("CATEGORY")) {
+			result = WelcomeController.indice("forbbiden.access.error",
+					this.administratorService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
 		try {
 			this.categoryService.delete(category);
 			result = this.list();
@@ -92,8 +127,17 @@ public class CategoryAdminController extends AbstractController {
 			final BindingResult br) {
 
 		ModelAndView result;
+		if (category.getName().equals("CATEGORY")) {
+			result = WelcomeController.indice("forbbiden.access.error",
+					this.administratorService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
 		if (br.hasErrors())
 			result = this.createEditModelAndView(category);
+		else if (category.getParent() == null)
+			result = this.createEditModelAndView(category,
+					"javax.validation.constraints.NotNull.message");
 		else
 			try {
 				this.categoryService.save(category);

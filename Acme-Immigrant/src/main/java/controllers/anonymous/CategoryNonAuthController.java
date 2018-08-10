@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.CategoryService;
 import controllers.AbstractController;
+import controllers.WelcomeController;
 import domain.Category;
 
 @Controller
@@ -59,7 +60,14 @@ public class CategoryNonAuthController extends AbstractController {
 		ModelAndView result;
 		Category category;
 
-		category = this.categoryService.findOne(categoryId);
+		try {
+			category = this.categoryService.findOne(categoryId);
+			if (category == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found", null);
+			return result;
+		}
 		result = new ModelAndView("category/display");
 		result.addObject("category", category);
 		return result;

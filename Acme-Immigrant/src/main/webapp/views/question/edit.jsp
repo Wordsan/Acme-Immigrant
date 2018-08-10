@@ -11,8 +11,8 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="type/edit.do" method="post" id="formCreate"
-	name="formCreate" modelAttribute="type">
+<form:form action="question/immigrant/edit.do" method="post"
+	id="formCreate" name="formCreate" modelAttribute="question">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />

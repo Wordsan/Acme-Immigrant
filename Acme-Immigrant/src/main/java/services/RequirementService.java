@@ -70,4 +70,18 @@ public class RequirementService {
 			this.requirementRepository.delete(requirement);
 	}
 
+	public int addVisa(final int requirementId, final int visaId) {
+		try {
+			final Visa v = this.visaService.findOne(visaId);
+			final Requirement r = this.findOne(requirementId);
+			v.getRequirements().add(r);
+			this.visaService.save(v);
+			r.getVisas().add(v);
+			this.save(r);
+		} catch (final Exception e) {
+			return 1;
+		}
+		return 0;
+	}
+
 }

@@ -43,7 +43,16 @@ public class QuestionOfficerController extends AbstractController {
 		ModelAndView result;
 		final Question a;
 
-		a = this.questionService.findOne(questionId);
+		try {
+			a = this.questionService.findOne(questionId);
+			if (a == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found",
+					this.officerService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
 		if (!this.officerService.getActorByUA(LoginService.getPrincipal())
 				.getApplications().contains(a.getApplication())) {
 			result = WelcomeController.indice("forbbiden.access.error",
@@ -111,7 +120,16 @@ public class QuestionOfficerController extends AbstractController {
 		ModelAndView result;
 		Question q;
 
-		q = this.questionService.findOne(questionId);
+		try {
+			q = this.questionService.findOne(questionId);
+			if (q == null)
+				throw new Exception("object.not.fount");
+		} catch (final Exception e) {
+			result = WelcomeController.indice("object.not.found",
+					this.officerService.getActorByUA(LoginService
+							.getPrincipal()));
+			return result;
+		}
 		if (!this.officerService.getActorByUA(LoginService.getPrincipal())
 				.getApplications().contains(q.getApplication())) {
 			result = WelcomeController.indice("forbbiden.access.error",

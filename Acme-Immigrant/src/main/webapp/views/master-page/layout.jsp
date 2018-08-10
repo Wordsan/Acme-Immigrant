@@ -99,10 +99,6 @@
 			<br />
 			<span class="message"><spring:message code="${message}" /></span>
 		</jstl:if>
-		<jstl:if test="${messageCode != null}">
-			<br />
-			<span class="message"><spring:message code="${messageCode}" /></span>
-		</jstl:if>
 		<span class="message" id="errorMsg"><spring:message
 				code="forbbiden.access.error" /></span>
 	</div>

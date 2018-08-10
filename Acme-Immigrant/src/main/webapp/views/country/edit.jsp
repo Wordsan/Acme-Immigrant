@@ -32,9 +32,11 @@
 
 	<acme:textbox code="country.ISOCode" path="ISOCode" />
 
-	<acme:textbox code="country.flag" path="flag" />
+	<acme:textbox code="country.flag" path="flag"
+		placeholder="https://imgur.es/sjfksdj.jpeg" />
 
-	<acme:textbox code="country.wikiPage" path="wikiPage" />
+	<acme:textbox code="country.wikiPage" path="wikiPage"
+		placeholder="https://wikipedia.es/Spain" />
 
 	<acme:submit name="save" code="save.button" />
 	<acme:cancel url="country/admin/list.do" code="cancel.button" />
