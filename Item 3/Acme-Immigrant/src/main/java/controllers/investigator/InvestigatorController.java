@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import security.LoginService;
 import services.ActorService;
 import services.InvestigatorService;
+import utilities.ObjectNotFoundException;
 import controllers.AbstractController;
 import domain.Investigator;
 import forms.FormActor;
@@ -49,7 +50,7 @@ public class InvestigatorController extends AbstractController {
 	// Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final FormActor formActor,
-			final BindingResult br) {
+			final BindingResult br) throws ObjectNotFoundException {
 		final Investigator investigator = this.reconstruct(formActor);
 		ModelAndView result;
 		if (!investigator.getUserAccount().equals(LoginService.getPrincipal())) {
@@ -115,7 +116,8 @@ public class InvestigatorController extends AbstractController {
 		return actor;
 	}
 
-	public Investigator reconstruct(final FormActor actor) {
+	public Investigator reconstruct(final FormActor actor)
+			throws ObjectNotFoundException {
 		final Investigator investigator = this.investigatorService
 				.findOne(actor.getId());
 		investigator.setName(actor.getName());

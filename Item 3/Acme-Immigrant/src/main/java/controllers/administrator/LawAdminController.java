@@ -132,7 +132,7 @@ public class LawAdminController extends AbstractController {
 
 	// List
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list() throws ForbbidenActionException {
 		ModelAndView result;
 		List<Law> laws = new ArrayList<>();
 

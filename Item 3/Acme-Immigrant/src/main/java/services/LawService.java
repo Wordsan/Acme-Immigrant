@@ -50,7 +50,9 @@ public class LawService {
 		return f;
 	}
 
-	public Collection<Law> findAll() {
+	public Collection<Law> findAll() throws ForbbidenActionException {
+		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
+			throw new ForbbidenActionException();
 		return this.lawRepository.findAll();
 	}
 

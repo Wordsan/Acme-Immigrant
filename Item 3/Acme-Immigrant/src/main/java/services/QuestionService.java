@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.ConstraintDefinitionException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -92,8 +94,12 @@ public class QuestionService {
 			if (!q.getImmigrant().getUserAccount()
 					.equals(LoginService.getPrincipal()))
 				throw new ForbbidenActionException();
+			if (answer == null || answer.equals(""))
+				throw new ConstraintDefinitionException();
 			this.save(q);
 		} catch (final ForbbidenActionException f) {
+			throw f;
+		} catch (final ConstraintDefinitionException f) {
 			throw f;
 		} catch (final ObjectNotFoundException d) {
 			throw d;

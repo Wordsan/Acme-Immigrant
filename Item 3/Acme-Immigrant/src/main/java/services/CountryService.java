@@ -68,9 +68,11 @@ public class CountryService {
 		return f;
 	}
 
-	public Map<String, Double> lawStadistics() {
+	public Map<String, Double> lawStadistics() throws ForbbidenActionException {
 		final Double[] statistics = this.countryRepository.lawStadistics();
 		final Map<String, Double> res = new HashMap<>();
+		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
+			throw new ForbbidenActionException();
 
 		res.put("AVG", statistics[0]);
 		res.put("MIN", statistics[1]);

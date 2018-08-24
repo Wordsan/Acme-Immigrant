@@ -39,11 +39,7 @@ public class VisaNonAuthController extends AbstractController {
 		ModelAndView result;
 		List<Visa> visas = new ArrayList<>();
 
-		if (searchVisa.getKeyword() != null)
-			visas = this.visaService.searchVisaByKeyword(searchVisa
-					.getKeyword());
-		else
-			visas = this.visaService.getAvailableVisas();
+		visas = this.visaService.searchVisaByKeyword(searchVisa.getKeyword());
 		result = new ModelAndView("visa/list");
 		result.addObject("requestUri", "visa/search.do");
 		result.addObject("visas", visas);

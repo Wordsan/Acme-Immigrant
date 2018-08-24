@@ -67,6 +67,10 @@ public class OfficerService {
 
 	public Officer save(final Officer officer) throws ForbbidenActionException {
 		Officer f;
+		if (officer.getId() == 0)
+			if (!(this.administratorService.getActorByUA(LoginService
+					.getPrincipal()) != null))
+				throw new ForbbidenActionException();
 		if (!(officer.getUserAccount().equals(LoginService.getPrincipal()) || this.administratorService
 				.getActorByUA(LoginService.getPrincipal()) != null))
 			throw new ForbbidenActionException();
@@ -83,10 +87,13 @@ public class OfficerService {
 		return this.officerRepository.getOfficerFromUAId(ua.getId());
 	}
 
-	public Map<String, Double> applicationsStadistics() {
+	public Map<String, Double> applicationsStadistics()
+			throws ForbbidenActionException {
 		final Double[] statistics = this.officerRepository
 				.applicationsSizeStadistics();
 		final Map<String, Double> res = new HashMap<>();
+		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
+			throw new ForbbidenActionException();
 
 		res.put("AVG", statistics[0]);
 		res.put("MIN", statistics[1]);

@@ -1,6 +1,7 @@
 package services;
 
 import javax.transaction.Transactional;
+import javax.validation.ConstraintDefinitionException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import utilities.AbstractTest;
 import utilities.ForbbidenActionException;
+import domain.Question;
 
 @ContextConfiguration(locations = { "classpath:spring/junit.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,11 +24,15 @@ public class QuestionServiceTest extends AbstractTest {
 
 	// Tests ------------------------------------------------------------------
 
+	// RF 13.3 An actor who is authenticated as an officer must be able to ask
+	// questions regarding an application that he or she has self-assigned
 	@Test
 	public void driver() {
 		final Object testingData[][] = {
 				{ "officer2", "application2", "pregunta", null },
 				{ "officer1", "application2", "",
+						ForbbidenActionException.class },
+				{ "officer3", "application2", "pregunta",
 						ForbbidenActionException.class } };
 
 		for (int i = 0; i < testingData.length; i++)
@@ -35,9 +41,15 @@ public class QuestionServiceTest extends AbstractTest {
 					(Class<?>) testingData[i][3]);
 	}
 
+	// RF 12.2 An actor who is authenticated as an immigrant must be able to
+	// answer the questions that an officer has posed on any of his or her
+	// applications
+	@Test
 	public void driverAnswer() {
 		final Object testingData[][] = {
 				{ "immigrant2", "question2", "respuesta", null },
+				{ "immigrant2", "question2", null,
+						ConstraintDefinitionException.class },
 				{ "immigrant1", "question2", "", ForbbidenActionException.class } };
 
 		for (int i = 0; i < testingData.length; i++)
@@ -55,8 +67,9 @@ public class QuestionServiceTest extends AbstractTest {
 		caught = null;
 		try {
 			super.authenticate(user);
-			this.questionService.create(super.getEntityId(application),
-					statement);
+			final Question q = this.questionService.create(
+					super.getEntityId(application), statement);
+			this.questionService.save(q);
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
 		}

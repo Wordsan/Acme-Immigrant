@@ -16,6 +16,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import utilities.ForbbidenActionException;
+import utilities.ObjectNotFoundException;
 import domain.Application;
 import domain.Immigrant;
 import domain.Investigator;
@@ -68,14 +69,23 @@ public class InvestigatorService {
 		return this.investigatorRepository.findAll();
 	}
 
-	public Investigator findOne(final int investigatorId) {
-		return this.investigatorRepository.findOne(investigatorId);
+	public Investigator findOne(final int investigatorId)
+			throws ObjectNotFoundException {
+		final Investigator a = this.investigatorRepository
+				.findOne(investigatorId);
+		if (a == null)
+			throw new ObjectNotFoundException();
+		return a;
 	}
 
 	public Investigator save(final Investigator investigator)
 			throws ForbbidenActionException {
 		Investigator f;
 		try {
+			if (investigator.getId() == 0)
+				if (!(this.administratorService.getActorByUA(LoginService
+						.getPrincipal()) != null))
+					throw new ForbbidenActionException();
 			if (!(investigator.getUserAccount().equals(
 					LoginService.getPrincipal())
 					|| this.administratorService.getActorByUA(LoginService
@@ -96,7 +106,7 @@ public class InvestigatorService {
 	}
 
 	public boolean assign(final int investigatorId, final int immigrantId,
-			final UserAccount officerUA) {
+			final UserAccount officerUA) throws ForbbidenActionException {
 		try {
 			final Investigator inv = this.findOne(investigatorId);
 			final Immigrant imm = this.immigrantService.findOne(immigrantId);
@@ -114,6 +124,8 @@ public class InvestigatorService {
 				this.immigrantService.save(imm);
 			} else
 				throw new ForbbidenActionException();
+		} catch (final ForbbidenActionException e) {
+			throw e;
 		} catch (final Exception e) {
 			return false;
 		}
@@ -124,10 +136,13 @@ public class InvestigatorService {
 		return this.investigatorRepository.getInvestigatorFromUAId(ua.getId());
 	}
 
-	public Map<String, Double> immigrantsStadistics() {
+	public Map<String, Double> immigrantsStadistics()
+			throws ForbbidenActionException {
 		final Double[] statistics = this.investigatorRepository
 				.immigrantsSizeStadistics();
 		final Map<String, Double> res = new HashMap<>();
+		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
+			throw new ForbbidenActionException();
 
 		res.put("AVG", statistics[0]);
 		res.put("MIN", statistics[1]);

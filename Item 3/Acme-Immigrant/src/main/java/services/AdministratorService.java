@@ -14,6 +14,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import utilities.ForbbidenActionException;
+import utilities.ObjectNotFoundException;
 import domain.Administrator;
 
 @Service
@@ -51,8 +52,13 @@ public class AdministratorService {
 		return this.administratorRepository.findAll();
 	}
 
-	public Administrator findOne(final int administratorId) {
-		return this.administratorRepository.findOne(administratorId);
+	public Administrator findOne(final int administratorId)
+			throws ObjectNotFoundException {
+		final Administrator a = this.administratorRepository
+				.findOne(administratorId);
+		if (a == null)
+			throw new ObjectNotFoundException();
+		return a;
 	}
 
 	public Administrator save(final Administrator administrator)

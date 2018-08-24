@@ -61,7 +61,7 @@ public class RequirementAdminController extends AbstractController {
 
 	// Create
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create() throws ForbbidenActionException {
 		ModelAndView result;
 		Requirement v;
 
@@ -75,7 +75,7 @@ public class RequirementAdminController extends AbstractController {
 	// Edit
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int requirementId)
-			throws ObjectNotFoundException {
+			throws ObjectNotFoundException, ForbbidenActionException {
 
 		ModelAndView result;
 		Requirement a;
@@ -89,7 +89,7 @@ public class RequirementAdminController extends AbstractController {
 	// Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Requirement requirement,
-			final BindingResult br) {
+			final BindingResult br) throws ForbbidenActionException {
 
 		ModelAndView result;
 		if (br.hasErrors())
@@ -110,7 +110,7 @@ public class RequirementAdminController extends AbstractController {
 	// Delete
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public ModelAndView delete(final Requirement requirement,
-			final BindingResult binding) {
+			final BindingResult binding) throws ForbbidenActionException {
 		ModelAndView result;
 
 		try {
@@ -154,7 +154,8 @@ public class RequirementAdminController extends AbstractController {
 	}
 
 	// Ancillary Methods
-	protected ModelAndView createEditModelAndView(final Requirement requirement) {
+	protected ModelAndView createEditModelAndView(final Requirement requirement)
+			throws ForbbidenActionException {
 
 		final ModelAndView result;
 
@@ -164,7 +165,8 @@ public class RequirementAdminController extends AbstractController {
 	}
 
 	protected ModelAndView createEditModelAndView(
-			final Requirement requirement, final String messageCode) {
+			final Requirement requirement, final String messageCode)
+			throws ForbbidenActionException {
 
 		ModelAndView result;
 

@@ -1,8 +1,5 @@
 package controllers.anonymous;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,18 +23,6 @@ public class LawNonAuthController extends AbstractController {
 	// Constructors (Debugueo)
 	public LawNonAuthController() {
 		super();
-	}
-
-	// List
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
-		ModelAndView result;
-		Collection<Law> laws = new ArrayList<>();
-
-		laws = this.lawService.findAll();
-		result = new ModelAndView("law/list");
-		result.addObject("laws", laws);
-		return result;
 	}
 
 	// Display

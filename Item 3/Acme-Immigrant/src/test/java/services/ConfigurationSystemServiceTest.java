@@ -25,7 +25,7 @@ public class ConfigurationSystemServiceTest extends AbstractTest {
 
 	@Test
 	public void editCS() throws ForbbidenActionException {
-		super.authenticate("admin1");
+		super.authenticate("admin");
 		final ConfigurationSystem cs = this.configurationSystemService.get();
 		cs.setBanner("kskjflksdf");
 		this.configurationSystemService.save(cs);

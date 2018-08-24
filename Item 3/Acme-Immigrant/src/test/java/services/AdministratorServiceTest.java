@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import utilities.AbstractTest;
 import utilities.ForbbidenActionException;
+import utilities.ObjectNotFoundException;
 import domain.Administrator;
 
 @ContextConfiguration(locations = { "classpath:spring/junit.xml" })
@@ -23,19 +24,21 @@ public class AdministratorServiceTest extends AbstractTest {
 
 	// Tests ------------------------------------------------------------------
 
+	/*
+	 * RF 11.2 An actor who is authenticated must be able to edit his or her
+	 * user account data
+	 */
 	@Test
 	public void driver() {
 		final Object testingData[][] = {
 				{ "administrator1", "Chicote", null },
-				{ "administrator2", "Chicote",
-						new ForbbidenActionException().getClass() } };
+				{ "administrator2", "Chicote", ForbbidenActionException.class },
+				{ "immigrant1", "Chicote", ObjectNotFoundException.class } };
 
 		for (int i = 0; i < testingData.length; i++)
 			this.template((String) testingData[i][0],
 					(String) testingData[i][1], (Class<?>) testingData[i][2]);
 	}
-
-	// Ancillary methods ------------------------------------------------------
 
 	protected void template(final String beanName, final String name,
 			final Class<?> expected) {
@@ -44,7 +47,7 @@ public class AdministratorServiceTest extends AbstractTest {
 
 		caught = null;
 		try {
-			super.authenticate("admin1");
+			super.authenticate("admin");
 			final int id = super.getEntityId(beanName);
 			a = this.administratorService.findOne(id);
 			a.setName(name);
@@ -55,5 +58,4 @@ public class AdministratorServiceTest extends AbstractTest {
 
 		this.checkExceptions(expected, caught);
 	}
-
 }

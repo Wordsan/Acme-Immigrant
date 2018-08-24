@@ -26,6 +26,10 @@ public class DecisionServiceTest extends AbstractTest {
 
 	// Tests ------------------------------------------------------------------
 
+	// RF 13.4 An actor who is authenticated as an officer must be able to make
+	// a decision on an application that he or she's self-assigned. An
+	// application that is rejected must include a comment that justifies the
+	// rejection
 	@Test
 	public void driver() {
 		final Object testingData[][] = {

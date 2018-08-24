@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import security.LoginService;
 import services.ImmigrantService;
 import services.InvestigatorService;
+import utilities.ForbbidenActionException;
 import controllers.AbstractController;
 import domain.Investigator;
 
@@ -34,7 +35,8 @@ public class InvestigatorOfficerController extends AbstractController {
 	// Assign
 	@RequestMapping(value = "/assign", method = RequestMethod.POST)
 	public ModelAndView assign(@RequestParam final int investigatorId,
-			@RequestParam final int immigrantId) {
+			@RequestParam final int immigrantId)
+			throws ForbbidenActionException {
 		ModelAndView result;
 
 		if (this.investigatorService.assign(investigatorId, immigrantId,

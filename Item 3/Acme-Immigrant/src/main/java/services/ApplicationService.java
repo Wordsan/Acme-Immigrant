@@ -365,11 +365,11 @@ public class ApplicationService {
 		return this.applicationRepository.selectApplicationsNotAssigned();
 	}
 
-	// Falta la de los dias de diferencia
-
-	public Map<String, Double> timeStadistics() {
+	public Map<String, Double> timeStadistics() throws ForbbidenActionException {
 		final Double[] statistics = this.applicationRepository.dateStadistics();
 		final Map<String, Double> res = new HashMap<>();
+		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
+			throw new ForbbidenActionException();
 
 		res.put("AVG", statistics[0]);
 		res.put("MIN", statistics[1]);

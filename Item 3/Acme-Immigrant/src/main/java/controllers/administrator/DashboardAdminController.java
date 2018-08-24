@@ -13,6 +13,7 @@ import services.ImmigrantService;
 import services.InvestigatorService;
 import services.OfficerService;
 import services.VisaService;
+import utilities.ForbbidenActionException;
 import controllers.AbstractController;
 
 @Controller
@@ -48,7 +49,7 @@ public class DashboardAdminController extends AbstractController {
 
 	// Display
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display() {
+	public ModelAndView display() throws ForbbidenActionException {
 		ModelAndView result;
 		Double avgAppUser, minAppUser, maxAppUser, stdAppUser;
 		Double avgAppOff, minAppOff, maxAppOff, stdAppOff;

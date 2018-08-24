@@ -83,6 +83,9 @@ public class ImmigrantService {
 			throws ForbbidenActionException {
 		Immigrant f;
 		try {
+			if (immigrant.getId() == 0)
+				if (LoginService.getPrincipal() != null)
+					throw new ForbbidenActionException();
 			if (!(immigrant.getUserAccount()
 					.equals(LoginService.getPrincipal())
 					|| this.administratorService.getActorByUA(LoginService
@@ -119,10 +122,13 @@ public class ImmigrantService {
 				.getActorByUA(LoginService.getPrincipal()).getId());
 	}
 
-	public Map<String, Double> applicationsStadistics() {
+	public Map<String, Double> applicationsStadistics()
+			throws ForbbidenActionException {
 		final Double[] statistics = this.immigrantRepository
 				.applicationsSizeStadistics();
 		final Map<String, Double> res = new HashMap<>();
+		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
+			throw new ForbbidenActionException();
 
 		res.put("AVG", statistics[0]);
 		res.put("MIN", statistics[1]);

@@ -59,7 +59,9 @@ public class VisaService {
 		return f;
 	}
 
-	public Collection<Visa> findAll() {
+	public Collection<Visa> findAll() throws ForbbidenActionException {
+		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
+			throw new ForbbidenActionException();
 		return this.visaRepository.findAll();
 	}
 
@@ -129,12 +131,18 @@ public class VisaService {
 	}
 
 	public List<Visa> searchVisaByKeyword(final String keyword) {
-		return this.visaRepository.searchVisaFromKeyWordClase(keyword);
+		if (!keyword.equals(null) && !keyword.equals(""))
+			return this.visaRepository.searchVisaFromKeyWordClase(keyword);
+		else
+			return this.visaRepository.getAvailableVisas();
 	}
 
-	public Map<String, String> priceStadistics() {
+	public Map<String, String> priceStadistics()
+			throws ForbbidenActionException {
 		final String[] statistics = this.visaRepository.priceStadistics();
 		final Map<String, String> res = new HashMap<>();
+		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
+			throw new ForbbidenActionException();
 
 		res.put("AVG", statistics[0]);
 		res.put("MIN", statistics[1]);
@@ -145,10 +153,13 @@ public class VisaService {
 
 	}
 
-	public Map<String, Double> requirementsStadistics() {
+	public Map<String, Double> requirementsStadistics()
+			throws ForbbidenActionException {
 		final Double[] statistics = this.visaRepository
 				.requirementsStadistics();
 		final Map<String, Double> res = new HashMap<>();
+		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
+			throw new ForbbidenActionException();
 
 		res.put("AVG", statistics[0]);
 		res.put("MIN", statistics[1]);

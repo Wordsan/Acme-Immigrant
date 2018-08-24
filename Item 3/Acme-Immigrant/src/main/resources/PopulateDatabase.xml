@@ -405,9 +405,6 @@
 		<property name="userAccount">
 			<ref bean="userAccount4" />
 		</property>
-		<property name="investigator">
-			<ref bean="investigator2"></ref>
-		</property>
 		<property name="creditCards">
 			<list>
 				<ref bean="creditCard1"></ref>

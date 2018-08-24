@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import security.LoginService;
 import services.ActorService;
 import services.AdministratorService;
+import utilities.ObjectNotFoundException;
 import controllers.AbstractController;
 import domain.Administrator;
 import forms.FormActor;
@@ -49,7 +50,7 @@ public class AdminController extends AbstractController {
 	// Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final FormActor formActor,
-			final BindingResult br) {
+			final BindingResult br) throws ObjectNotFoundException {
 		final Administrator admin = this.reconstruct(formActor);
 		ModelAndView result;
 		if (!admin.getUserAccount().equals(LoginService.getPrincipal())) {
@@ -114,7 +115,8 @@ public class AdminController extends AbstractController {
 		return actor;
 	}
 
-	public Administrator reconstruct(final FormActor actor) {
+	public Administrator reconstruct(final FormActor actor)
+			throws ObjectNotFoundException {
 		final Administrator admin = this.administratorService.findOne(actor
 				.getId());
 		admin.setName(actor.getName());
