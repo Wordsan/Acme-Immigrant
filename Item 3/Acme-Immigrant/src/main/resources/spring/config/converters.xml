@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- * converters.xml * * Copyright (C) 2017 Universidad de Sevilla * * The 
+	use of this project is hereby constrained to the conditions of the * TDG 
+	Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd		
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd		
+	">
+
+	<util:list id="converters">
+		<!-- Add your own converters using entries of the following form: <bean 
+			class="converters.Class1ToClass2" /> -->
+		<bean class="converters.ActorToStringConverter" />
+		<bean class="converters.StringToActorConverter" />
+
+		<bean class="converters.AdministratorToStringConverter" />
+		<bean class="converters.StringToAdministratorConverter" />
+
+		<bean class="converters.ApplicationToStringConverter" />
+		<bean class="converters.StringToApplicationConverter" />
+
+		<bean class="converters.CategoryToStringConverter" />
+		<bean class="converters.StringToCategoryConverter" />
+
+		<bean class="converters.ConfigurationSystemToStringConverter" />
+		<bean class="converters.StringToConfigurationSystemConverter" />
+
+		<bean class="converters.ContactSectionToStringConverter" />
+		<bean class="converters.StringToContactSectionConverter" />
+
+		<bean class="converters.CountryToStringConverter" />
+		<bean class="converters.StringToCountryConverter" />
+
+		<bean class="converters.CreditCardToStringConverter" />
+		<bean class="converters.StringToCreditCardConverter" />
+
+		<bean class="converters.DecisionToStringConverter" />
+		<bean class="converters.StringToDecisionConverter" />
+
+		<bean class="converters.EducationSectionToStringConverter" />
+		<bean class="converters.StringToEducationSectionConverter" />
+
+		<bean class="converters.ImmigrantToStringConverter" />
+		<bean class="converters.StringToImmigrantConverter" />
+
+		<bean class="converters.InvestigatorToStringConverter" />
+		<bean class="converters.StringToInvestigatorConverter" />
+
+		<bean class="converters.LawToStringConverter" />
+		<bean class="converters.StringToLawConverter" />
+
+		<bean class="converters.OfficerToStringConverter" />
+		<bean class="converters.StringToOfficerConverter" />
+
+		<bean class="converters.PersonalSectionToStringConverter" />
+		<bean class="converters.StringToPersonalSectionConverter" />
+
+		<bean class="converters.QuestionToStringConverter" />
+		<bean class="converters.StringToQuestionConverter" />
+
+		<bean class="converters.ReportToStringConverter" />
+		<bean class="converters.StringToReportConverter" />
+
+		<bean class="converters.RequirementToStringConverter" />
+		<bean class="converters.StringToRequirementConverter" />
+
+		<bean class="converters.SocialSectionToStringConverter" />
+		<bean class="converters.StringToSocialSectionConverter" />
+
+		<bean class="converters.UserAccountToStringConverter" />
+		<bean class="converters.StringToUserAccountConverter" />
+
+		<bean class="converters.VisaToStringConverter" />
+		<bean class="converters.StringToVisaConverter" />
+
+		<bean class="converters.WorkSectionToStringConverter" />
+		<bean class="converters.StringToWorkSectionConverter" />
+	</util:list>
+
+</beans>
