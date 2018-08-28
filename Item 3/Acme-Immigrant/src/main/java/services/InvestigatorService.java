@@ -112,11 +112,12 @@ public class InvestigatorService {
 			final Immigrant imm = this.immigrantService.findOne(immigrantId);
 			final Officer o = this.officerService.getActorByUA(officerUA);
 			boolean aux = false;
-			for (final Application a : imm.getApplications()) {
-				if (a.getOfficer().equals(o))
-					aux = true;
-				break;
-			}
+			for (final Application a : imm.getApplications())
+				if (a.getOfficer() != null) {
+					if (a.getOfficer().equals(o))
+						aux = true;
+					break;
+				}
 			if (aux && imm.getInvestigator() == null) {
 				inv.getImmigrants().add(imm);
 				imm.setInvestigator(inv);

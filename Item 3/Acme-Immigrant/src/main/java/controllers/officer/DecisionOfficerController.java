@@ -56,18 +56,22 @@ public class DecisionOfficerController extends AbstractController {
 			throws ForbbidenActionException, ObjectNotFoundException {
 		ModelAndView result;
 
-		final int code = this.decisionService.createNew(applicationId,
-				accepted, reason);
-		if (code == 0)
-			result = new ModelAndView(
-					"redirect:/application/officer/display.do?applicationId="
-							+ applicationId);
-		else if (code == 1) {
+		int code;
+		try {
+			code = this.decisionService.createNew(applicationId, accepted,
+					reason);
+		} catch (final IllegalArgumentException e) {
 			result = new ModelAndView(
 					"redirect:/application/officer/display.do?applicationId="
 							+ applicationId);
 			result.addObject("message", "decision.reason.error");
-		} else {
+			return result;
+		}
+		if (code == 0)
+			result = new ModelAndView(
+					"redirect:/application/officer/display.do?applicationId="
+							+ applicationId);
+		else {
 			result = new ModelAndView("application/display");
 			result.addObject("applicationId", applicationId);
 			result.addObject("message", "decision.commit.error");

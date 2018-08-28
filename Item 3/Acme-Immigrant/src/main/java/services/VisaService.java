@@ -131,7 +131,7 @@ public class VisaService {
 	}
 
 	public List<Visa> searchVisaByKeyword(final String keyword) {
-		if (!keyword.equals(null) && !keyword.equals(""))
+		if (keyword != null && !keyword.equals(""))
 			return this.visaRepository.searchVisaFromKeyWordClase(keyword);
 		else
 			return this.visaRepository.getAvailableVisas();

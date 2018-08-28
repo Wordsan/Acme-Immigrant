@@ -309,7 +309,9 @@
 	<jstl:if
 		test="${application.officer.userAccount.username == username and application.status != 'OPENED'}">
 		<fieldset>
-			<spring:message code="question.create"></spring:message>
+			<legend>
+				<spring:message code="question.create"></spring:message>
+			</legend>
 			<form
 				action="question/officer/create.do?applicationId=${application.id}"
 				method="POST">

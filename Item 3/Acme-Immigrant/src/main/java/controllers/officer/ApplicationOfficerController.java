@@ -60,7 +60,7 @@ public class ApplicationOfficerController extends AbstractController {
 			result = this.display(applicationId);
 			result.addObject("message", "officer.assign.error");
 		} else {
-			result = this.display(applicationId);
+			result = this.listAssign();
 			result.addObject("message", "application.assign.error");
 		}
 		return result;
@@ -86,7 +86,7 @@ public class ApplicationOfficerController extends AbstractController {
 
 	// List not assigned
 	@RequestMapping(value = "/notAssigned", method = RequestMethod.GET)
-	public ModelAndView listAssign(final String status) {
+	public ModelAndView listAssign() {
 		ModelAndView result;
 		List<Application> apps = new ArrayList<>();
 
