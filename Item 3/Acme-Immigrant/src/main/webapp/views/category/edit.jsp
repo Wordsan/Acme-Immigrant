@@ -29,7 +29,6 @@
 	<form:hidden path="visas" />
 
 	<acme:textbox code="category.name" path="name" />
-
 	<acme:select items="${categories}" itemLabel="name"
 		code="category.parent" path="parent" />
 

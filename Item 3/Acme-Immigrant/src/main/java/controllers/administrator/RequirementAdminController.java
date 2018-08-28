@@ -11,8 +11,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
 import services.AdministratorService;
 import services.LawService;
 import services.RequirementService;
@@ -20,6 +22,7 @@ import services.VisaService;
 import utilities.ForbbidenActionException;
 import utilities.ObjectNotFoundException;
 import controllers.AbstractController;
+import controllers.WelcomeController;
 import domain.Requirement;
 
 @Controller
@@ -144,11 +147,17 @@ public class RequirementAdminController extends AbstractController {
 			ForbbidenActionException {
 		ModelAndView result;
 
-		if (this.requirementService.addVisa(requirementId, visaId) == 0)
-			result = this.display(requirementId);
-		else {
-			result = this.display(requirementId);
-			result.addObject("message", "requirement.commit.error");
+		try {
+			if (this.requirementService.addVisa(requirementId, visaId) == 0)
+				result = this.display(requirementId);
+			else {
+				result = this.display(requirementId);
+				result.addObject("message", "requirement.commit.error");
+			}
+		} catch (final ResourceAccessException e) {
+			result = WelcomeController.indice("resource.already.exists",
+					this.administratorService.getActorByUA(LoginService
+							.getPrincipal()));
 		}
 		return result;
 	}

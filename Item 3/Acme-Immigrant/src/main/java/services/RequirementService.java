@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.web.client.ResourceAccessException;
 
 import repositories.RequirementRepository;
 import security.LoginService;
@@ -98,11 +99,15 @@ public class RequirementService {
 		try {
 			final Visa v = this.visaService.findOne(visaId);
 			final Requirement r = this.findOne(requirementId);
+			if (r.getVisas().contains(v))
+				throw new ResourceAccessException(null);
 			v.getRequirements().add(r);
 			this.visaService.save(v);
 			r.getVisas().add(v);
 			this.save(r);
 		} catch (final ObjectNotFoundException d) {
+			throw d;
+		} catch (final ResourceAccessException d) {
 			throw d;
 		} catch (final ForbbidenActionException f) {
 			throw f;

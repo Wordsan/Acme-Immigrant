@@ -37,17 +37,15 @@
 <acme:displayLink value="${visa.country.name}"
 	link="country/display.do?countryId=${visa.country.id}"></acme:displayLink>
 
-<security:authorize access="hasRole('ADMIN')">
-	<spring:message code="visa.abrogated" />
-	<jstl:if test="${visa.abrogated == true}">
-		<spring:message code="visa.abrogated.yes"></spring:message>
-	</jstl:if>
+<spring:message code="visa.abrogated" />
+<jstl:if test="${visa.abrogated == true}">
+	<spring:message code="visa.abrogated.yes"></spring:message>
+</jstl:if>
 
-	<jstl:if test="${visa.abrogated == false}">
-		<spring:message code="visa.abrogated.no"></spring:message>
-		<br>
-	</jstl:if>
-</security:authorize>
+<jstl:if test="${visa.abrogated == false}">
+	<spring:message code="visa.abrogated.no"></spring:message>
+</jstl:if>
+<br>
 
 <jstl:if test="${statistics1 != null}">
 	<spring:message code="visa.statistics.uno" />

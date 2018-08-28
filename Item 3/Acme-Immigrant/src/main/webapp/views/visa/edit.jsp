@@ -28,7 +28,10 @@
 	<form:hidden path="abrogated" />
 	<form:hidden path="requirements" />
 	<form:hidden path="applications" />
-
+	<jstl:forEach items="${data}" var="dato">
+		<jstl:out value="${dato.key}"/>
+		<jstl:out value="${dato.value}"/>
+	</jstl:forEach>
 	<acme:textbox code="visa.clase" path="clase" />
 
 	<acme:textarea code="visa.description" path="description" />
