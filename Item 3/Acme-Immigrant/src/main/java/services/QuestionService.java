@@ -51,6 +51,8 @@ public class QuestionService {
 			throws ForbbidenActionException, ObjectNotFoundException {
 		final Question f = new Question();
 		final Application a = this.applicationService.findOne(applicationId);
+		if (statement == null || statement.equals(""))
+			return null;
 		f.setApplication(a);
 		f.setImmigrant(a.getImmigrant());
 		f.setMadeMoment(new Date(System.currentTimeMillis() - 1000));

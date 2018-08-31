@@ -16,7 +16,8 @@
 	$(function() {
 		a = $('#datepicker');
 		a.datepicker({
-			changeYear : true
+			changeYear : true,
+			yearRange : "1930:2018"
 		});
 		$('#datepicker').on("change", function() {
 			a.datepicker("option", "dateFormat", "mm/dd/yy");
@@ -31,8 +32,8 @@
 	});
 </script>
 
-<form:form action="application/immigrant/edit.do" method="post"
-	modelAttribute="apps">
+<form:form action="${formURI}" method="post" modelAttribute="apps"
+	id="form" name="form">
 	<form:hidden path="id" />
 	<form:hidden path="visaId" />
 	<form:hidden path="socialSectionId" />

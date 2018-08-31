@@ -46,8 +46,9 @@
 			method="post">
 			<input type="text" id="answer" name="answer" />
 			<button type="submit" name="answerButton">
-				<spring:message code="question.answer" />
+				<spring:message code="save.button" />
 			</button>
 		</form>
+		<acme:cancel url="question/immigrant/list.do" code="cancel.button" />
 	</jstl:if>
 </security:authorize>

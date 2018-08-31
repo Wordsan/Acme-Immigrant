@@ -155,6 +155,66 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="userAccount13" class="security.UserAccount">
+		<property name="username" value="immigrant4" />
+		<property name="password" value="21520165de8d3f7641d82675ea15c14d" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="IMMIGRANT" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount14" class="security.UserAccount">
+		<property name="username" value="immigrant5" />
+		<property name="password" value="21520165de8d3f7641d82675ea15c14d" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="IMMIGRANT" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount15" class="security.UserAccount">
+		<property name="username" value="immigrant6" />
+		<property name="password" value="21520165de8d3f7641d82675ea15c14d" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="IMMIGRANT" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount16" class="security.UserAccount">
+		<property name="username" value="immigrant7" />
+		<property name="password" value="21520165de8d3f7641d82675ea15c14d" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="IMMIGRANT" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount17" class="security.UserAccount">
+		<property name="username" value="immigrant8" />
+		<property name="password" value="21520165de8d3f7641d82675ea15c14d" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="IMMIGRANT" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 
 	<bean id="creditCard1" class="domain.CreditCard">
 		<property name="holderName" value="Perico de los Palotes"></property>
@@ -191,6 +251,51 @@
 		<property name="expirationYear" value="18"></property>
 		<property name="CVVCode" value="124"></property>
 	</bean>
+	
+	<bean id="creditCard5" class="domain.CreditCard">
+		<property name="holderName" value="Perico de los Palotes"></property>
+		<property name="brandName" value="VISA"></property>
+		<property name="number" value="4012888888881881"></property>
+		<property name="expirationMonth" value="08"></property>
+		<property name="expirationYear" value="20"></property>
+		<property name="CVVCode" value="684"></property>
+	</bean>
+	
+	<bean id="creditCard6" class="domain.CreditCard">
+		<property name="holderName" value="Perico de los Palotes"></property>
+		<property name="brandName" value="VISA"></property>
+		<property name="number" value="4012888888881881"></property>
+		<property name="expirationMonth" value="08"></property>
+		<property name="expirationYear" value="20"></property>
+		<property name="CVVCode" value="684"></property>
+	</bean>
+	
+	<bean id="creditCard7" class="domain.CreditCard">
+		<property name="holderName" value="Perico de los Palotes"></property>
+		<property name="brandName" value="VISA"></property>
+		<property name="number" value="4012888888881881"></property>
+		<property name="expirationMonth" value="08"></property>
+		<property name="expirationYear" value="20"></property>
+		<property name="CVVCode" value="684"></property>
+	</bean>
+	
+	<bean id="creditCard8" class="domain.CreditCard">
+		<property name="holderName" value="Perico de los Palotes"></property>
+		<property name="brandName" value="VISA"></property>
+		<property name="number" value="4012888888881881"></property>
+		<property name="expirationMonth" value="08"></property>
+		<property name="expirationYear" value="20"></property>
+		<property name="CVVCode" value="684"></property>
+	</bean>
+	
+	<bean id="creditCard9" class="domain.CreditCard">
+		<property name="holderName" value="Perico de los Palotes"></property>
+		<property name="brandName" value="VISA"></property>
+		<property name="number" value="4012888888881881"></property>
+		<property name="expirationMonth" value="08"></property>
+		<property name="expirationYear" value="20"></property>
+		<property name="CVVCode" value="684"></property>
+	</bean>
 
 	<bean id="personalSection1" class="domain.PersonalSection">
 		<property name="fullNames" value="Aitor Luengo Lopez"></property>
@@ -221,6 +326,69 @@
 	</bean>
 
 	<bean id="personalSection5" class="domain.PersonalSection">
+		<property name="fullNames" value="Patxi Lopez Gurrumendi"></property>
+		<property name="birthPlace" value="España"></property>
+		<property name="birthDate" value="July 1, 1984"></property>
+		<property name="picture" value="https://facebook.com/ab589def"></property>
+	</bean>
+
+	<bean id="personalSection6" class="domain.PersonalSection">
+		<property name="fullNames" value="Patxi Lopez Gurrumendi"></property>
+		<property name="birthPlace" value="España"></property>
+		<property name="birthDate" value="July 1, 1984"></property>
+		<property name="picture" value="https://facebook.com/ab589def"></property>
+	</bean>
+
+	<bean id="personalSection7" class="domain.PersonalSection">
+		<property name="fullNames" value="Patxi Lopez Gurrumendi"></property>
+		<property name="birthPlace" value="España"></property>
+		<property name="birthDate" value="July 1, 1984"></property>
+		<property name="picture" value="https://facebook.com/ab589def"></property>
+	</bean>
+
+	<bean id="personalSection8" class="domain.PersonalSection">
+		<property name="fullNames" value="Patxi Lopez Gurrumendi"></property>
+		<property name="birthPlace" value="España"></property>
+		<property name="birthDate" value="July 1, 1984"></property>
+		<property name="picture" value="https://facebook.com/ab589def"></property>
+	</bean>
+
+	<bean id="personalSection9" class="domain.PersonalSection">
+		<property name="fullNames" value="Patxi Lopez Gurrumendi"></property>
+		<property name="birthPlace" value="España"></property>
+		<property name="birthDate" value="July 1, 1984"></property>
+		<property name="picture" value="https://facebook.com/ab589def"></property>
+	</bean>
+
+	<bean id="personalSection10" class="domain.PersonalSection">
+		<property name="fullNames" value="Patxi Lopez Gurrumendi"></property>
+		<property name="birthPlace" value="España"></property>
+		<property name="birthDate" value="July 1, 1984"></property>
+		<property name="picture" value="https://facebook.com/ab589def"></property>
+	</bean>
+
+	<bean id="personalSection11" class="domain.PersonalSection">
+		<property name="fullNames" value="Patxi Lopez Gurrumendi"></property>
+		<property name="birthPlace" value="España"></property>
+		<property name="birthDate" value="July 1, 1984"></property>
+		<property name="picture" value="https://facebook.com/ab589def"></property>
+	</bean>
+
+	<bean id="personalSection12" class="domain.PersonalSection">
+		<property name="fullNames" value="Patxi Lopez Gurrumendi"></property>
+		<property name="birthPlace" value="España"></property>
+		<property name="birthDate" value="July 1, 1984"></property>
+		<property name="picture" value="https://facebook.com/ab589def"></property>
+	</bean>
+
+	<bean id="personalSection13" class="domain.PersonalSection">
+		<property name="fullNames" value="Patxi Lopez Gurrumendi"></property>
+		<property name="birthPlace" value="España"></property>
+		<property name="birthDate" value="July 1, 1984"></property>
+		<property name="picture" value="https://facebook.com/ab589def"></property>
+	</bean>
+
+	<bean id="personalSection14" class="domain.PersonalSection">
 		<property name="fullNames" value="Patxi Lopez Gurrumendi"></property>
 		<property name="birthPlace" value="España"></property>
 		<property name="birthDate" value="July 1, 1984"></property>
@@ -279,6 +447,60 @@
 	</bean>
 
 	<bean id="socialSection5" class="domain.SocialSection">
+		<property name="nickname" value="Alberto Parrado"></property>
+		<property name="socialNetwork" value="Facebook"></property>
+		<property name="linkProfile" value="https://facebook.com/aparrado156"></property>
+	</bean>
+
+	<bean id="socialSection6" class="domain.SocialSection">
+		<property name="nickname" value="Alberto Parrado"></property>
+		<property name="socialNetwork" value="Facebook"></property>
+		<property name="linkProfile" value="https://facebook.com/aparrado156"></property>
+	</bean>
+
+	<bean id="socialSection7" class="domain.SocialSection">
+		<property name="nickname" value="Alberto Parrado"></property>
+		<property name="socialNetwork" value="Facebook"></property>
+		<property name="linkProfile" value="https://facebook.com/aparrado156"></property>
+	</bean>
+
+	<bean id="socialSection8" class="domain.SocialSection">
+		<property name="nickname" value="Alberto Parrado"></property>
+		<property name="socialNetwork" value="Facebook"></property>
+		<property name="linkProfile" value="https://facebook.com/aparrado156"></property>
+	</bean>
+
+	<bean id="socialSection9" class="domain.SocialSection">
+		<property name="nickname" value="Alberto Parrado"></property>
+		<property name="socialNetwork" value="Facebook"></property>
+		<property name="linkProfile" value="https://facebook.com/aparrado156"></property>
+	</bean>
+
+	<bean id="socialSection10" class="domain.SocialSection">
+		<property name="nickname" value="Alberto Parrado"></property>
+		<property name="socialNetwork" value="Facebook"></property>
+		<property name="linkProfile" value="https://facebook.com/aparrado156"></property>
+	</bean>
+
+	<bean id="socialSection11" class="domain.SocialSection">
+		<property name="nickname" value="Alberto Parrado"></property>
+		<property name="socialNetwork" value="Facebook"></property>
+		<property name="linkProfile" value="https://facebook.com/aparrado156"></property>
+	</bean>
+
+	<bean id="socialSection12" class="domain.SocialSection">
+		<property name="nickname" value="Alberto Parrado"></property>
+		<property name="socialNetwork" value="Facebook"></property>
+		<property name="linkProfile" value="https://facebook.com/aparrado156"></property>
+	</bean>
+
+	<bean id="socialSection13" class="domain.SocialSection">
+		<property name="nickname" value="Alberto Parrado"></property>
+		<property name="socialNetwork" value="Facebook"></property>
+		<property name="linkProfile" value="https://facebook.com/aparrado156"></property>
+	</bean>
+
+	<bean id="socialSection14" class="domain.SocialSection">
 		<property name="nickname" value="Alberto Parrado"></property>
 		<property name="socialNetwork" value="Facebook"></property>
 		<property name="linkProfile" value="https://facebook.com/aparrado156"></property>
@@ -378,6 +600,62 @@
 				<ref bean="visa3"></ref>
 				<ref bean="visa4"></ref>
 			</list>
+		</property>
+	</bean>
+
+	<bean id="category7" class="domain.Category">
+		<property name="name" value="Categoria 7"></property>
+		<property name="parent">
+			<ref bean="category1"></ref>
+		</property>
+		<property name="childs">
+			<list>
+			</list>
+		</property>
+		<property name="visas">
+			<list></list>
+		</property>
+	</bean>
+
+	<bean id="category8" class="domain.Category">
+		<property name="name" value="Categoria 8"></property>
+		<property name="parent">
+			<ref bean="category1"></ref>
+		</property>
+		<property name="childs">
+			<list>
+			</list>
+		</property>
+		<property name="visas">
+			<list></list>
+		</property>
+	</bean>
+
+	<bean id="category9" class="domain.Category">
+		<property name="name" value="Categoria 9"></property>
+		<property name="parent">
+			<ref bean="category1"></ref>
+		</property>
+		<property name="childs">
+			<list>
+			</list>
+		</property>
+		<property name="visas">
+			<list></list>
+		</property>
+	</bean>
+
+	<bean id="category10" class="domain.Category">
+		<property name="name" value="Categoria 10"></property>
+		<property name="parent">
+			<ref bean="category1"></ref>
+		</property>
+		<property name="childs">
+			<list>
+			</list>
+		</property>
+		<property name="visas">
+			<list></list>
 		</property>
 	</bean>
 
@@ -508,6 +786,157 @@
 		</property>
 	</bean>
 
+	<bean id="immigrant4" class="domain.Immigrant">
+		<property name="name" value="Esperanza"></property>
+		<property name="surname" value="Romero"></property>
+		<property name="email" value="aromero@gmail.es"></property>
+		<property name="userAccount">
+			<ref bean="userAccount13" />
+		</property>
+		<property name="investigator">
+			<ref bean="investigator2"></ref>
+		</property>
+		<property name="creditCards">
+			<list>
+				<ref bean="creditCard5"></ref>
+			</list>
+		</property>
+		<property name="questions">
+			<list>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application6"></ref>
+			</list>
+		</property>
+		<property name="reports">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="immigrant5" class="domain.Immigrant">
+		<property name="name" value="Jesus"></property>
+		<property name="surname" value="Romero"></property>
+		<property name="email" value="aromero@gmail.es"></property>
+		<property name="userAccount">
+			<ref bean="userAccount14" />
+		</property>
+		<property name="investigator">
+			<ref bean="investigator2"></ref>
+		</property>
+		<property name="creditCards">
+			<list>
+				<ref bean="creditCard6"></ref>
+			</list>
+		</property>
+		<property name="questions">
+			<list>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application7"></ref>
+			</list>
+		</property>
+		<property name="reports">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="immigrant6" class="domain.Immigrant">
+		<property name="name" value="Amanda"></property>
+		<property name="surname" value="Romero"></property>
+		<property name="email" value="aromero@gmail.es"></property>
+		<property name="userAccount">
+			<ref bean="userAccount15" />
+		</property>
+		<property name="investigator">
+			<ref bean="investigator2"></ref>
+		</property>
+		<property name="creditCards">
+			<list>
+				<ref bean="creditCard7"></ref>
+			</list>
+		</property>
+		<property name="questions">
+			<list>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application8"></ref>
+			</list>
+		</property>
+		<property name="reports">
+			<list>
+			</list>
+		</property>
+		</bean>
+
+	<bean id="immigrant7" class="domain.Immigrant">
+		<property name="name" value="Esperanza"></property>
+		<property name="surname" value="Romero"></property>
+		<property name="email" value="aromero@gmail.es"></property>
+		<property name="userAccount">
+			<ref bean="userAccount16" />
+		</property>
+		<property name="investigator">
+			<ref bean="investigator2"></ref>
+		</property>
+		<property name="creditCards">
+			<list>
+				<ref bean="creditCard8"></ref>
+			</list>
+		</property>
+		<property name="questions">
+			<list>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application13"></ref>
+			</list>
+		</property>
+		<property name="reports">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="immigrant8" class="domain.Immigrant">
+		<property name="name" value="Esperanza"></property>
+		<property name="surname" value="Romero"></property>
+		<property name="email" value="aromero@gmail.es"></property>
+		<property name="userAccount">
+			<ref bean="userAccount17" />
+		</property>
+		<property name="investigator">
+			<ref bean="investigator2"></ref>
+		</property>
+		<property name="creditCards">
+			<list>
+				<ref bean="creditCard9"></ref>
+			</list>
+		</property>
+		<property name="questions">
+			<list>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application14"></ref>
+			</list>
+		</property>
+		<property name="reports">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	
 	<bean id="investigator1" class="domain.Investigator">
 		<property name="name" value="Esperanza"></property>
 		<property name="surname" value="Giraldez"></property>
@@ -541,6 +970,11 @@
 		<property name="immigrants">
 			<list>
 				<ref bean="immigrant2"></ref>
+				<ref bean="immigrant4"></ref>
+				<ref bean="immigrant5"></ref>
+				<ref bean="immigrant6"></ref>
+				<ref bean="immigrant7"></ref>
+				<ref bean="immigrant8"></ref>
 			</list>
 		</property>
 	</bean>
@@ -573,6 +1007,9 @@
 		</property>
 		<property name="applications">
 			<list>
+				<ref bean="application10"></ref>
+				<ref bean="application11"></ref>
+				<ref bean="application12"></ref>
 			</list>
 		</property>
 	</bean>
@@ -588,6 +1025,10 @@
 			<list>
 				<ref bean="application2"></ref>
 				<ref bean="application3"></ref>
+				<ref bean="application6"></ref>
+				<ref bean="application7"></ref>
+				<ref bean="application8"></ref>
+				<ref bean="application9"></ref>
 			</list>
 		</property>
 	</bean>
@@ -602,6 +1043,7 @@
 		<property name="applications">
 			<list>
 				<ref bean="application4"></ref>
+				<ref bean="application13"></ref>
 			</list>
 		</property>
 	</bean>
@@ -738,12 +1180,44 @@
 		</property>
 		<property name="applications">
 			<list>
+				<ref bean="application6"></ref>
+				<ref bean="application7"></ref>
+				<ref bean="application8"></ref>
+				<ref bean="application9"></ref>
+				<ref bean="application10"></ref>
+				<ref bean="application11"></ref>
+				<ref bean="application12"></ref>
+				<ref bean="application13"></ref>
+				<ref bean="application14"></ref>
 			</list>
 		</property>
 		<property name="requirements">
 			<list>
 			</list>
 		</property>
+
+	</bean>
+	
+	<bean id="visa6" class="domain.Visa">
+		<property name="clase" value="Morado"></property>
+		<property name="description" value="Visado temporal de turismo"></property>
+		<property name="price" value="6"></property>
+		<property name="currency" value="$"></property>
+		<property name="category">
+			<ref bean="category6" />
+		</property>
+		<property name="country">
+			<ref bean="country2" />
+		</property>
+		<property name="applications">
+			<list>
+			</list>
+		</property>
+		<property name="requirements">
+			<list>
+			</list>
+		</property>
+		<property name="abrogated" value="false" />
 
 	</bean>
 
@@ -755,6 +1229,9 @@
 		<property name="laws">
 			<list>
 				<ref bean="law1" />
+				<ref bean="law4" />
+				<ref bean="law5" />
+				<ref bean="law6" />
 			</list>
 		</property>
 		<property name="visas">
@@ -782,6 +1259,70 @@
 				<ref bean="visa3"></ref>
 				<ref bean="visa4"></ref>
 				<ref bean="visa5"></ref>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="country3" class="domain.Country">
+		<property name="name" value="Australia"></property>
+		<property name="ISOCode" value="724"></property>
+		<property name="flag" value="https://wikipedia.org/Spain/flag.jpeg"></property>
+		<property name="wikiPage" value="https://es.wikipedia.org/wiki/Spain"></property>
+		<property name="laws">
+			<list>
+				<ref bean="law1" />
+			</list>
+		</property>
+		<property name="visas">
+			<list>
+				<ref bean="visa1"></ref>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="country4" class="domain.Country">
+		<property name="name" value="Inglaterra"></property>
+		<property name="ISOCode" value="724"></property>
+		<property name="flag" value="https://wikipedia.org/Spain/flag.jpeg"></property>
+		<property name="wikiPage" value="https://es.wikipedia.org/wiki/Spain"></property>
+		<property name="laws">
+			<list>
+				<ref bean="law1" />
+			</list>
+		</property>
+		<property name="visas">
+			<list>
+				<ref bean="visa1"></ref>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="country5" class="domain.Country">
+		<property name="name" value="Alemania"></property>
+		<property name="ISOCode" value="724"></property>
+		<property name="flag" value="https://wikipedia.org/Spain/flag.jpeg"></property>
+		<property name="wikiPage" value="https://es.wikipedia.org/wiki/Spain"></property>
+		<property name="laws">
+			<list>
+			</list>
+		</property>
+		<property name="visas">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="country6" class="domain.Country">
+		<property name="name" value="Italia"></property>
+		<property name="ISOCode" value="724"></property>
+		<property name="flag" value="https://wikipedia.org/Spain/flag.jpeg"></property>
+		<property name="wikiPage" value="https://es.wikipedia.org/wiki/Spain"></property>
+		<property name="laws">
+			<list>
+			</list>
+		</property>
+		<property name="visas">
+			<list>
 			</list>
 		</property>
 	</bean>
@@ -877,6 +1418,65 @@
 		</property>
 	</bean>
 
+	<bean id="law4" class="domain.Law">
+		<property name="title" value="Ley 4"></property>
+		<property name="text"
+			value="Texto de descripcion"></property>
+		<property name="createdAt" value="June 1, 2018 08:00"></property>
+		<property name="country">
+			<ref bean="country1"></ref>
+		</property>
+		<property name="relatedLaws">
+			<list>
+
+			</list>
+		</property>
+		<property name="requirements">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="law5" class="domain.Law">
+		<property name="title" value="Ley 5"></property>
+		<property name="text"
+			value="Texto de descripcion"></property>
+		<property name="createdAt" value="June 1, 2018 08:00"></property>
+		<property name="country">
+			<ref bean="country1"></ref>
+		</property>
+		<property name="relatedLaws">
+			<list>
+
+			</list>
+		</property>
+		<property name="requirements">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="law6" class="domain.Law">
+		<property name="title" value="Ley 6"></property>
+		<property name="text"
+			value="Texto del visado"></property>
+		<property name="createdAt" value="June 1, 2018 08:00"></property>
+		<property name="country">
+			<ref bean="country1"></ref>
+		</property>
+		<property name="relatedLaws">
+			<list>
+
+			</list>
+		</property>
+		<property name="requirements">
+			<list>
+				<ref bean="requirement5"/>
+				<ref bean="requirement6"/>
+			</list>
+		</property>
+	</bean>
+
 	<bean id="requirement1" class="domain.Requirement">
 		<property name="law">
 			<ref bean="law1"></ref>
@@ -933,6 +1533,34 @@
 		<property name="visas">
 			<list>
 				<ref bean="visa3"></ref>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="requirement5" class="domain.Requirement">
+		<property name="law">
+			<ref bean="law6"></ref>
+		</property>
+		<property name="title" value="Requisito 5"></property>
+		<property name="description"
+			value="Texto de requisito"></property>
+		<property name="abrogated" value="false"></property>
+		<property name="visas">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="requirement6" class="domain.Requirement">
+		<property name="law">
+			<ref bean="law6"></ref>
+		</property>
+		<property name="title" value="Requisito 6"></property>
+		<property name="description"
+			value="Texto de requisito"></property>
+		<property name="abrogated" value="false"></property>
+		<property name="visas">
+			<list>
 			</list>
 		</property>
 	</bean>
@@ -1146,6 +1774,357 @@
 		<property name="socialSections">
 			<list>
 				<ref bean="socialSection5"></ref>
+			</list>
+		</property>
+		<property name="educationSections">
+			<list></list>
+		</property>
+		<property name="workSections">
+			<list>
+			</list>
+		</property>
+		<property name="questions">
+			<list></list>
+		</property>
+		<property name="linkedApplications">
+			<list></list>
+		</property>
+	</bean>
+
+	<bean id="application6" class="domain.Application">
+		<property name="ticker" value="180701-AVWE48"></property>
+		<property name="openedMoment" value="July 1, 2018 08:00"></property>
+		<property name="visa">
+			<ref bean="visa3"></ref>
+		</property>
+		<property name="immigrant">
+			<ref bean="immigrant4"></ref>
+		</property>
+		<property name="status" value="AWAITING"></property>
+		<property name="creditCard">
+			<ref bean="creditCard5"></ref>
+		</property>
+		<property name="personalSection">
+			<ref bean="personalSection6"></ref>
+		</property>
+		<property name="contactSections">
+			<list></list>
+		</property>
+		<property name="socialSections">
+			<list>
+				<ref bean="socialSection6"></ref>
+			</list>
+		</property>
+		<property name="educationSections">
+			<list></list>
+		</property>
+		<property name="workSections">
+			<list>
+			</list>
+		</property>
+		<property name="questions">
+			<list></list>
+		</property>
+		<property name="linkedApplications">
+			<list></list>
+		</property>
+	</bean>
+
+	<bean id="application7" class="domain.Application">
+		<property name="ticker" value="180701-BVWE48"></property>
+		<property name="openedMoment" value="July 1, 2018 08:00"></property>
+		<property name="visa">
+			<ref bean="visa3"></ref>
+		</property>
+		<property name="immigrant">
+			<ref bean="immigrant5"></ref>
+		</property>
+		<property name="status" value="AWAITING"></property>
+		<property name="creditCard">
+			<ref bean="creditCard6"></ref>
+		</property>
+		<property name="personalSection">
+			<ref bean="personalSection7"></ref>
+		</property>
+		<property name="contactSections">
+			<list></list>
+		</property>
+		<property name="socialSections">
+			<list>
+				<ref bean="socialSection7"></ref>
+			</list>
+		</property>
+		<property name="educationSections">
+			<list></list>
+		</property>
+		<property name="workSections">
+			<list>
+			</list>
+		</property>
+		<property name="questions">
+			<list></list>
+		</property>
+		<property name="linkedApplications">
+			<list></list>
+		</property>
+	</bean>
+
+	<bean id="application8" class="domain.Application">
+		<property name="ticker" value="180701-CVWE48"></property>
+		<property name="openedMoment" value="July 1, 2018 08:00"></property>
+		<property name="visa">
+			<ref bean="visa3"></ref>
+		</property>
+		<property name="immigrant">
+			<ref bean="immigrant1"></ref>
+		</property>
+		<property name="status" value="AWAITING"></property>
+		<property name="creditCard">
+			<ref bean="creditCard1"></ref>
+		</property>
+		<property name="personalSection">
+			<ref bean="personalSection8"></ref>
+		</property>
+		<property name="contactSections">
+			<list></list>
+		</property>
+		<property name="socialSections">
+			<list>
+				<ref bean="socialSection8"></ref>
+			</list>
+		</property>
+		<property name="educationSections">
+			<list></list>
+		</property>
+		<property name="workSections">
+			<list>
+			</list>
+		</property>
+		<property name="questions">
+			<list></list>
+		</property>
+		<property name="linkedApplications">
+			<list></list>
+		</property>
+	</bean>
+
+	<bean id="application9" class="domain.Application">
+		<property name="ticker" value="180701-DVWE48"></property>
+		<property name="openedMoment" value="July 1, 2018 08:00"></property>
+		<property name="visa">
+			<ref bean="visa3"></ref>
+		</property>
+		<property name="immigrant">
+			<ref bean="immigrant1"></ref>
+		</property>
+		<property name="status" value="AWAITING"></property>
+		<property name="creditCard">
+			<ref bean="creditCard1"></ref>
+		</property>
+		<property name="personalSection">
+			<ref bean="personalSection9"></ref>
+		</property>
+		<property name="contactSections">
+			<list></list>
+		</property>
+		<property name="socialSections">
+			<list>
+				<ref bean="socialSection9"></ref>
+			</list>
+		</property>
+		<property name="educationSections">
+			<list></list>
+		</property>
+		<property name="workSections">
+			<list>
+			</list>
+		</property>
+		<property name="questions">
+			<list></list>
+		</property>
+		<property name="linkedApplications">
+			<list></list>
+		</property>
+	</bean>
+
+	<bean id="application10" class="domain.Application">
+		<property name="ticker" value="180701-EVWE48"></property>
+		<property name="openedMoment" value="July 1, 2018 08:00"></property>
+		<property name="visa">
+			<ref bean="visa3"></ref>
+		</property>
+		<property name="immigrant">
+			<ref bean="immigrant1"></ref>
+		</property>
+		<property name="status" value="AWAITING"></property>
+		<property name="creditCard">
+			<ref bean="creditCard1"></ref>
+		</property>
+		<property name="personalSection">
+			<ref bean="personalSection10"></ref>
+		</property>
+		<property name="contactSections">
+			<list></list>
+		</property>
+		<property name="socialSections">
+			<list>
+				<ref bean="socialSection10"></ref>
+			</list>
+		</property>
+		<property name="educationSections">
+			<list></list>
+		</property>
+		<property name="workSections">
+			<list>
+			</list>
+		</property>
+		<property name="questions">
+			<list></list>
+		</property>
+		<property name="linkedApplications">
+			<list></list>
+		</property>
+	</bean>
+
+	<bean id="application11" class="domain.Application">
+		<property name="ticker" value="180701-FVWE48"></property>
+		<property name="openedMoment" value="July 1, 2018 08:00"></property>
+		<property name="visa">
+			<ref bean="visa3"></ref>
+		</property>
+		<property name="immigrant">
+			<ref bean="immigrant1"></ref>
+		</property>
+		<property name="status" value="AWAITING"></property>
+		<property name="creditCard">
+			<ref bean="creditCard1"></ref>
+		</property>
+		<property name="personalSection">
+			<ref bean="personalSection11"></ref>
+		</property>
+		<property name="contactSections">
+			<list></list>
+		</property>
+		<property name="socialSections">
+			<list>
+				<ref bean="socialSection11"></ref>
+			</list>
+		</property>
+		<property name="educationSections">
+			<list></list>
+		</property>
+		<property name="workSections">
+			<list>
+			</list>
+		</property>
+		<property name="questions">
+			<list></list>
+		</property>
+		<property name="linkedApplications">
+			<list></list>
+		</property>
+	</bean>
+
+	<bean id="application12" class="domain.Application">
+		<property name="ticker" value="180701-GVWE48"></property>
+		<property name="openedMoment" value="July 1, 2018 08:00"></property>
+		<property name="visa">
+			<ref bean="visa3"></ref>
+		</property>
+		<property name="immigrant">
+			<ref bean="immigrant6"></ref>
+		</property>
+		<property name="status" value="AWAITING"></property>
+		<property name="creditCard">
+			<ref bean="creditCard7"></ref>
+		</property>
+		<property name="personalSection">
+			<ref bean="personalSection12"></ref>
+		</property>
+		<property name="contactSections">
+			<list></list>
+		</property>
+		<property name="socialSections">
+			<list>
+				<ref bean="socialSection12"></ref>
+			</list>
+		</property>
+		<property name="educationSections">
+			<list></list>
+		</property>
+		<property name="workSections">
+			<list>
+			</list>
+		</property>
+		<property name="questions">
+			<list></list>
+		</property>
+		<property name="linkedApplications">
+			<list></list>
+		</property>
+	</bean>
+
+	<bean id="application13" class="domain.Application">
+		<property name="ticker" value="180701-HVWE48"></property>
+		<property name="openedMoment" value="July 1, 2018 08:00"></property>
+		<property name="visa">
+			<ref bean="visa3"></ref>
+		</property>
+		<property name="immigrant">
+			<ref bean="immigrant7"></ref>
+		</property>
+		<property name="status" value="AWAITING"></property>
+		<property name="creditCard">
+			<ref bean="creditCard8"></ref>
+		</property>
+		<property name="personalSection">
+			<ref bean="personalSection13"></ref>
+		</property>
+		<property name="contactSections">
+			<list></list>
+		</property>
+		<property name="socialSections">
+			<list>
+				<ref bean="socialSection13"></ref>
+			</list>
+		</property>
+		<property name="educationSections">
+			<list></list>
+		</property>
+		<property name="workSections">
+			<list>
+			</list>
+		</property>
+		<property name="questions">
+			<list></list>
+		</property>
+		<property name="linkedApplications">
+			<list></list>
+		</property>
+	</bean>
+
+	<bean id="application14" class="domain.Application">
+		<property name="ticker" value="180701-IVWE48"></property>
+		<property name="openedMoment" value="July 1, 2018 08:00"></property>
+		<property name="visa">
+			<ref bean="visa3"></ref>
+		</property>
+		<property name="immigrant">
+			<ref bean="immigrant8"></ref>
+		</property>
+		<property name="status" value="AWAITING"></property>
+		<property name="creditCard">
+			<ref bean="creditCard9"></ref>
+		</property>
+		<property name="personalSection">
+			<ref bean="personalSection14"></ref>
+		</property>
+		<property name="contactSections">
+			<list></list>
+		</property>
+		<property name="socialSections">
+			<list>
+				<ref bean="socialSection14"></ref>
 			</list>
 		</property>
 		<property name="educationSections">

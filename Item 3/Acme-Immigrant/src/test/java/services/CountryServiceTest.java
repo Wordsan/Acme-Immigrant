@@ -53,7 +53,7 @@ public class CountryServiceTest extends AbstractTest {
 				{ "country1", "admin", "pais", null },
 				{ "country2", "immigrant1", "pais",
 						ForbbidenActionException.class },
-				{ "country3", "admin2", "pais", NumberFormatException.class } };
+				{ "country15", "admin2", "pais", NumberFormatException.class } };
 
 		for (int i = 0; i < testingData.length; i++)
 			this.templateEdit((String) testingData[i][0],
@@ -85,7 +85,7 @@ public class CountryServiceTest extends AbstractTest {
 	public void driverDelete() {
 		final Object testingData[][] = { { "country1", "admin", null },
 				{ "country2", "immigrant1", ForbbidenActionException.class },
-				{ "country3", "admin2", NumberFormatException.class } };
+				{ "country15", "admin2", NumberFormatException.class } };
 
 		for (int i = 0; i < testingData.length; i++)
 			this.templateDelete((String) testingData[i][0],
@@ -99,7 +99,7 @@ public class CountryServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 				{ "admin", "country1", "visa1", null },
 				{ null, "country2", "visa2", null },
-				{ "immigrant1", "country3", "visa2",
+				{ "immigrant1", "country15", "visa2",
 						NumberFormatException.class },
 				{ "officer1", "country1", "visa2",
 						IllegalArgumentException.class } };

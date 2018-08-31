@@ -120,7 +120,7 @@ public class CategoryServiceTest extends AbstractTest {
 	public void driverListDisplay() throws ObjectNotFoundException {
 		final Object testingData[][] = { { "admin", "category2", null },
 				{ null, "category2", null },
-				{ "immigrant1", "category10", NumberFormatException.class },
+				{ "immigrant1", "category20", NumberFormatException.class },
 				{ "officer1", "category5", IllegalArgumentException.class } };
 
 		for (int i = 0; i < testingData.length; i++)
@@ -154,7 +154,7 @@ public class CategoryServiceTest extends AbstractTest {
 	public void driverDelete() {
 		final Object testingData[][] = { { "admin", "category2", null },
 				{ "officer1", "category3", ForbbidenActionException.class },
-				{ "immigrant1", "category10", NumberFormatException.class } };
+				{ "immigrant1", "category20", NumberFormatException.class } };
 
 		for (int i = 0; i < testingData.length; i++)
 			this.templateDelete((String) testingData[i][0],

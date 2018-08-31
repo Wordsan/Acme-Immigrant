@@ -54,9 +54,11 @@ public class OfficerController extends AbstractController {
 		final Officer officer = this.reconstruct(formActor);
 		ModelAndView result;
 		if (br.hasErrors()
-				|| !formActor.getPassword().equals(formActor.getRepassword()))
+				&& !formActor.getPassword().equals(formActor.getRepassword()))
 			result = this.createEditModelAndView(officer,
 					"actor.password.confirm");
+		else if (br.hasErrors())
+			result = this.createEditModelAndView(officer);
 		else
 			try {
 				if (this.officerService.save(officer) == null) {

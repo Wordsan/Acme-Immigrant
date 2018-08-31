@@ -15,7 +15,8 @@
 	$(function() {
 		a = $('#datepicker');
 		a.datepicker({
-			changeYear : true
+			changeYear : true,
+			yearRange: "1930:2018"
 		});
 		$('#datepicker').on("change", function() {
 			a.datepicker("option", "dateFormat", "dd/mm/yy");

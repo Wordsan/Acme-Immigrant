@@ -32,11 +32,11 @@
 	</display:column>
 
 	<spring:message code="actor.name" var="nameTitle" />
-	<display:column property="name" title="${nameTitle}"></display:column>
+	<display:column property="name" title="${nameTitle}" sortable="true"></display:column>
 
 	<spring:message code="actor.surname" var="surnameTitle" />
-	<display:column property="surname" title="${surnameTitle}"></display:column>
+	<display:column property="surname" title="${surnameTitle}" sortable="true"></display:column>
 
 	<spring:message code="actor.email" var="emailTitle" />
-	<display:column property="email" title="${emailTitle}"></display:column>
+	<display:column property="email" title="${emailTitle}" sortable="true"></display:column>
 </display:table>

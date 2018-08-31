@@ -54,9 +54,11 @@ public class ImmigrantController extends AbstractController {
 		final Immigrant immigrant = this.reconstruct(formActor);
 		ModelAndView result;
 		if (br.hasErrors()
-				|| !formActor.getPassword().equals(formActor.getRepassword()))
+				&& !formActor.getPassword().equals(formActor.getRepassword()))
 			result = this.createEditModelAndView(immigrant,
 					"actor.password.confirm");
+		else if (br.hasErrors())
+			result = this.createEditModelAndView(immigrant);
 		else
 			try {
 				if (this.immigrantService.save(immigrant) == null) {

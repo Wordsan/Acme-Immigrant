@@ -59,9 +59,11 @@ public class InvestigatorController extends AbstractController {
 			return result;
 		}
 		if (br.hasErrors()
-				|| !formActor.getPassword().equals(formActor.getRepassword()))
+				&& !formActor.getPassword().equals(formActor.getRepassword()))
 			result = this.createEditModelAndView(investigator,
 					"actor.password.confirm");
+		else if (br.hasErrors())
+			result = this.createEditModelAndView(investigator);
 		else
 			try {
 				if (this.investigatorService.save(investigator) == null) {

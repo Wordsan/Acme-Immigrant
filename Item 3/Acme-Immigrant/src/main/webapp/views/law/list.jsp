@@ -34,7 +34,7 @@
 	<display:column property="title" title="${lawTitle }" sortable="true" />
 
 	<spring:message code="law.country" var="lawCountry"></spring:message>
-	<display:column title="${lawCountry}">
+	<display:column title="${lawCountry}" sortable="true">
 		<acme:displayLink
 			link="country/display.do?countryId=${law.country.id}"
 			value="${law.country.name}" />

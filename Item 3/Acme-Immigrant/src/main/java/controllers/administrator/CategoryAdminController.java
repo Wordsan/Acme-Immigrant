@@ -125,7 +125,7 @@ public class CategoryAdminController extends AbstractController {
 
 		categories = (List<Category>) this.categoryService.findAll();
 		result = new ModelAndView("category/list");
-		result.addObject("requestUri", "category/admin/list.do");
+		result.addObject("requestURI", "category/admin/list.do");
 		result.addObject("categories", categories);
 		return result;
 	}

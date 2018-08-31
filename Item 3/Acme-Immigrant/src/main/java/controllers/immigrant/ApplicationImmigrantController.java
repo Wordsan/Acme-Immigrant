@@ -168,16 +168,19 @@ public class ApplicationImmigrantController extends AbstractController {
 						return result;
 					} catch (final IllegalArgumentException e) {
 						result = this.createEditModelAndView(apps,
-								"creditCard.commit.error");
+								"creditCard.expiration.error");
 					} catch (final Throwable ops) {
 						result = this.createEditModelAndView(apps,
 								"application.commit.error");
 					}
 					return result;
 				}
-		if (br.hasErrors())
-			result = this.createEditModelAndView(apps);
-		else
+		if (br.hasErrors()) {
+			result = new ModelAndView("application/edit");
+			result.addObject("apps", apps);
+			result.addObject("creditCards", creditCards);
+			result.addObject("formURI", "application/immigrant/edit.do");
+		} else
 			try {
 				final Application a = this.reconstruct(apps);
 				this.applicationService.save(a);

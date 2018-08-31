@@ -62,7 +62,7 @@ public class CreditCard {
 		this.expirationMonth = expirationMonth;
 	}
 
-	@Range(min = 18, max = 30)
+	@Range(min = 17, max = 30)
 	public String getExpirationYear() {
 		return this.expirationYear;
 	}

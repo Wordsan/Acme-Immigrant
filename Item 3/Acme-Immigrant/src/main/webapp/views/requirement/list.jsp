@@ -22,7 +22,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <display:table name="requirements" id="requirement"
-	requestURI="${requestURI}" pagesize="5" class="displaytag">
+	requestURI="${requestUri}" pagesize="5" class="displaytag">
 
 	<display:column>
 		<spring:message code="display.button" var="disp"></spring:message>
@@ -33,7 +33,7 @@
 
 
 	<spring:message code="requirement.law" var="lawTitle"></spring:message>
-	<display:column title="${lawTitle}">
+	<display:column title="${lawTitle}" sortable="true">
 		<acme:displayLink link="law/display.do?lawId=${requirement.law.id}"
 			value="${requirement.law.title}" />
 	</display:column>

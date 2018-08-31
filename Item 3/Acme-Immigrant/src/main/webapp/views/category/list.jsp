@@ -22,7 +22,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <display:table name="categories" id="category"
-	requestURI="${requestUri}" pagesize="5" class="displaytag">
+	requestURI="${requestURI}" pagesize="5" class="displaytag" >
 
 	<display:column>
 		<spring:message code="display.button" var="disp"></spring:message>
