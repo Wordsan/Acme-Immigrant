@@ -61,6 +61,9 @@ public class CategoryService {
 			throws ForbbidenActionException {
 		Category f;
 		Assert.notNull(category);
+		// Se comprueba que el usuario que intenta modificar la clase sea un
+		// Administrator y que no se trate de la Category CATEGORY, necesaria
+		// para el funcionamiento normal
 		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null
 				|| category.getName().equals("CATEGORY"))
 			throw new ForbbidenActionException();
@@ -100,9 +103,17 @@ public class CategoryService {
 
 	public void delete(final Category category)
 			throws ForbbidenActionException, IllegalClassFormatException {
+		// Se comprueba que el usuario que intenta modificar la clase sea un
+		// Administrator y que no se trate de la Category CATEGORY, necesaria
+		// para el funcionamiento normal, en ambos casos se lanzaría la
+		// excepcion
 		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null
 				|| category.getName().equals("CATEGORY"))
 			throw new ForbbidenActionException();
+		/*
+		 * A continuación se elimina la Category de todos los objetos
+		 * relacionados o además se borra el objeto relacionado
+		 */
 		final Category parent = category.getParent();
 		parent.getChilds().remove(category);
 		this.categoryRepository.save(parent);

@@ -161,7 +161,24 @@ public class ApplicationService {
 			for (final Application a : as)
 				if (a.getVisa().getId() == application.getVisa().getId())
 					throw new ResourceAccessException(null);
-		}
+			application.setOpenedMoment(new Date(
+					System.currentTimeMillis() - 1000));
+			/*
+			 * Se comprueba que el que intenta modificar la Application sea un
+			 * usuario valido, es decir, el dueño, el Officer asignado (si
+			 * tiene), el Investigator asignado al dueño (si tiene) o un
+			 * Adminstrator que podría estar borrando objetos relacionados con
+			 * la Application y borrando en cascada por lo tanto
+			 */
+		} else if (!(application.getOfficer() != null
+
+		&& application.getOfficer().getId() == actor.getId()
+				|| (application.getImmigrant().getId() == actor.getId()) || (application
+				.getImmigrant().getInvestigator() != null
+				&& application.getImmigrant().getInvestigator().getId() == actor
+						.getId() || this.administratorService
+					.getActorByUA(LoginService.getPrincipal()) != null)))
+			throw new ForbbidenActionException();
 
 		Assert.notNull(application);
 		// Se comprueba que si la Visa es de pago se proporciona una tarjeta de
@@ -182,24 +199,6 @@ public class ApplicationService {
 			if (cal.before(new GregorianCalendar()))
 				throw new IllegalClassFormatException();
 		}
-		if (application.getId() == 0)
-			application.setOpenedMoment(new Date(
-					System.currentTimeMillis() - 1000));
-		/*
-		 * Se comprueba que el que intenta modificar la Application sea un
-		 * usuario valido, es decir, el dueño, el Officer asignado (si tiene),
-		 * el Investigator asignado al dueño (si tiene) o un Adminstrator que
-		 * podría estar borrando objetos relacionados con la Application y
-		 * borrando en cascada por lo tanto
-		 */
-		else if (!(application.getOfficer() != null
-				&& application.getOfficer().getId() == actor.getId()
-				|| (application.getImmigrant().getId() == actor.getId()) || (application
-				.getImmigrant().getInvestigator() != null
-				&& application.getImmigrant().getInvestigator().getId() == actor
-						.getId() || this.administratorService
-					.getActorByUA(LoginService.getPrincipal()) != null)))
-			throw new ForbbidenActionException();
 		f = this.applicationRepository.save(application);
 		return f;
 	}

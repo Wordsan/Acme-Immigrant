@@ -49,6 +49,7 @@ public class ContactSectionService {
 		final ContactSection a = this.contactRepository.findOne(contactId);
 		if (a == null)
 			throw new ObjectNotFoundException();
+		// Se comprueba que el que realiza la accion es un Immigrant
 		if (this.immigrantService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		return a;
@@ -58,6 +59,7 @@ public class ContactSectionService {
 			throws ForbbidenActionException {
 		ContactSection f;
 		Assert.notNull(contact);
+		// Se comprueba que el que realiza la accion es un Immigrant
 		if (this.immigrantService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		f = this.contactRepository.save(contact);
@@ -66,6 +68,7 @@ public class ContactSectionService {
 
 	public void delete(final ContactSection contactS)
 			throws ForbbidenActionException {
+		// Se comprueba que el que realiza la accion es un Immigrant
 		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		this.contactRepository.delete(contactS);

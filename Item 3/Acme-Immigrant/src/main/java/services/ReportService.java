@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.ReportRepository;
-import security.Authority;
 import security.LoginService;
 import utilities.ForbbidenActionException;
 import utilities.ObjectNotFoundException;
@@ -56,7 +55,8 @@ public class ReportService {
 
 	public Report save(final Report report) throws ForbbidenActionException {
 		Report f;
-		new Authority();
+		// Se comprueba que el que guarda el Report sea un Investigator y que
+		// ademas sea el que está asignado al Immigrant del Report
 		if (this.investigatorService.getActorByUA(LoginService.getPrincipal()) == null
 				|| !this.investigatorService
 						.getActorByUA(LoginService.getPrincipal())

@@ -49,6 +49,7 @@ public class PersonalSectionService {
 				.findOne(personalSectionId);
 		if (a == null)
 			throw new ObjectNotFoundException();
+		// Se comprueba que el que realiza la accion es un Immigrant
 		if (this.immigrantService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		return a;
@@ -58,6 +59,7 @@ public class PersonalSectionService {
 			throws ForbbidenActionException {
 		PersonalSection f;
 		Assert.notNull(personalSection);
+		// Se comprueba que el que realiza la accion es un Immigrant
 		if (this.immigrantService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		f = this.personalSectionRepository.save(personalSection);
@@ -65,6 +67,7 @@ public class PersonalSectionService {
 	}
 
 	public void delete(final PersonalSection p) throws ForbbidenActionException {
+		// Se comprueba que el que realiza la accion es un Immigrant
 		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		this.personalSectionRepository.delete(p);

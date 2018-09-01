@@ -60,6 +60,8 @@ public class VisaService {
 	}
 
 	public Collection<Visa> findAll() throws ForbbidenActionException {
+		// El unico que puede listar todos los Visados del sistema es el
+		// Administrator, el resto lista las Visas disponibles
 		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		return this.visaRepository.findAll();
@@ -74,9 +76,13 @@ public class VisaService {
 
 	public Visa save(final Visa visa) throws ForbbidenActionException {
 		Visa f;
+		// Se comprueba que sea un Administrator el que guarda la Visa
 		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		Assert.notNull(visa);
+		// Por el tipo de codificación la base de datos no guarda el símbolo del
+		// euro, por lo que se ha sustituido por el símbolo '?' y se controla en
+		// las vistas
 		if (visa.getCurrency().equals("&#8364;"))
 			visa.setCurrency("?");
 		f = this.visaRepository.save(visa);
@@ -85,8 +91,12 @@ public class VisaService {
 
 	public void delete(final Visa v) throws ForbbidenActionException,
 			IllegalClassFormatException {
+		// Se comprueba que sea un Administrator el que borra la Visa
 		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
+		/*
+		 * Se elimina la Visa de los objetos relacionados o se borra el objeto
+		 */
 		final Country c = v.getCountry();
 		final Collection<Visa> visas = c.getVisas();
 		if (visas != null) {
@@ -118,7 +128,7 @@ public class VisaService {
 	}
 
 	public boolean abrogate(final Visa v) throws ForbbidenActionException {
-
+		// Se comprueba que el que anula la Visa sea un Administrator
 		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		try {
@@ -131,6 +141,8 @@ public class VisaService {
 	}
 
 	public List<Visa> searchVisaByKeyword(final String keyword) {
+		// Si no se proporciona una keyword se devuelven las Visas disponibles,
+		// es decir, las no anuladas
 		if (keyword != null && !keyword.equals(""))
 			return this.visaRepository.searchVisaFromKeyWordClase(keyword);
 		else

@@ -63,7 +63,7 @@ public class RequirementService {
 	public Requirement save(final Requirement requirement)
 			throws ForbbidenActionException {
 		Requirement f;
-
+		// Se comprueba que sea un Administrator el que guarda el Requirement
 		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		Assert.notNull(requirement);
@@ -77,6 +77,7 @@ public class RequirementService {
 
 	public void delete(final Requirement requirement)
 			throws ForbbidenActionException, IllegalClassFormatException {
+		// Se comprueba que sea un Administrator el que elimina el Requirement
 		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		final Law l = requirement.getLaw();
@@ -99,6 +100,8 @@ public class RequirementService {
 		try {
 			final Visa v = this.visaService.findOne(visaId);
 			final Requirement r = this.findOne(requirementId);
+			// Se comprueba que no exista ya la relación entre Visa y
+			// Requirement
 			if (r.getVisas().contains(v))
 				throw new ResourceAccessException(null);
 			v.getRequirements().add(r);

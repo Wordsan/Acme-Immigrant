@@ -51,6 +51,7 @@ public class LawService {
 	}
 
 	public Collection<Law> findAll() throws ForbbidenActionException {
+		// El único que puede listar las leyes es el Administrator
 		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		return this.lawRepository.findAll();
@@ -64,6 +65,7 @@ public class LawService {
 	}
 
 	public Law save(final Law law) throws ForbbidenActionException {
+		// Se comprueba que el que la modifica sea un Administrator
 		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		Law f;
@@ -76,8 +78,13 @@ public class LawService {
 
 	public void delete(final Law law) throws ForbbidenActionException,
 			IllegalClassFormatException {
+		// Se comprueba que el que la elimina sea un Administrator
 		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
+		/*
+		 * A continuación se eliminan las relaciones con los objetos
+		 * relacionados o los propios objetos
+		 */
 		final Collection<Law> laws = law.getRelatedLaws();
 		law.setRelatedLaws(new ArrayList<Law>());
 		if (laws != null)
@@ -95,13 +102,17 @@ public class LawService {
 			this.lawRepository.delete(l);
 	}
 
+	// Devuelve 1 si ha ocurrido un error inesperado
+	// Devuelve 0 si se ha anulado correctamente
 	public int abrogate(final int lawId) throws ForbbidenActionException {
+		// Se comprueba que el que quiere anular la Law sea un Administrator
 		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		try {
 			final Law law = this.findOne(lawId);
 			law.setAbrogatedAt(new Date(System.currentTimeMillis()));
 			this.save(law);
+			// Se propaga la anulación por los Requirements y Visas
 			final Collection<Requirement> reqs = law.getRequirements();
 			for (final Requirement r : reqs) {
 				r.setAbrogated(true);

@@ -49,6 +49,7 @@ public class EducationSectionService {
 				.findOne(educationSectionId);
 		if (a == null)
 			throw new ObjectNotFoundException();
+		// Se comprueba que el que realiza la accion es un Immigrant
 		if (this.immigrantService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		return a;
@@ -58,6 +59,7 @@ public class EducationSectionService {
 			throws ForbbidenActionException {
 		EducationSection f;
 		Assert.notNull(educationSection);
+		// Se comprueba que el que realiza la accion es un Immigrant
 		if (this.immigrantService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		f = this.educationSectionRepository.save(educationSection);
@@ -66,6 +68,7 @@ public class EducationSectionService {
 
 	public void delete(final EducationSection educationS)
 			throws ForbbidenActionException {
+		// Se comprueba que el que realiza la accion es un Immigrant
 		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		this.educationSectionRepository.delete(educationS);

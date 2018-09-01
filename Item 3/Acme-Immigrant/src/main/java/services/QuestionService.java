@@ -76,6 +76,8 @@ public class QuestionService {
 			throws ForbbidenActionException {
 		Question f;
 		Assert.notNull(question);
+		// Se comprueba que el que modifica la Question sea el Immigrant dueño
+		// de la Application o el Officer al cargo
 		if (!question.getImmigrant().getUserAccount()
 				.equals(LoginService.getPrincipal())
 				&& this.officerService
@@ -93,9 +95,11 @@ public class QuestionService {
 			final Question q = this.findOne(questionId);
 			q.setAnswer(answer);
 			q.setAnswerMoment(new Date(System.currentTimeMillis() - 1000));
+			// Se comprueba que el que responde es el Immigrant correspondiente
 			if (!q.getImmigrant().getUserAccount()
 					.equals(LoginService.getPrincipal()))
 				throw new ForbbidenActionException();
+			// Si se proporciona una respuesta en blanco se eleva una excepcion
 			if (answer == null || answer.equals(""))
 				throw new ConstraintDefinitionException();
 			this.save(q);
@@ -120,6 +124,7 @@ public class QuestionService {
 
 	public void delete(final Question q) throws ForbbidenActionException,
 			IllegalClassFormatException {
+		// Se comprueba que es un Administrator el que borra la Question
 		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		final Immigrant i = q.getImmigrant();

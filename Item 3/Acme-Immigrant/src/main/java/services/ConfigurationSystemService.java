@@ -35,6 +35,7 @@ public class ConfigurationSystemService {
 	public ConfigurationSystem save(final ConfigurationSystem cs)
 			throws ForbbidenActionException {
 		try {
+			// Se comprueba que el que la intenta editar sea un Administrator
 			if (this.adminService.getActorByUA(LoginService.getPrincipal()) == null)
 				throw new ForbbidenActionException();
 		} catch (final IllegalArgumentException e) {

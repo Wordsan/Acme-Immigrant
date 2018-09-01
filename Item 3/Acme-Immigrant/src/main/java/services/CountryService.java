@@ -62,6 +62,7 @@ public class CountryService {
 	public Country save(final Country country) throws ForbbidenActionException {
 		Country f;
 		Assert.notNull(country);
+		// Se comprueba que el que realiza la accion es un Administrator
 		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		f = this.countryRepository.save(country);
@@ -85,8 +86,13 @@ public class CountryService {
 
 	public void delete(final Country country) throws ForbbidenActionException,
 			IllegalClassFormatException {
+		// Se comprueba que el que realiza la accion es un Administrator
 		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
+		/*
+		 * A continuación se elimina el Country de todos los objetos
+		 * relacionados o además se borra el objeto relacionado
+		 */
 		final Collection<Law> laws = country.getLaws();
 		country.setLaws(new ArrayList<Law>());
 		if (laws != null)

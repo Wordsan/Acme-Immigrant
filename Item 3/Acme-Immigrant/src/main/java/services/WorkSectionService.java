@@ -48,6 +48,7 @@ public class WorkSectionService {
 		final WorkSection a = this.workSectionRepository.findOne(workSectionId);
 		if (a == null)
 			throw new ObjectNotFoundException();
+		// Se comprueba que el que realiza la accion es un Immigrant
 		if (this.immigrantService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		return a;
@@ -57,6 +58,7 @@ public class WorkSectionService {
 			throws ForbbidenActionException {
 		WorkSection f;
 		Assert.notNull(workSection);
+		// Se comprueba que el que realiza la accion es un Immigrant
 		if (this.immigrantService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		f = this.workSectionRepository.save(workSection);
@@ -64,6 +66,7 @@ public class WorkSectionService {
 	}
 
 	public void delete(final WorkSection workS) throws ForbbidenActionException {
+		// Se comprueba que el que realiza la accion es un Immigrant
 		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		this.workSectionRepository.delete(workS);

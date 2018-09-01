@@ -49,6 +49,7 @@ public class SocialSectionService {
 				.findOne(socialSectionId);
 		if (a == null)
 			throw new ObjectNotFoundException();
+		// Se comprueba que el que realiza la accion es un Immigrant
 		if (this.immigrantService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		return a;
@@ -58,6 +59,7 @@ public class SocialSectionService {
 			throws ForbbidenActionException {
 		SocialSection f;
 		Assert.notNull(socialSection);
+		// Se comprueba que el que realiza la accion es un Immigrant
 		if (this.immigrantService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		f = this.socialSectionRepository.save(socialSection);
@@ -66,6 +68,7 @@ public class SocialSectionService {
 
 	public void delete(final SocialSection socialS)
 			throws ForbbidenActionException {
+		// Se comprueba que el que realiza la accion es un Immigrant
 		if (this.administratorService.getActorByUA(LoginService.getPrincipal()) == null)
 			throw new ForbbidenActionException();
 		this.socialSectionRepository.delete(socialS);

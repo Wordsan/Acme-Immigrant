@@ -15,6 +15,7 @@ import utilities.ForbbidenActionException;
 import utilities.ObjectNotFoundException;
 import domain.Application;
 import domain.Decision;
+import domain.Officer;
 
 @Service
 @Transactional
@@ -69,13 +70,25 @@ public class DecisionService {
 	public int createNew(final int applicationId, final boolean accepted,
 			final String reason) throws ForbbidenActionException,
 			ObjectNotFoundException {
+		// Se comprueba que si la Decision es rechazar la solicitud se aporte
+		// una razon
 		if (!accepted && reason == "")
 			throw new IllegalArgumentException();
-
 		final Decision d = this.create();
-		Application a;
+		Application a = null;
 		try {
+			final Officer o = this.officerService.getActorByUA(LoginService
+					.getPrincipal());
 			a = this.applicationService.findOne(applicationId);
+			// Se comprueba que el que la crea sea un Officer
+			if (o == null)
+				throw new ForbbidenActionException();
+			// Se comprueba que el Officer que crea la Decision tenga asignada
+			// la Application
+			if (a.getOfficer() == null || !a.getOfficer().equals(o))
+				throw new ForbbidenActionException();
+			// Por seguridad se comprueba que la Application esté abierta y no
+			// tenga ya una Decision
 			if (a.getStatus().equals("OPENED") || a.getDecision() != null)
 				throw new ForbbidenActionException();
 		} catch (final ForbbidenActionException f) {
@@ -102,11 +115,13 @@ public class DecisionService {
 
 	public void delete(final Decision d) throws ForbbidenActionException,
 			IllegalClassFormatException {
-		d.getApplication().setDecision(null);
-		this.applicationService.save(d.getApplication());
+		// Se comprueba que el que realiza la accion sea un Officer o un
+		// Administrator
 		if (!(this.officerService.getActorByUA(LoginService.getPrincipal()) != null || this.administratorService
 				.getActorByUA(LoginService.getPrincipal()) != null))
 			throw new ForbbidenActionException();
+		d.getApplication().setDecision(null);
+		this.applicationService.save(d.getApplication());
 		this.decisionRepository.delete(d);
 	}
 }
