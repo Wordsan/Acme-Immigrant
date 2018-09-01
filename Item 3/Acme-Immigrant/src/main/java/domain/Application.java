@@ -114,7 +114,6 @@ public class Application extends DomainEntity {
 		this.status = status;
 	}
 
-	@Valid
 	public CreditCard getCreditCard() {
 		return this.creditCard;
 	}

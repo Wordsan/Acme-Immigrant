@@ -19,7 +19,7 @@ public class CreditCard {
 	private String number;
 	private String expirationMonth;
 	private String expirationYear;
-	private int CVVCode;
+	private String CVVCode;
 
 	// ------------Getters y Setters con Constraints----------------
 
@@ -72,11 +72,11 @@ public class CreditCard {
 	}
 
 	@Range(min = 100, max = 999)
-	public int getCVVCode() {
+	public String getCVVCode() {
 		return this.CVVCode;
 	}
 
-	public void setCVVCode(final int CVVCode) {
+	public void setCVVCode(final String CVVCode) {
 		this.CVVCode = CVVCode;
 	}
 }

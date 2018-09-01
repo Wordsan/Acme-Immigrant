@@ -54,6 +54,8 @@ public class QuestionImmigrantController extends AbstractController {
 			ObjectNotFoundException {
 
 		ModelAndView result;
+		// Como la respuesta no es obligatoria, hay que comprobar a mano que
+		// cuando se responde no esté vacia
 		if (answer == "") {
 			result = this.display(questionId);
 			result.addObject("message",

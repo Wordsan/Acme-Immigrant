@@ -18,7 +18,7 @@ public class StringToCreditCardConverter implements
 		CreditCard result;
 		String parts[];
 
-		if (source == null)
+		if (source.equals("null"))
 			result = null;
 		else
 			try {
@@ -29,8 +29,7 @@ public class StringToCreditCardConverter implements
 				result.setNumber(URLDecoder.decode(parts[2], "UTF-8"));
 				result.setExpirationMonth((URLDecoder.decode(parts[3], "UTF-8")));
 				result.setExpirationYear((URLDecoder.decode(parts[4], "UTF-8")));
-				result.setCVVCode((Integer.valueOf(URLDecoder.decode(parts[5],
-						"UTF-8"))));
+				result.setCVVCode((URLDecoder.decode(parts[5], "UTF-8")));
 			} catch (final Throwable ops) {
 				throw new RuntimeException(ops);
 			}

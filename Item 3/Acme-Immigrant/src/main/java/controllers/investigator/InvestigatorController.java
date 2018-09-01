@@ -53,11 +53,16 @@ public class InvestigatorController extends AbstractController {
 			final BindingResult br) throws ObjectNotFoundException {
 		final Investigator investigator = this.reconstruct(formActor);
 		ModelAndView result;
+		// Si el investigator actual no es el mismo al de la cuenta que intenta
+		// editar
+		// prohibe la accion
 		if (!investigator.getUserAccount().equals(LoginService.getPrincipal())) {
 			result = new ModelAndView("redirect:/welcome/index.do");
 			result.addObject("message", "forbbiden.access.error");
 			return result;
 		}
+		// Si el binding tiene errores y las contraseñas no coinciden muestra el
+		// error de las contraseñas
 		if (br.hasErrors()
 				&& !formActor.getPassword().equals(formActor.getRepassword()))
 			result = this.createEditModelAndView(investigator,
@@ -66,6 +71,9 @@ public class InvestigatorController extends AbstractController {
 			result = this.createEditModelAndView(investigator);
 		else
 			try {
+				// Si el nombre de usuario existe el objeto devuelto al guardar
+				// es null, por lo que se manda a la página de edición y se
+				// indica
 				if (this.investigatorService.save(investigator) == null) {
 					result = this.createEditModelAndView(investigator,
 							"actor.username.exists");

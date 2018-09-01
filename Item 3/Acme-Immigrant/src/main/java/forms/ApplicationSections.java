@@ -14,6 +14,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import domain.CreditCard;
 
+/**
+ * Esta clase tiene como objetivo la creacion o edicion de una Application y un
+ * PersonalSection y SocialSection, atributos necesarios para la Application
+ * 
+ */
 public class ApplicationSections {
 	private int id;
 	private int visaId;

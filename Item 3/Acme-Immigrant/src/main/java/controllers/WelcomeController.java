@@ -75,6 +75,10 @@ public class WelcomeController extends AbstractController {
 		return result;
 	}
 
+	/*
+	 * Este metodo se ha creado para tener una forma estatica de redirigir a la
+	 * página principal y que se muestre adecuadamente
+	 */
 	public static ModelAndView indice(final String message, final Actor a,
 			final ConfigurationSystem cs, final Locale locale) {
 		ModelAndView result;
@@ -114,6 +118,10 @@ public class WelcomeController extends AbstractController {
 		return result;
 	}
 
+	/*
+	 * Este metodo se ha creado para tener una forma estatica de redirigir a la
+	 * página principal y que se muestre adecuadamente
+	 */
 	public static ModelAndView indice(final String message, final Actor a) {
 		ModelAndView result;
 		String name = "user";

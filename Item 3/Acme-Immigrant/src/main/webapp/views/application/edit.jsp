@@ -32,8 +32,8 @@
 	});
 </script>
 
-<form:form action="${formURI}" method="post" modelAttribute="apps"
-	id="form" name="form">
+<form:form action="${formURI}" method="post"
+	modelAttribute="applicationSections" id="form" name="form">
 	<form:hidden path="id" />
 	<form:hidden path="visaId" />
 	<form:hidden path="socialSectionId" />
@@ -41,6 +41,7 @@
 		<spring:message code="application.creditCard" />
 	</form:label>
 	<form:select id="creditCard" path="creditCard">
+		<form:option value="null">---</form:option>
 		<form:options items="${creditCards}" itemLabel="number" />
 	</form:select>
 	<form:errors path="creditCard" cssClass="error" />

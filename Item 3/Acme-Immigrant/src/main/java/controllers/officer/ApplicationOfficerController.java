@@ -53,6 +53,8 @@ public class ApplicationOfficerController extends AbstractController {
 			throws ForbbidenActionException, ObjectNotFoundException {
 		ModelAndView result;
 
+		// El metodo devuelve un codigo numerico dependiendo del resultado, mas
+		// informacion de los codigos en el metodo
 		final int code = this.applicationService.assign(applicationId);
 		if (code == 0)
 			return this.display(applicationId);
@@ -72,6 +74,7 @@ public class ApplicationOfficerController extends AbstractController {
 		ModelAndView result;
 		List<Application> apps = new ArrayList<>();
 
+		// Por omision del estado se muestran todas las solicitudes del oficial
 		if (status == null || status == "")
 			apps = this.applicationService.applicationsFromOfficer();
 		else

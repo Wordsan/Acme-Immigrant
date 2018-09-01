@@ -64,11 +64,19 @@ public class AdministratorService {
 	public Administrator save(final Administrator administrator)
 			throws ForbbidenActionException {
 		Administrator f;
+		// Si se intenta modificar la información de un usuario distinto al
+		// actual se lanzará la excepción ForbbidenActionException
 		if (!administrator.getUserAccount().equals(LoginService.getPrincipal()))
 			throw new ForbbidenActionException();
 		Assert.notNull(administrator);
 		if (this.actorService.usernameExists(administrator))
 			return null;
+		/*
+		 * Esta comprobación se hace porque cuando se hacía save porque se
+		 * modificaban otros objetos relacionados con el usuario siempre
+		 * codificaba la contraseña actual, por lo que se cambiaba sin ser
+		 * modificada por el usuario
+		 */
 		if (administrator.getUserAccount().getPassword().length() < 32)
 			administrator.setUserAccount(this.actorService
 					.encodePassword(administrator));

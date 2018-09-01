@@ -61,6 +61,8 @@ public class QuestionOfficerController extends AbstractController {
 		ModelAndView result;
 		final Question q;
 
+		// El metodo devuelve null cuando no se proporciona una pregunta, se
+		// hace porque se usa una forma alternativa para crearlas
 		q = this.questionService.create(applicationId, statement);
 
 		if (q == null) {

@@ -101,6 +101,9 @@ public class CategoryAdminController extends AbstractController {
 
 		if (br.hasErrors())
 			result = this.createEditModelAndView(category);
+		// En el modelo no se puede obligar a que haya siempre una categoría
+		// padre, porque hay una raíz que no tiene, asi que se comprueba de
+		// forma manual
 		else if (category.getParent() == null)
 			result = this.createEditModelAndView(category,
 					"javax.validation.constraints.NotNull.message");

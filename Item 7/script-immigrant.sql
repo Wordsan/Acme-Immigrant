@@ -103,7 +103,7 @@ CREATE TABLE `application` (
   `id` int(11) NOT NULL,
   `version` int(11) NOT NULL,
   `closedMoment` datetime DEFAULT NULL,
-  `CVVCode` int(11) NOT NULL,
+  `CVVCode` varchar(255) DEFAULT NULL,
   `brandName` varchar(255) DEFAULT NULL,
   `expirationMonth` varchar(255) DEFAULT NULL,
   `expirationYear` varchar(255) DEFAULT NULL,
@@ -504,7 +504,7 @@ DROP TABLE IF EXISTS `immigrant_creditcards`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `immigrant_creditcards` (
   `Immigrant_id` int(11) NOT NULL,
-  `CVVCode` int(11) NOT NULL,
+  `CVVCode` varchar(255) DEFAULT NULL,
   `brandName` varchar(255) DEFAULT NULL,
   `expirationMonth` varchar(255) DEFAULT NULL,
   `expirationYear` varchar(255) DEFAULT NULL,

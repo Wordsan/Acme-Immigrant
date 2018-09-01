@@ -6,6 +6,12 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+/**
+ * Esta clase tiene como objetivo la creación de nuevos Immigrants, Officers o
+ * Investigators o la edición de los datos personales de los usuarios ya
+ * registrados
+ * 
+ */
 public class FormActor {
 	private int id;
 	private String name;
@@ -16,6 +22,7 @@ public class FormActor {
 	private String username;
 	private String password;
 	private String repassword;
+	// Se comprobará que sea true a la hora de registrar nuevos Immigrants
 	private boolean terms;
 
 	public int getId() {

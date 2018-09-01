@@ -51,6 +51,12 @@ public class AbstractController {
 		return result;
 	}
 
+	/*
+	 * Cuando se realiza una busqueda en la base de datos con un id de un objeto
+	 * que no existe en la tabla, se lanza la excepcion ObjectNotFoundException,
+	 * la cual se captura aqui y redirige a la página principal indicando al
+	 * usuario que ese objeto no existe
+	 */
 	@ExceptionHandler(ObjectNotFoundException.class)
 	public ModelAndView notFound(final ObjectNotFoundException oops,
 			final Locale locale) {
@@ -59,6 +65,13 @@ public class AbstractController {
 				this.configurationSystemService.get(), locale);
 	}
 
+	/*
+	 * Cuando se realiza una operacion que incumple alguna regla de negocio o se
+	 * intenta modificar un objeto sobre el cual no tiene permisos se lanza la
+	 * excepcion ForbbidenActionException, la cual se captura y redirige a la
+	 * página principal e indicando al usuario que no puede realizar la acción,
+	 * similar al error HTTP 403
+	 */
 	@ExceptionHandler(ForbbidenActionException.class)
 	public ModelAndView forbbiden(final ForbbidenActionException oops,
 			final Locale locale) {
@@ -67,6 +80,10 @@ public class AbstractController {
 				this.configurationSystemService.get(), locale);
 	}
 
+	/*
+	 * Este metodo se utiliza para disponer del banner, el nombre del sistema y
+	 * algunos mensajes disponibles en todas las páginas
+	 */
 	@ModelAttribute
 	public void showBanner(final Model model, final Locale locale) {
 		final ConfigurationSystem cs = this.configurationSystemService.get();

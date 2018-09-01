@@ -53,11 +53,14 @@ public class ImmigrantNonAuthController extends AbstractController {
 			result.addObject("formActor", actor);
 		} else
 			try {
+				// Si el usuario no acepta los terminos se le indica que es
+				// obligatorio
 				if (!actor.isTerms()) {
 					result = new ModelAndView("actor/edit");
 					result.addObject("formActor", actor);
 					result.addObject("message", "actor.terms.false");
 					return result;
+					// Si las contraseñas no coinciden se le indica al usuario
 				} else if (!actor.getPassword().equals(actor.getRepassword())) {
 					result = new ModelAndView("actor/edit");
 					result.addObject("formActor", actor);
@@ -66,6 +69,8 @@ public class ImmigrantNonAuthController extends AbstractController {
 				}
 				final Immigrant i = this.immigrantService.save(this
 						.reconstruct(actor));
+				// Al guardar el usuario si el username ya existe devuelve nulo,
+				// asi que se manda a la página de edición y se indica
 				if (i == null) {
 					result = new ModelAndView("actor/edit");
 					result.addObject("formActor", actor);

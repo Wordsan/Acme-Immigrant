@@ -121,6 +121,8 @@ public class LawAdminController extends AbstractController {
 			throws ForbbidenActionException, ObjectNotFoundException {
 		ModelAndView result;
 
+		// Segun el resultado de la anulación se devuelve un codig de estado,
+		// mas informacion en el metodo
 		final int code = this.lawService.abrogate(lawId);
 		if (code == 0)
 			result = this.list();

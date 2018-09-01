@@ -61,6 +61,11 @@ public class ActorService {
 		return this.actorRepository.getActorFromUAId(ua.getId());
 	}
 
+	/*
+	 * Las contraseñas de los usuarios deben guardarse encriptadas en la base de
+	 * datos, este metodo se usa en los servicios de los actores para
+	 * encriptarlas y guardarlas correctamente
+	 */
 	public UserAccount encodePassword(final Actor actor) {
 		actor.getUserAccount().setPassword(
 				ActorService.encoder.encodePassword(actor.getUserAccount()
@@ -69,6 +74,10 @@ public class ActorService {
 		return this.uaRepository.save(a);
 	}
 
+	/*
+	 * El username debe ser unico en la base de datos, por lo que es necesario
+	 * de un metodo que compruebe que el nuevo username no exista previamente
+	 */
 	public boolean usernameExists(final Actor actor) {
 		final boolean res = false;
 		Actor a = new Actor();

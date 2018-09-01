@@ -53,6 +53,16 @@ public class OfficerController extends AbstractController {
 			final BindingResult br) throws ObjectNotFoundException {
 		final Officer officer = this.reconstruct(formActor);
 		ModelAndView result;
+		// Si el officer actual no es el mismo al de la cuenta que intenta
+		// editar
+		// prohibe la accion
+		if (!officer.getUserAccount().equals(LoginService.getPrincipal())) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+			result.addObject("message", "forbbiden.access.error");
+			return result;
+		}
+		// Si el binding tiene errores y las contraseñas no coinciden muestra el
+		// error de las contraseñas
 		if (br.hasErrors()
 				&& !formActor.getPassword().equals(formActor.getRepassword()))
 			result = this.createEditModelAndView(officer,
@@ -61,6 +71,9 @@ public class OfficerController extends AbstractController {
 			result = this.createEditModelAndView(officer);
 		else
 			try {
+				// Si el nombre de usuario existe el objeto devuelto al guardar
+				// es null, por lo que se manda a la página de edición y se
+				// indica
 				if (this.officerService.save(officer) == null) {
 					result = this.createEditModelAndView(officer,
 							"actor.username.exists");

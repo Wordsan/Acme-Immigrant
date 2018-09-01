@@ -53,11 +53,15 @@ public class AdminController extends AbstractController {
 			final BindingResult br) throws ObjectNotFoundException {
 		final Administrator admin = this.reconstruct(formActor);
 		ModelAndView result;
+		// Si el admin actual no es el mismo al de la cuenta que intenta editar
+		// prohibe la accion
 		if (!admin.getUserAccount().equals(LoginService.getPrincipal())) {
 			result = new ModelAndView("redirect:/welcome/index.do");
 			result.addObject("message", "forbbiden.access.error");
 			return result;
 		}
+		// Si el binding tiene errores y las contraseñas no coinciden muestra el
+		// error de las contraseñas
 		if (br.hasErrors()
 				&& !formActor.getPassword().equals(formActor.getRepassword()))
 			result = this.createEditModelAndView(admin,
@@ -66,6 +70,9 @@ public class AdminController extends AbstractController {
 			result = this.createEditModelAndView(admin);
 		else
 			try {
+				// Si el nombre de usuario existe el objeto devuelto al guardar
+				// es null, por lo que se manda a la página de edición y se
+				// indica
 				if (this.administratorService.save(admin) == null) {
 					result = this.createEditModelAndView(admin,
 							"actor.username.exists");

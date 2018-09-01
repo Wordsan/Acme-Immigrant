@@ -58,9 +58,16 @@ public class DecisionOfficerController extends AbstractController {
 
 		int code;
 		try {
+			// El metodo devuelve un codigo numerico dependiendo del resultado,
+			// para mas informacion de los codigos mirar el metodo
 			code = this.decisionService.createNew(applicationId, accepted,
 					reason);
 		} catch (final IllegalArgumentException e) {
+			/*
+			 * Esta excepcion se lanza manualmente en caso de que se rechace la
+			 * solicitud y no se proporcione una razon, lo cual es obligatorio
+			 * cuando se rechaza
+			 */
 			result = new ModelAndView(
 					"redirect:/application/officer/display.do?applicationId="
 							+ applicationId);
@@ -81,6 +88,7 @@ public class DecisionOfficerController extends AbstractController {
 	}
 
 	// Save
+	// No se usa ya que no se pide que se pueda editar una decision
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Decision decision,
 			final BindingResult br) {
@@ -95,7 +103,7 @@ public class DecisionOfficerController extends AbstractController {
 						&& (decision.getComments() == "" || decision
 								.getComments() == null)) {
 					result = this.createEditModelAndView(decision,
-							"decision.comments.error");
+							"decision.reason.error");
 					return result;
 				}
 				this.decisionService.save(decision);

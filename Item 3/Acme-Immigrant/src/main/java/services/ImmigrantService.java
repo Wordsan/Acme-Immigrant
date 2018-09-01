@@ -106,6 +106,12 @@ public class ImmigrantService {
 		Assert.notNull(immigrant);
 		if (this.actorService.usernameExists(immigrant))
 			return null;
+		/*
+		 * Esta comprobación se hace porque cuando se hacía save porque se
+		 * modificaban otros objetos relacionados con el usuario siempre
+		 * codificaba la contraseña actual, por lo que se cambiaba sin ser
+		 * modificada por el usuario
+		 */
 		if (immigrant.getUserAccount().getPassword().length() < 32)
 			immigrant.setUserAccount(this.actorService
 					.encodePassword(immigrant));

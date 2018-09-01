@@ -115,6 +115,11 @@ public class ApplicationService {
 				.getPrincipal());
 		if (a == null)
 			throw new ObjectNotFoundException();
+		/*
+		 * Siguiendo el RF 19, una Application solo puede ser mostrada a su
+		 * dueño, el Officer asignado (si tiene) y al Investigator asignado al
+		 * dueño (si tiene)
+		 */
 		if (!(a.getOfficer() != null && a.getOfficer().getId() == actor.getId()
 				|| a.getOfficer() == null
 				|| (a.getImmigrant().getId() == actor.getId()) || (a
@@ -132,12 +137,17 @@ public class ApplicationService {
 		final Actor actor = this.actorService.getActorByUA(LoginService
 				.getPrincipal());
 		if (application.getId() == 0) {
+			// Si se intenta crear una Application a otro usuario distinto al
+			// actual se lanzará la excepcion
 			if (this.immigrantService.getActorByUA(LoginService.getPrincipal()) == null)
 				throw new ForbbidenActionException();
 			application.setImmigrant(this.immigrantService
 					.getActorByUA(LoginService.getPrincipal()));
 			Application app;
 			String ticker;
+			// El ticker de una Application tiene que ser único, por lo que se
+			// genera uno nuevo si se encuentra en la base de datos uno con ese
+			// ticker
 			do {
 				ticker = this.createTicker();
 				app = this.applicationRepository.getApplicationByTicker(ticker);
@@ -146,16 +156,22 @@ public class ApplicationService {
 			final Collection<Application> as = this.immigrantService
 					.getActorByUA(LoginService.getPrincipal())
 					.getApplications();
+			// Se comprueba que el usuario no tenga ya una Application para la
+			// Visa que solicita
 			for (final Application a : as)
 				if (a.getVisa().getId() == application.getVisa().getId())
 					throw new ResourceAccessException(null);
 		}
 
 		Assert.notNull(application);
+		// Se comprueba que si la Visa es de pago se proporciona una tarjeta de
+		// crédito
 		if (application.getVisa().getPrice() != 0
 				&& application.getCreditCard() == null)
 			throw new IllegalArgumentException(
 					"Se necesita una tarjeta de credito");
+		// Si se proporciona una tarjeta de credito se comprueba que la validez
+		// sea mayor a tres meses
 		else if (application.getCreditCard() != null) {
 			final CreditCard c = application.getCreditCard();
 			final Calendar cal = new GregorianCalendar();
@@ -169,6 +185,13 @@ public class ApplicationService {
 		if (application.getId() == 0)
 			application.setOpenedMoment(new Date(
 					System.currentTimeMillis() - 1000));
+		/*
+		 * Se comprueba que el que intenta modificar la Application sea un
+		 * usuario valido, es decir, el dueño, el Officer asignado (si tiene),
+		 * el Investigator asignado al dueño (si tiene) o un Adminstrator que
+		 * podría estar borrando objetos relacionados con la Application y
+		 * borrando en cascada por lo tanto
+		 */
 		else if (!(application.getOfficer() != null
 				&& application.getOfficer().getId() == actor.getId()
 				|| (application.getImmigrant().getId() == actor.getId()) || (application
@@ -185,9 +208,18 @@ public class ApplicationService {
 			IllegalClassFormatException {
 		final Actor actor = this.actorService.getActorByUA(LoginService
 				.getPrincipal());
+		/*
+		 * Se comprueba que sea el dueño o un Administrator que podría estar
+		 * borrando objetos relacionados con la Application y borrando en
+		 * cascada por lo tanto
+		 */
 		if (!(a.getImmigrant().getId() == actor.getId() || this.administratorService
 				.getActorByUA(LoginService.getPrincipal()) != null))
 			throw new ForbbidenActionException();
+		/*
+		 * A continuación se elimina la Application de todos los objetos
+		 * relacionados o además se borra el objeto relacionado
+		 */
 		final Immigrant i = a.getImmigrant();
 		final Collection<Application> appsI = i.getApplications();
 		if (appsI != null) {
@@ -249,12 +281,15 @@ public class ApplicationService {
 			throws ForbbidenActionException, ObjectNotFoundException,
 			IllegalClassFormatException {
 		final Application a = this.findOne(applicationId);
+		// Si se intenta cerrar una Application que no esta abierta se lanzará
+		// la excepcion
 		if (!a.getStatus().equals("OPENED"))
 			throw new IllegalArgumentException();
 		try {
 			a.setClosedMoment(new Date(System.currentTimeMillis()));
 			a.setStatus("AWAITING");
 			this.save(a);
+			// Si tiene solicitudes unidas se cierran tambien
 			if (!a.getLinkedApplications().isEmpty())
 				for (final Application app : a.getLinkedApplications()) {
 					app.setClosedMoment(new Date(System.currentTimeMillis()));
@@ -316,10 +351,13 @@ public class ApplicationService {
 			if (a == null)
 				throw new ObjectNotFoundException();
 			final Officer o = this.officerService.getActorByUA(ua);
+			// Si la Application ya tiene asignado un Officer se lanzará la
+			// excepcion
 			if (a.getOfficer() != null)
 				throw new ForbbidenActionException();
 			o.getApplications().add(a);
 			a.setOfficer(o);
+			// Si tiene solicitudes unidas también se asignarán
 			if (!a.getLinkedApplications().isEmpty())
 				for (final Application app : a.getLinkedApplications()) {
 					if (app.getOfficer() != null)

@@ -77,6 +77,12 @@ public class OfficerService {
 		Assert.notNull(officer);
 		if (this.actorService.usernameExists(officer))
 			return null;
+		/*
+		 * Esta comprobación se hace porque cuando se hacía save porque se
+		 * modificaban otros objetos relacionados con el usuario siempre
+		 * codificaba la contraseña actual, por lo que se cambiaba sin ser
+		 * modificada por el usuario
+		 */
 		if (officer.getUserAccount().getPassword().length() < 32)
 			officer.setUserAccount(this.actorService.encodePassword(officer));
 		f = this.officerRepository.save(officer);

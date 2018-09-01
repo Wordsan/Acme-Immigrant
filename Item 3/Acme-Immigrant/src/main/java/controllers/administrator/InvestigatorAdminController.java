@@ -53,12 +53,9 @@ public class InvestigatorAdminController extends AbstractController {
 			result.addObject("formActor", actor);
 		} else
 			try {
-				if (!actor.isTerms()) {
-					result = new ModelAndView("actor/edit");
-					result.addObject("formActor", actor);
-					result.addObject("message", "actor.terms.false");
-					return result;
-				} else if (!actor.getPassword().equals(actor.getRepassword())) {
+				// Si las contraseñas no coinciden manda a la página de edicion
+				// y lo indica
+				if (!actor.getPassword().equals(actor.getRepassword())) {
 					result = new ModelAndView("actor/edit");
 					result.addObject("formActor", actor);
 					result.addObject("message", "actor.password.confirm");
@@ -66,6 +63,8 @@ public class InvestigatorAdminController extends AbstractController {
 				}
 				final Investigator i = this.investigatorService.save(this
 						.reconstruct(actor));
+				// Al guardar el usuario si el username ya existe devuelve nulo,
+				// asi que se manda a la página de edición y se indica
 				if (i == null) {
 					result = new ModelAndView("actor/edit");
 					result.addObject("formActor", actor);

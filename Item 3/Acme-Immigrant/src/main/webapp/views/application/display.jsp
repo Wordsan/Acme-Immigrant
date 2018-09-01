@@ -61,10 +61,12 @@
 <acme:display code="application.status" value="${application.status}"></acme:display>
 
 <security:authorize access="hasRole('IMMIGRANT')">
-	<spring:message code="application.creditCard" />
-	<div id="creditCard">
-		<jstl:out value="${application.creditCard.number}"></jstl:out>
-	</div>
+	<jstl:if test="${creditCard != null}">
+		<spring:message code="application.creditCard" />
+		<div id="creditCard">
+			<jstl:out value="${application.creditCard.number}"></jstl:out>
+		</div>
+	</jstl:if>
 </security:authorize>
 
 <jstl:if test="${application.decision!=null}">
